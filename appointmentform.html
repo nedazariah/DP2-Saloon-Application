@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="">
+
+<head>
+    <title>Appointment Booking</title>
+    <meta name="viewport" content="width=device-width, initialscale=1.0" />
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <form name="ApplicationForm" method="post" action="appointment_process.php">
+        <p><label for="cID">Client ID:</label> <input type="text" placeholder="123456" id="cID" name="cID" /></p>
+        <p>
+        <label for="cName">Client Name:</label> <input type="text" placeholder="Hoang Huy An" id="cName" name="cName" data-ng-model="cName" data-ng-pattern="/^[a-zA-Z ]{2,30}$/" />
+        <span data-ng-show="ApplicationForm.cName.$dirty && ApplicationForm.cName.$invalid">Please enter a valid name</span></p>
+
+        <p>
+        <label for="cPhone">Client Phone Number:</label> <input type="text" placeholder="0178589581" id="cPhone" name="cPhone" data-ng-model="cPhone" data-ng-pattern="/^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$/" />
+        <span data-ng-show="ApplicationForm.cPhone.$dirty && ApplicationForm.cPhone.$invalid">Please enter a valid phone number</span>
+        </p>
+        <p><label for="cSv">Customer Services</label></p>
+        <select id="cSv" name="cSv">
+            <option value="1">blablabla</option>
+            <option value="2">blablabla</option>
+            <option value="3">blablabla</option>
+        </select>
+        <p><label for="">Date</label></p>
+        <p><input type="text" id="cDate" name="cDate" data-ng-model="cDate" placeholder="06.04.2019" data-ng-pattern="/(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}/"/><span data-ng-show="ApplicationForm.cDate.$dirty && ApplicationForm.cDate.$invalid">Please enter a valid Date</span></p>
+        <p>{{cDate}}</p>
+        <p><label for="">Time</label></p>
+        <p><input type="text" id="cTime" name="cTime" data-ng-model="cTime" data-ng-pattern="/(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9])/"/><span data-ng-show="ApplicationForm.cTime.$dirty && ApplicationForm.cTime.$invalid">Please enter a valid Time</span></p>
+        <p><label for="cNotes">Notes:</label></p>
+        <textarea id="cNotes" name="cNotes"></textarea>
+        <p><input type="submit"/></p>
+        
+    </form>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+</body></html>
