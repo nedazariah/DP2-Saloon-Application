@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/custom-style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="sideNav">
+                    <button class="dropdown-btn">Appointment</button>
+                    <div class="dropdown-container">
+                        <a href="#">Add Appointment</a>
+                        <a href="#">Pending Appointments</a>
+                        <a href="#">All Appointments</a>
+                    </div>
+                    <a href="#">Customers</a>
+                    <a href="#">Stock</a>
+                    <a href="#">Staff</a>
+                    
+                    <div class="btm-menu">
+                        <button class="dropdown-btn">Settings</button>
+                        <div class="dropdown-container">
+                            <a href="#">Manage Users</a>
+                            <a href="#">Manage Services</a>
+                        </div>
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <!--Your code here-->
+            </div>
+        </div>
+    </div>
+
+    <!--Script that controls the dropdown menu-->
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body></html>

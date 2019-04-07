@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Customer Profile</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/custom-style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="sideNav">
+                    <button class="dropdown-btn">Appointment</button>
+                    <div class="dropdown-container">
+                        <a href="#">Add Appointment</a>
+                        <a href="#">Pending Appointments</a>
+                        <a href="#">All Appointments</a>
+                    </div>
+                    <a href="#">Customers</a>
+                    <a href="#">Stock</a>
+                    <a href="#">Staff</a>
+                    
+                    <div class="btm-menu">
+                        <button class="dropdown-btn">Settings</button>
+                        <div class="dropdown-container">
+                            <a href="#">Manage Users</a>
+                            <a href="#">Manage Services</a>
+                        </div>
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <h1>Edit Customer Profile</h1>
+                <br />
+                <form>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p><input type="text" placeholder="Full Name" id="custFullname" /></p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 custForm">
+                            <label for="custDob">Date of Birth</label><br />
+                            <input type="date" id="custDob" name="custDob" />
+                        </div>
+                        <div class="col-xs-6">
+                            <label>Gender</label><br />
+                            <input type="radio" name="custGender" value="Female"> F
+                            <input type="radio" name="custGender" value="Male"> M
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-6 custForm">
+                            <label for="custType">Type</label><br />
+                            <select id="custType">
+                                <option value="Member">Member</option>
+                                <option value="Guest">Guest</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6">
+                            <label for="custPhoneNum">Phone Number</label><br />
+                            <input type="tel" id="custPhoneNum" name="custPhoneNum" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="custInfo">Additional Information</label><br />
+                            <textarea name="custInfo" id="custInfo" cols="47" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-6 custButtons">
+                            <input type="submit" value="Cancel">
+                            <input type="button" value="Submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body></html>
