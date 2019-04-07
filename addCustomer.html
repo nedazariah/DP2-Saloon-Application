@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Customer Profile</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/custom-style.css">
+</head>
+<body>
+    <div class="container">
+    <h1>Add Customer Profile</h1>
+    <br/>
+    <form>
+        <div class="row">
+            <div class="col-md-6">
+                <p><input type="text" placeholder="Full Name" id="custFullname"/></p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 custForm">
+                <label for="custDob">Date of Birth</label><br/>
+                <input type="date" id="custDob" name="custDob"/>
+            </div>
+            <div class="col-md-6">
+                <label>Gender</label><br/>
+                <input type="radio" name="custGender" value="Female"> F 
+                <input type="radio" name="custGender" value="Male"> M
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-6 custForm">
+                <label for="custType">Type</label><br/>
+                <select id="custType">
+                    <option value="Member">Member</option>
+                    <option value="Guest">Guest</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="custPhoneNum">Phone Number</label><br/>
+                <input type="tel" id="custPhoneNum" name="custPhoneNum"/>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="custInfo">Additional Information</label><br/>
+                <textarea name="custInfo" id="custInfo" cols="47" rows="5"></textarea>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-6 custButtons">
+                <input type="submit" value="Cancel">
+                <input type="button" value="Submit">
+            </div>
+        </div>
+    </form>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
