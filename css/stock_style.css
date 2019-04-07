@@ -1,0 +1,104 @@
+/* General Styling */
+/* Hide horizontal scroll bar */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+h1, h2{
+    text-align: center;
+} 
+
+/* Styling for stock pages */
+#stock_page{
+    text-align: center;   
+} 
+
+/* Styling for stock display */ 
+#stock_add_button{
+	margin-top: 1em;
+}
+
+#inventory_table{
+    font-size: 1.3em;
+    text-align: left;
+    color: black;
+    
+    border-collapse: collapse;
+    
+    margin: 0 auto;
+	width: 90%; 
+}
+		
+#search{ 
+	margin-bottom: 1em;
+    margin-right: 50.5em;
+    padding: 0.5em;  
+    text-align: left;
+}
+
+#add_stock_link{
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 0.5em;
+    
+    text-decoration: none;
+    color: black;
+}
+
+#add_stock_link:hover{
+    border: 3px solid grey;
+    color: grey;
+    text-decoration: underline;
+}
+
+#stock_add_buttons>a:hover{
+	font-weight: bold;
+	border: 3px solid black;
+} 
+
+/* Styling for forms in the stock management module */
+#stock_form{
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: 1em;
+    margin-right: 2.5em;
+}
+
+#stock_form>.row>.col-md-12{
+    margin: 5px auto;
+}
+
+#itemName, #itemType, #itemDesc{
+    width: 35em;   
+}
+
+#itemName, #itemType{ 
+    height: 2em;
+}
+
+#itemDesc{
+    height: 13em;
+}
+
+#itemBPrice, #itemSPrice{
+    width: 10em;
+    margin-left: .5em;
+}
+
+#itemBPrice{
+    margin-right: .5em;
+}
+
+#itemQuantity{
+    margin-left: .5em;
+}
+
+#itemSubmit{
+    height: 2em;
+    width: 10em;
+    margin-top: .5em;
+    margin-bottom: 1em;
+}
+
+
