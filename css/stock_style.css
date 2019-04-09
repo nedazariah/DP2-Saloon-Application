@@ -3,6 +3,7 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    height: 100%;
 }
 
 h1, h2{
@@ -11,33 +12,15 @@ h1, h2{
 
 /* Styling for stock pages */
 #stock_page{
-    text-align: center;   
+    text-align: center;  
 } 
 
 /* Styling for stock display */ 
 #stock_add_button{
-	margin-top: 1em;
+    margin-top: 2em;
 }
 
-#inventory_table{
-    font-size: 1.3em;
-    text-align: left;
-    color: black;
-    
-    border-collapse: collapse;
-    
-    margin: 0 auto;
-	width: 90%; 
-}
-		
-#search{ 
-	margin-bottom: 1em;
-    margin-right: 50.5em;
-    padding: 0.5em;  
-    text-align: left;
-}
-
-#add_stock_link{
+#add_stock_link, #display_stock_link{
     border: 2px solid black;
     border-radius: 25px;
     padding: 0.5em;
@@ -46,7 +29,11 @@ h1, h2{
     color: black;
 }
 
-#add_stock_link:hover{
+#display_stock_link{
+    margin-right: 2em;
+}
+
+#add_stock_link:hover, #display_stock_link:hover{
     border: 3px solid grey;
     color: grey;
     text-decoration: underline;
@@ -94,11 +81,26 @@ h1, h2{
     margin-left: .5em;
 }
 
-#itemSubmit{
-    height: 2em;
+#itemSubmit_change, #itemSubmit_back{
+    height: 3em;
     width: 10em;
-    margin-top: .5em;
-    margin-bottom: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    
+    border: 2px solid black; 
+    background-color: white;
+    
+    text-decoration: none;    
+    color: black;
 }
 
+#itemSubmit_back{
+    padding: 0.8em 3em;
+    margin-left: 2em;  
+}
 
+#itemSubmit_change:hover, #itemSubmit_back:hover{
+    border: 2px solid grey;
+    color: grey;
+    text-decoration: underline;    
+}
