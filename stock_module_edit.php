@@ -58,7 +58,7 @@
 if($_SERVER["REQUEST_METHOD"] == "POST") 
 {
     //Initialize all inventory fields
-    $itemName = $itemDesc = $itemType = $itemBPrice = $itemSPrice = $itemQuantity = "";   
+    $itemName = $itemDesc = $itemType = $itemBPrice = $itemSPrice = $itemQuantity = $message = "";   
     
     $hasError = false;
     
@@ -73,12 +73,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	$item = mysqli_fetch_assoc($result);
 	if($item)
 	{
-		echo "Error: Item already exists" . "</br>";
+		$message .= "Error: Item already exists </br>";
 		$hasError = true;
 	}
 	else if(empty($input_itemName))
     {
-		echo "Error: Input item name not found." . "</br>";
+		$message .= "Error: Input item name not found </br>";
 		$hasError = true;
     }
 	else
@@ -150,7 +150,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	}
 	//Processing Item Quantity <End>
     
-    submit($hasError, $itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $target, $connect);
+    submit($itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $hasError, $target, $connect, $message);
 }
 else
 {
@@ -175,7 +175,7 @@ else
         }
         else 
         {
-            echo "Error: " . $sql . "</br>" . die(mysqli_error($connect));
+            alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
         }
 
         mysqli_close($connect);	
@@ -236,7 +236,7 @@ else
                     </div>
                 </form>
 <?php 
-function submit($hasError, $itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $target, $connect)
+function submit($itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $hasError, $target, $connect, $message)
 {
 	//If there is no error, proceed to insert data
 	if(!($hasError))
@@ -250,15 +250,20 @@ function submit($hasError, $itemName, $itemDesc, $itemType, $itemBPrice, $itemSP
 		}
 		else 
 		{
-			echo "Error: " . $sql . "</br>" . die(mysqli_error($connect));
+			alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
 		} 		
 	}
 	else
 	{
-		echo "Error: Please check input fields.";
+        $message .= "Error: Please check input fields.";
+        alertUser($message);
 	}	
     
     mysqli_close($connect);	    
+}
+                
+function alertUser($output){
+    echo $output;
 }
 ?>
             </div>
