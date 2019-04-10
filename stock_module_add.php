@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     require_once "dbconnect.php";
 ?>
 <!DOCTYPE html>
@@ -51,7 +52,7 @@
            
             <div class="col-md-10">
                
-                <form id="stock_form" name="stock_form" method="post" action="stock_module_add.php" onsubmit="return confirm('Confirm inventory update?')">
+                <form id="stock_form" name="stock_form" method="post" action="stock_module_add.php">
                    
                     <div class="row">
                         <div class="col-md-12">
@@ -99,7 +100,6 @@
                 </form>                       
             </div>
         </div>
-                
 <?php
 //Form data processing block
 if($_SERVER["REQUEST_METHOD"] == "POST")
@@ -121,21 +121,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	$checkSQL = "SELECT * FROM inventory WHERE itemName = '$input_itemName'";
 	$result = mysqli_query($connect, $checkSQL);
 	$item = mysqli_fetch_assoc($result);
-
 	if($item)
 	{
 		echo "Error: Item already exists" . "</br>";
-		$errorCount++;
+		$hasError = true;
 	}
 	else if(empty($input_itemName))
     {
 		echo "Error: Input item name not found." . "</br>";
-		$errorCount++;
+		$hasError = true;
     }
 	else
 	{
         $itemName = $input_itemName;
-    }	 
+    }	
+    mysqli_free_result($result);
 	//Processing Item Name <End>
     
 	//Processing Item Description <Start>
@@ -202,16 +202,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	//Processing Item Quantity <End>
     
 	//If there is no error count, proceed to insert data
-	if(!($errorCount > 0))
+	if(!($hasError))
 	{
 		$sql = "INSERT INTO inventory (itemID, itemName, itemDesc, itemType, itemBPrice, itemSPrice, itemQuantity) VALUES ('$itemID', '$itemName', '$itemDesc', '$itemType', '$itemBPrice', '$itemSPrice', '$itemQuantity')";
 		
 		if (mysqli_query($connect, $sql)) {
             $link_summary = "stock_module_summary.php?target=" . $itemID;
-			header("location: $link_summary");
+            header("location: $link_summary");
 			exit();
-		} 
-		else 
+        }
+		else
 		{
 			echo "Error: " . $sql . "</br>" . die(mysqli_error($connect));
 		} 		
@@ -224,7 +224,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     mysqli_close($connect);
 }
 ?>
-   
     </div>
             
 <!--Javascript for Navigation Menu-->
