@@ -23,6 +23,36 @@
 	
 </head>
 <body>
+    
+    <div id="stock_page">
+           
+        <div class="row">
+               
+            <div class="col-md-2">
+                <div class="sideNav">
+                    <button class="dropdown-btn">Appointment</button>
+                    <div class="dropdown-container">
+                        <a href="#">Add Appointment</a>
+                        <a href="#">Pending Appointments</a>
+                        <a href="#">All Appointments</a>
+                    </div>
+                    <a href="#">Customers</a>
+                    <a href="stock_module_display.php">Stock</a>
+                    <a href="#">Staff</a>
+
+                    <div class="btm-menu">
+                        <button class="dropdown-btn">Settings</button>
+                        <div class="dropdown-container">
+                            <a href="#">Manage Users</a>
+                            <a href="#">Manage Services</a>
+                        </div>
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+                              
+            <div class="col-md-10">
+
 <?php
 //Form data processing block
 if($_SERVER["REQUEST_METHOD"] == "POST") 
@@ -37,7 +67,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	//Processing Item Name <Start>
     $input_itemName = SanitizeData($_POST["itemName"]);
 	
-	if(empty($input_itemName))
+	//Check if item record already exists
+	$checkSQL = "SELECT * FROM inventory WHERE itemName = '$input_itemName' AND itemID != $target";
+	$result = mysqli_query($connect, $checkSQL);
+	$item = mysqli_fetch_assoc($result);
+	if($item)
+	{
+		echo "Error: Item already exists" . "</br>";
+		$hasError = true;
+	}
+	else if(empty($input_itemName))
     {
 		echo "Error: Input item name not found." . "</br>";
 		$hasError = true;
@@ -45,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	else
 	{
         $itemName = $input_itemName;
-    }	 
+    } 
 	//Processing Item Name <End>
     
 	//Processing Item Description <Start>
@@ -111,36 +150,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	}
 	//Processing Item Quantity <End>
     
-	//If there is no error, proceed to insert data
-	if(!($hasError))
-	{
-		$sql = "UPDATE inventory SET itemName = '$itemName', itemDesc = '$itemDesc', itemType = '$itemType', itemBPrice = $itemBPrice, itemSPrice = $itemSPrice, itemQuantity = $itemQuantity WHERE itemID = $target";
-		
-		if (mysqli_query($connect, $sql)) {
-            $link_summary = "stock_module_summary.php?target=" . $target;
-			header("location: $link_summary");
-			exit();
-		} 
-		else 
-		{
-			echo "Error: " . $sql . "</br>" . die(mysqli_error($connect));
-		} 		
-	}
-	else
-	{
-		echo "Error: Please check input fields.";
-	}	
-    
-    mysqli_close($connect);	
+    submit($hasError, $itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $target, $connect);
 }
 else
 {
     if(isset($_GET['target']) && !empty(trim($_GET['target'])))
-    { 
+    {
         $target = trim($_GET['target']);
 
         $sql = "SELECT * FROM inventory WHERE itemID = '$target'";
-
         if (mysqli_query($connect, $sql)) 
         {
             $results = mysqli_query($connect, $sql);
@@ -152,6 +170,8 @@ else
             $itemBPrice = $row['itemBPrice'];
             $itemSPrice = $row['itemSPrice'];
             $itemQuantity = $row['itemQuantity'];
+            
+            mysqli_free_result($results);
         }
         else 
         {
@@ -159,100 +179,92 @@ else
         }
 
         mysqli_close($connect);	
-    } 
+    }
     else
     {
         header("location: stock_module_display.php");
         exit();
-    }    
+    }
 }
 ?>
-
-        <div id="stock_page">
-           
-            <div class="row">
-               
-                <div class="col-md-2">
-                    <div class="sideNav">
-                        <button class="dropdown-btn">Appointment</button>
-                        <div class="dropdown-container">
-                            <a href="#">Add Appointment</a>
-                            <a href="#">Pending Appointments</a>
-                            <a href="#">All Appointments</a>
-                        </div>
-                        <a href="#">Customers</a>
-                        <a ref="stock_module_display.php">Stock</a>
-                        <a href="#">Staff</a>
-
-                        <div class="btm-menu">
-                            <button class="dropdown-btn">Settings</button>
-                            <div class="dropdown-container">
-                                <a href="#">Manage Users</a>
-                                <a href="#">Manage Services</a>
-                            </div>
-                            <a href="#">Logout</a>
+                <form id="stock_form" name="stock_form" method="post" action="stock_module_edit.php">
+                   
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Update Stock</h1>                    
                         </div>
                     </div>
-                </div>
-                              
-                <div class="col-md-10">
-                    
-                    <form id="stock_form" name="stock_form" method="post" action="stock_module_edit.php" onsubmit="return confirm('Confirm stock update?')">
-                   
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1>Update Stock</h1>                    
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="text" id="itemName" name="itemName" placeholder="Product Name  (required)" required="required" value="<?php echo $itemName; ?>"/> 
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" id="itemName" name="itemName" placeholder="Product Name  (required)"  required="required" value="<?php echo $itemName; ?>"/> 
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <textarea name="itemDesc" id="itemDesc" placeholder="Description"><?php echo $itemDesc; ?></textarea>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea name="itemDesc" id="itemDesc" placeholder="Description"><?php echo $itemDesc; ?></textarea>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="text" id="itemType" name="itemType" placeholder="Product Type" maxlength="50" value="<?php echo $itemType; ?>"/>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" id="itemType" name="itemType" placeholder="Product Type" maxlength="50" value="<?php echo $itemType; ?>"/>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="itemBPrice">Buying Price:</label><input type="number" id="itemBPrice" name="itemBPrice" value="<?php echo $itemBPrice; ?>"/> 
-                                <label for="itemSPrice">Selling Price:</label><input type="number" id="itemSPrice" name="itemSPrice" value="<?php echo $itemSPrice; ?>"/>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="itemBPrice">Buying Price:</label><input type="number" id="itemBPrice" name="itemBPrice" value="<?php echo $itemBPrice; ?>"/> 
+                            <label for="itemSPrice">Selling Price:</label><input type="number" id="itemSPrice" name="itemSPrice" value="<?php echo $itemSPrice; ?>"/>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="itemQuantity">Number of stock:</label><input type="number" id="itemQuantity" name="itemQuantity" value="<?php echo $itemQuantity; ?>"/>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="itemQuantity">Number of stock:</label><input type="number" id="itemQuantity" name="itemQuantity" value="<?php echo $itemQuantity; ?>"/>
                         </div>
+                    </div>
                         
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="hidden" name="target" id="target" value="<?php echo $target; ?>"/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" name="target" id="target" value="<?php echo $target; ?>"/>
                                
-                                <button type="submit" name="update" id="itemSubmit_change">Update</button> 
-                                <a href="stock_module_display.php" id="itemSubmit_back">Go Back</a>
-                            </div>
+                            <button type="submit" name="update" id="itemSubmit_change">Update</button> 
+                            <a href="stock_module_display.php" id="itemSubmit_back">Go Back</a>
                         </div>
-                    </form>
-                </div>
-            </div>                
-        </div>
+                    </div>
+                </form>
+<?php 
+function submit($hasError, $itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $target, $connect)
+{
+	//If there is no error, proceed to insert data
+	if(!($hasError))
+	{
+		$sql = "UPDATE inventory SET itemName = '$itemName', itemDesc = '$itemDesc', itemType = '$itemType', itemBPrice = $itemBPrice, itemSPrice = $itemSPrice, itemQuantity = $itemQuantity WHERE itemID = $target";
 		
-<?php    
-mysqli_free_result($results);	
-?>         
-
+		if (mysqli_query($connect, $sql)) {
+            $link_summary = "stock_module_summary.php?target=" . $target;
+			header("location: $link_summary");
+			exit();
+		}
+		else 
+		{
+			echo "Error: " . $sql . "</br>" . die(mysqli_error($connect));
+		} 		
+	}
+	else
+	{
+		echo "Error: Please check input fields.";
+	}	
+    
+    mysqli_close($connect);	    
+}
+?>
+            </div>
+        </div>                
+    </div>     
+        
 <!--Javascript for Navigation Menu-->
 <script src="js/nav.js"></script>
 <!--Javascript for Back button-->
