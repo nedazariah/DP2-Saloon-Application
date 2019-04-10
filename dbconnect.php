@@ -1,6 +1,6 @@
 <?php
 
-$errorCount = 0;
+$hasError = false;
 
 function SanitizeData($data){
   $data = trim($data);
