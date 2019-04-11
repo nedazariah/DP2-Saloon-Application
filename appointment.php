@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="myApp">
+<html lang="en" data-ng-app="">
 
 <head>
     <title>Appointment Booking</title>
@@ -7,8 +7,8 @@
     <meta charset="utf-8" />
 </head>
 
-<body data-ng-controller="myCtrl">
-    <h1>Appointment Records</h1>
+<body>
+   <h1>Appointment Records</h1>
     <?php
     $servername = "localhost";
     $username = "root";
@@ -20,79 +20,37 @@
     }
     $select = "SELECT * FROM appointment";
     $result = mysqli_query($conn,$select);
-    $array = array();
-    class Appointment{
-        public $appointmentID;
-        public $customerID;
-        public $customerName;
-        public $appointmentDate;
-        public $appointmentTime;
-        public $customerPhone;
-        public $appointmentService;
-        public $appointmentNotes;
-    }
     while ($row = mysqli_fetch_assoc($result)){
-        $appointment = new Appointment();
-       $appointment->appointmentID = $row["appointmentID"];
-        $appointment->customerID = $row["customerID"];
-        $appointment->customerName = $row["customerName"];
-        $appointment->appointmentDate = $row["appointmentDate"];
-        $appointment->appointmentTime = $row["appointmentTime"];
-        $appointment->customerPhone = $row["customerPhone"];
-        $appointment->appointmentService = $row["appointmentService"];
-        $appointment->appointmentNotes = $row["appointmentNotes"];
-       $array[] = $appointment;
+        echo '<table>';
+        echo '<tr>';
+        echo '<th>Appointment ID</th>';
+        echo '<th>Customer ID</th>';
+        echo '<th>Customer Name</th>';
+        echo '<th>Date</th>';
+        echo '<th>Time</th>';
+        echo '<th>Phone Number</th>';
+        echo '<th>Appointment Service</th>';
+        echo '<th>Description<th>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td><input type="hidden" name="appointmentID" value="'.$row["appointmentID"].'"/>'.$row["appointmentID"].'</td>';
+        echo '<td>'.$row["customerID"].'</td>';
+        echo '<td>'.$row["customerName"].'</td>';
+        echo '<td>'.$row["appointmentDate"].'</td>';
+        echo '<td>'.$row["appointmentTime"].'</td>';
+        echo '<td>'.$row["customerPhone"].'</td>';
+        echo '<td>'.$row["appointmentService"].'</td>';
+        echo '<td>'.$row["appointmentNotes"].'</td>';
+        echo '<td><button type="button">Edit</button></td>';
+        echo '</tr>';
+        echo '</table>';
     }
     ?>
-    <div ></div>
-    <div  data-ng-init="appointments=<?php echo htmlspecialchars(json_encode($array));?>">
-        <p><label for="cID">Customer ID:</label> <input type="text" name="cID" data-ng-model="Obj.customerID" id="cID" /></p>
-        /**/
-        <form method="post" >
-            <table >
-                <tr>
-                    <th>Appointment ID</th>
-                    <th>customer ID</th>
-                    <th>Customer Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Phone Number</th>
-                    <th>Appointment Service</th>
-                    <th>Description</th>
-                </tr>
-                
-                <tr   data-ng-repeat="appointment in appointments | filter:Obj">
-                    <td ><input type="text" name="appointmentID" data-ng-model="appointment.appointmentID" />{{appointment.appointmentID}}</td>
-                    <td>{{appointment.customerID}}</td>
-                    <td>{{appointment.customerName}}</td>
-                    <td>{{appointment.appointmentDate}}</td>
-                    <td>{{appointment.appointmentTime}}</td>
-                    <td>{{appointment.customerPhone}}</td>
-                    <td>{{appointment.appointmentService}}</td>
-                    <td>{{appointment.appointmentNotes}}</td>
-                    <td><button type="submit" data-ng-click="updateValues($index)">Edit</button></td>
-                    
-                </tr>
-                
-               
-            </table>
-            
-        </form>
-    </div>
-    <p>{{appointment.apppointmentID}}</p>
+
+
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
-    <script>
-        var app = angular.module("myApp", []);
-        app.controller("myCtrl", ['$scope','$window',function ($scope,$window) {
-        "use strict";
-            $scope.updateValues = function(value){
-                $scope.appointment.apppointmentID =  $scope.appointments[value].appointmentID;
-                
-            };
-        }]);
-    </script>
 </body>
 
 </html>

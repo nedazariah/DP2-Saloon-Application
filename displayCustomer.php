@@ -40,13 +40,13 @@
                 <div class="sideNav">
                     <button class="dropdown-btn">Appointment</button>
                     <div class="dropdown-container">
-                        <a href="#">Add Appointment</a>
-                        <a href="#">Pending Appointments</a>
+                        <a href="appointmentform.html">Add Appointment</a>
+                        <a href="appointment.php">Pending Appointments</a>
                         <a href="#">All Appointments</a>
                     </div>
                     <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
-                    <a href="#">Staff</a>
+                    <a href="displaystaff.php">Staff</a>
                     
                     <div class="btm-menu">
                         <button class="dropdown-btn">Settings</button>
@@ -77,7 +77,7 @@ if($result = mysqli_query($connect, $sql))
     if(mysqli_num_rows($result) > 0)
 	{
         echo "<input type='text' id='search' onkeyup='Filter()' placeholder='Search by '>";
-        echo "<a href='addCustomer.php' id='add_stock_link'>Add New Customer</a>"; 
+        echo "<a href='addCustomer.html' id='add_stock_link'>Add New Customer</a>"; 
         echo "<table id='inventory_table'>";
             echo "<tr>";
                 echo "<th>Customer ID</th>";
