@@ -39,7 +39,7 @@
         margin-left: 0.5em;
     }
         
-    #inventory_table{
+    #display_table{
         margin: 0 auto;
         width: 90%;
         
@@ -50,11 +50,12 @@
         border-collapse: collapse;
     } 
         
-    #manage_stock_display{
+    #display_module_manager{
         text-align: left;
         margin: 0 auto;
         width: 90%;
     }
+
     </style>
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
@@ -107,7 +108,8 @@ if($result = mysqli_query($connect, $sql))
 {    
     if(mysqli_num_rows($result) > 0)
 	{
-            echo "<div id='manage_stock_display'>";
+            echo "<div id='display_module_manager
+'>";
             
             echo "<input type='text' id='itemSearch' placeholder='Search by' onkeyup='Filter()'/>";
             
@@ -123,7 +125,8 @@ if($result = mysqli_query($connect, $sql))
             
             echo "</div>";
         
-            echo "<table id='inventory_table'>";
+            echo "<table id='display_
+table'>";
             echo "<tr>";
                 echo "<th>Item Name</th>";
                 echo "<th>Description</th>";
