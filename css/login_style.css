@@ -1,0 +1,36 @@
+h1{
+    text-align: center;
+}
+
+#echo{
+    text-align: center;    
+}
+
+#f_password, #login{
+    border: 1px solid black;
+    border-radius: 25px;
+    text-align: center;
+    padding: 1em;
+    margin-bottom: 1em;
+} 
+
+#label_user{
+    margin-right: 8.5em;
+}
+
+#label_pws{ 
+    margin-right: 7em;
+    margin-top: 1em;
+}
+
+#label_email{
+    margin-top: 0.5em;
+    margin-right: 9em;
+}
+
+#login_button, #send_pws_button{
+    height: 3em;
+    width: 11em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
