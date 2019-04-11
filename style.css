@@ -1,0 +1,55 @@
+h1{
+    text-align: center;
+}
+
+.formContainer {
+    margin: auto;
+    width: 50%;
+    border: 3px solid black;
+    padding: 10px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.container2 {
+    color: red;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+.cancel {
+    float: right;
+}
+
+.fWidth {
+    width: 100%;
+}
+
+.submit, .addStaffBtn{
+    display: block;
+    margin: 0 auto;
+}
+
+span {
+    color: red;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    margin: 0 auto;
+    border: 2px solid black;
+}
+
+th, td {
+    padding: 10px;
+}
+
+button {
+    cursor: pointer;
+}
