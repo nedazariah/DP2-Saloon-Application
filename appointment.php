@@ -5,15 +5,58 @@
     <title>Appointment Booking</title>
     <meta name="viewport" content="width=device-width, initialscale=1.0" />
     <meta charset="utf-8" />
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+     <link href="css/nav_style.css" rel="stylesheet" />
+     <style>
+         table,td,th{
+            border: 1px solid black;
+             
+         }
+         td,th{
+             text-align: center;
+             padding: 10px 25px;
+         }
+         table{
+             border-collapse: collapse;
+         }
+         h1{
+             text-align: center;
+         }
+         .contents{
+             margin-right: 100px;
+         }
+    </style>
 </head>
 
 <body data-ng-controller="myCtrl">
-    <h1>Appointment Records</h1>
+    
+    <div class="sideNav">
+            <button class="dropdown-btn">Appointment</button>
+            <div class="dropdown-container">
+                <a href="appointmentform.php">Add Appointment</a>
+                <a href="appointment.php">Pending Appointments</a>
+                <a href="#">All Appointments</a>
+            </div>
+            <a href="displayCustomer.php">Customers</a>
+            <a href="stock_module_display.php">Stock</a>
+            <a href="displaystaff.php">Staff</a>
+
+            <div class="btm-menu">
+                <button class="dropdown-btn">Settings</button>
+                <div class="dropdown-container">
+                    <a href="#">Manage Users</a>
+                    <a href="#">Manage Services</a>
+                </div>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+   <h1>Appointment Records</h1>
     <?php
     $servername = "localhost";
     $username = "root";
     $pw = "";
-    $db = "saloon";
+    $db = "salon";
     $conn = mysqli_connect($servername, $username, $pw, $db);
     if (!$conn){
         die("Connection failed: " . mysqli_connect_error());
@@ -44,8 +87,8 @@
        $array[] = $appointment;
     }
     ?>
-    <div ></div>
-    <div  data-ng-init="appointments=<?php echo htmlspecialchars(json_encode($array));?>">
+    
+    <div  class="container contents" data-ng-init="appointments=<?php echo htmlspecialchars(json_encode($array));?>">
         <p><label for="cID">Customer ID:</label> <input type="text" name="cID" data-ng-model="Obj.customerID" id="cID" /></p>
        <form method="post" action="appointmentform.php" class="php">
             <table >
@@ -58,11 +101,12 @@
                     <th>Phone Number</th>
                     <th>Appointment Service</th>
                     <th>Description</th>
+                    
                 </tr>
                 
                 <tr   data-ng-repeat="appointment in appointments | filter:Obj">
                     
-                    <td ><input type="text" name="appointmentID[]" value="{{appointment.appointmentID}}"/>{{appointment.appointmentID}}</td>
+                    <td ><input type="hidden" name="appointmentID[]" value="{{appointment.appointmentID}}"/>{{appointment.appointmentID}}</td>
                     <td>{{appointment.customerID}}</td>
                     <td>{{appointment.customerName}}</td>
                     <td>{{appointment.appointmentDate}}</td>
@@ -70,7 +114,7 @@
                     <td>{{appointment.customerPhone}}</td>
                     <td>{{appointment.appointmentService}}</td>
                     <td>{{appointment.appointmentNotes}}</td>
-                    <td><button type="submit" name="editButton"  value="button{{$index}}">Edit</button></td>
+                    <td class="test"><button type="submit" name="editButton"  value="button{{$index}}">Edit</button></td>
                 
                     
                 </tr>
