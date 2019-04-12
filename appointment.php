@@ -88,8 +88,20 @@
     }
     ?>
     
-    <div  class="container contents" data-ng-init="appointments=<?php echo htmlspecialchars(json_encode($array));?>">
-        <p><label for="cID">Customer ID:</label> <input type="text" name="cID" data-ng-model="Obj.customerID" id="cID" /></p>
+    <div  class="container contents" data-ng-init="appointments=<?php echo htmlspecialchars(json_encode($array));?>" >
+       <div data-ng-init="filterValue='customerName'"></div>
+        <p><label for="cID">Customer ID:</label> <input type="text" name="cID" ng-model="Obj[filterValue]" id="cID" />
+        <select name="cFilter" data-ng-model="cFilter" id="cFilter" data-ng-change="filterChange(cFilter)">
+            <option value="customerid">Customer ID</option>
+            <option value="appointmentid">Appointment ID</option>
+            <option value="customername">Customer Name</option>
+            <option value="date">Date</option>
+            <option value="time">Time</option>
+            <option value="phonenumber">Phone Number</option>
+            <option value="appointmentservice">Appointment Service</option>
+            
+        </select>
+        </p>
        <form method="post" action="appointmentform.php" class="php">
             <table >
                 <tr>
@@ -134,6 +146,24 @@
         "use strict";
             $scope.updateValues = function(value){
                 $scope.appointment.apppointmentID =  $scope.appointments[value].appointmentID;
+            };
+            $scope.filterChange = function(value){
+                if (value === "appointmentid"){
+                    $scope.filterValue="appointmentID";
+                }else if(value==="customername"){
+                    $scope.filterValue="customerName";
+                }else if (value==="customerid"){
+                    $scope.filterValue="customerID";
+                }else if (value==="date"){
+                    $scope.filterValue="appointmentDate";
+                }else if (value==="time"){
+                    $scope.filterValue="appointmentTime";
+                }else if(value==="phonenumber"){
+                    $scope.filterValue="customerPhone";     
+                }else if(value==="appointmentservice"){
+                    $scope.filterValue="appointmentService";
+                }
+              
             };
         }]);
     </script>
