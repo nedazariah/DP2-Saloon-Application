@@ -40,7 +40,7 @@
                 <div class="sideNav">
                     <button class="dropdown-btn">Appointment</button>
                     <div class="dropdown-container">
-                        <a href="appointmentform.html">Add Appointment</a>
+                        <a href="appointmentform.php">Add Appointment</a>
                         <a href="appointment.php">Pending Appointments</a>
                         <a href="#">All Appointments</a>
                     </div>
@@ -100,7 +100,7 @@ if($result = mysqli_query($connect, $sql))
 					echo "<td>" . $row['customerGender'] . "</td>";
 					echo "<td>" . $row['customerPhone'] . "</td>";
                     echo "<td>" . $row['customerAddInfo'] . "</td>";
-					echo "<td><a href='editCustomer.html?target=". $row['customerID'] ."'>Update</a></td>";
+					echo "<td><a href='editCustomer.php?target=". $row['customerID'] ."'>Update</a></td>";
 				echo "</tr>";
 			}                           
         echo "</table>"; 

@@ -8,7 +8,8 @@
     <meta name="keywords" content="Display,View,Staff,Style and Smile Saloon House, Saloon" />
     <meta name="description" content="Style and Smile Saloon House Viewing/Display Staff" />
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="nav_style.css">
+    <link rel="stylesheet" href="css/nav_style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <script>
         function updateStaff(staffID) {
             window.location.href = "editstaff.php?staffID=" + staffID;
@@ -99,8 +100,8 @@
             </div>
         </div>
     </div>
-    <script src="framework/js/jquery.min.js"></script>
-    <script src="framework/js/bootstrap.min.js"></script>
-    <script src="nav.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/nav.js"></script>
 </body>
 </html>

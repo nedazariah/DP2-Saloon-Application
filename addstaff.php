@@ -10,9 +10,9 @@
     <meta name="keywords" content="Add,Staff,Style and Smile Saloon House, Saloon" />
     <meta name="description" content="Style and Smile Saloon House Adding Staff Form" />
     <title>Add Staff</title>
-    <link rel="stylesheet" href="framework/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="nav_style.css">
+    <link rel="stylesheet" href="css/nav_style.css">
 </head>
 
 <body>
@@ -121,10 +121,10 @@
         </div>
     </div>
 
-    <script src="framework/js/jquery.min.js"></script>
-    <script src="framework/js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="staffFormValidation.js"></script>
-    <script src="nav.js"></script>
+    <script src="js/nav.js"></script>
 </body>
 <?php
     if(isset($_POST['submit'])) {
