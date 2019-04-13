@@ -37,7 +37,7 @@
             <div class="col-md-10">
                 <h1>Add Customer Profile</h1>
                 <br />
-                <form method="post" action="addCustProcess.php" onsubmit="return custValidate()">
+                <form method="post" action="addCustProcess.php?action=add" onsubmit="return custValidate()">
                     <div class="row">
                         <div class="col-xs-6">
                             <p><input type="text" placeholder="Full Name" id="custFullname" name="custFullname" /></p>
@@ -85,7 +85,7 @@
                     <div class="row">
                         <div class="col-xs-6 custButtons">
                             <input type="button" value="Cancel" onclick="window.location.replace('displayCustomer.php')">
-                            <input type="submit" value="Submit">
+                            <input type="submit" value="Submit" name="submit">
                         </div>
                     </div>
                 </form>
