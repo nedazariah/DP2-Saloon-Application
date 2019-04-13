@@ -27,16 +27,10 @@
         border: 1px solid black; 	
     }
     
-    #itemSearch{
+    #searchInput{
         padding: 0.4em;
         margin: 1em auto;
-    }
-        
-    #filter_options{
-        height: 2.5em; 
-        margin-top: 1em;
         margin-right: 0.5em;
-        margin-left: 0.5em;
     }
         
     #display_table{
@@ -55,7 +49,6 @@
         margin: 0 auto;
         width: 90%;
     }
-
     </style>
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
@@ -70,13 +63,13 @@
                 <div class="sideNav">
                     <button class="dropdown-btn">Appointment</button>
                     <div class="dropdown-container">
-                        <a href="appointmentform.html">Add Appointment</a>
-                        <a href="appointment.php">Pending Appointments</a>
+                        <a href="#">Add Appointment</a>
+                        <a href="#">Pending Appointments</a>
                         <a href="#">All Appointments</a>
                     </div>
-                    <a href="displayCustomer.php">Customers</a>
+                    <a href="#">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
-                    <a href="displaystaff.php">Staff</a>
+                    <a href="#">Staff</a>
                     
                     <div class="btm-menu">
                         <button class="dropdown-btn">Settings</button>
@@ -84,7 +77,7 @@
                             <a href="#">Manage Users</a>
                             <a href="#">Manage Services</a>
                         </div>
-                        <a href="#">Logout</a>
+                        <a href="login.php">Logout</a>
                     </div>
                 </div>
             </div>
@@ -108,46 +101,41 @@ if($result = mysqli_query($connect, $sql))
 {    
     if(mysqli_num_rows($result) > 0)
 	{
-            echo "<div id='display_module_manager
-'>";
+            echo "<div id='display_module_manager'>";
             
-            echo "<input type='text' id='itemSearch' placeholder='Search by' onkeyup='Filter()'/>";
-            
-            echo "<select id='filter_options'>
-                    <option value='0' selected='selected'>Name</option>
-                    <option value='1'>Description</option>
-                    <option value='2'>Type</option>
-                    <option value='3'>Buying Price</option>
-                    <option value='4'>Selling Price</option>
-                  </select>";
+            echo "<input type='text' id='searchInput' placeholder='Search by'/>";
             
             echo "<a href='stock_module_add.php' id='add_stock_link'>Record New Item</a>";
             
             echo "</div>";
         
-            echo "<table id='display_
-table'>";
-            echo "<tr>";
-                echo "<th>Item Name</th>";
-                echo "<th>Description</th>";
-                echo "<th>Type</th>";
-				echo "<th>Buying Price (RM)</th>";
-                echo "<th>Selling Price (RM)</th>";
-                echo "<th>Quantity</th>";
-				echo "<th>Action</th>";
-            echo "</tr>";
+            echo "<table id='display_table'>";
+        
+                echo "<thead>"; 
+                    echo "<tr>";
+                        echo "<th>Item Name</th>";
+                        echo "<th>Description</th>";
+                        echo "<th>Type</th>";
+                        echo "<th>Buying Price (RM)</th>";
+                        echo "<th>Selling Price (RM)</th>";
+                        echo "<th>Quantity</th>";
+                        echo "<th>Action</th>";
+                    echo "</tr>";
+                echo "</thead>";
         
             while($row = mysqli_fetch_array($result))
 			{
-				echo "<tr>";
-					echo "<td>" . $row['itemName'] . "</td>";
-					echo "<td>" . $row['itemDesc'] . "</td>";
-					echo "<td>" . $row['itemType'] . "</td>"; 
-                    echo "<td>" . $row['itemBPrice'] . "</td>";
-					echo "<td>" . $row['itemSPrice'] . "</td>";
-					echo "<td>" . $row['itemQuantity'] . "</td>"; 
-					echo "<td><a href='stock_module_edit.php?target=". $row['itemID'] ."'>Update</a></td>";
-				echo "</tr>";
+                echo "<tbody id='filterTable'>";
+                    echo "<tr>";
+                        echo "<td>" . $row['itemName'] . "</td>";
+                        echo "<td>" . $row['itemDesc'] . "</td>";
+                        echo "<td>" . $row['itemType'] . "</td>"; 
+                        echo "<td>" . $row['itemBPrice'] . "</td>";
+                        echo "<td>" . $row['itemSPrice'] . "</td>";
+                        echo "<td>" . $row['itemQuantity'] . "</td>"; 
+                        echo "<td><a href='stock_module_edit.php?target=". $row['itemID'] ."'>Update</a></td>";
+                    echo "</tr>";
+                echo "</tbody>";
 			}                           
             
             echo "</table>";
@@ -175,33 +163,14 @@ mysqli_close($connect);
 <!--Javascript for Navigation Menu-->
 <script src="js/nav.js"></script>
 <script>
-	//Filter function for displaying table
-    function Filter()
-	{
-		var search, search_input, program_table, tr, td, i;
-		search = document.getElementById("itemSearch");
-		search_input = search.value.toUpperCase();
-		program_table = document.getElementById("inventory_table");
-		tr = program_table.getElementsByTagName("tr");
- 
-		for (i = 0; i < tr.length; i++) 
-		{
-            var filter_option = document.getElementById('filter_options');
-            
-			td = tr[i].getElementsByTagName("td")[filter_option.value];
-			
-			if (td) {
-				if (td.innerHTML.toUpperCase().indexOf(search_input) > -1) 
-				{
-					tr[i].style.display = "";
-				} 
-				else 
-				{
-					tr[i].style.display = "none";
-				}
-			} 
-		}
-	}
+    $(document).ready(function() {
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#filterTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>
 </body>
 </html>
