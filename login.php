@@ -1,5 +1,15 @@
 <?php
     require_once "dbconnect.php";
+    
+    //If logout is set (via clicking the Logout button), unsets the users logged in status, destroys the session and redirects to login page
+    if(!isset($_SESSION['logged']) && ($_SESSION['logged'] == true)) 
+    { 
+        unset($_SESSION['logged']);
+        $_SESSION = array();
+        session_destroy();
+        header("location: login.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,9 +126,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
 		if(($row['userID'] == $user) && ($row['userPass'] == $pws))
 		{
-			$_SESSION['userID'] = $userID;			
+			$_SESSION['logged'] = true;			
 			mysqli_free_result($results);
-			header("location: appointment.php"); 
+			header("location: stock_module_display.php"); 
 			exit();
 		}
 		else
