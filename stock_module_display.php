@@ -103,7 +103,7 @@ if($result = mysqli_query($connect, $sql))
 	{
             echo "<div id='display_module_manager'>";
             
-            echo "<input type='text' id='searchInput' placeholder='Search by'/>";
+            echo "<input type='text' id='searchInput' placeholder='Search table'/>";
             
             echo "<a href='stock_module_add.php' id='add_stock_link'>Record New Item</a>";
             
