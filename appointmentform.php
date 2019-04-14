@@ -24,8 +24,9 @@ include "session_check.php";
 </head>
 
 <body data-ng-controller="myCtrl">
-    
-        <div class="sideNav">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="sideNav">
             <button class="dropdown-btn">Appointment</button>
             <div class="dropdown-container">
                 <a href="appointmentform.php">Add Appointment</a>
@@ -56,8 +57,9 @@ include "session_check.php";
                 <a href="logout.php">Logout</a>
             </div>
         </div>
-   
-    <?php
+        </div>
+        <div class="col-md-10">
+            <?php
      
     if (!$connect){
         die("Connection failed: " . mysqli_connect_error());
@@ -179,6 +181,8 @@ include "session_check.php";
         </fieldset>
         </form>
     </div>
+    </div>
+        </div>
     </div>
 
     <script src="js/jquery.min.js"></script>

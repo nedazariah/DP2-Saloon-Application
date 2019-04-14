@@ -32,8 +32,9 @@ include "session_check.php";
 </head>
 
 <body data-ng-controller="myCtrl">
-    
-    <div class="sideNav">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="sideNav">
             <button class="dropdown-btn">Appointment</button>
             <div class="dropdown-container">
                 <a href="appointmentform.php">Add Appointment</a>
@@ -45,7 +46,6 @@ include "session_check.php";
             <a href="displaystaff.php">Staff</a>
 
             <div class="btm-menu">
-                <button class="dropdown-btn">Settings</button>
 				<?php
 				                        if($role == "Manager"){
 				                            echo "<button class='dropdown-btn'>";
@@ -65,7 +65,9 @@ include "session_check.php";
                 <a href="logout.php">Logout</a>
             </div>
         </div>
-   <h1>Appointment Records</h1>
+        </div>
+        <div class="col-md-10">
+            <h1>Appointment Records</h1>
     <?php
     
     if (!$connect){
@@ -150,6 +152,11 @@ include "session_check.php";
         
     </div>
     <p>{{appointment.apppointmentID}}</p>
+        </div>
+    </div>
+    
+    <!--Javascript for Navigation Menu-->
+    <script src="js/nav.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
