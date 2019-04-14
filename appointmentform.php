@@ -22,31 +22,29 @@
 </head>
 
 <body data-ng-controller="myCtrl">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="sideNav">
-                    <button class="dropdown-btn">Appointment</button>
-                    <div class="dropdown-container">
-                        <a href="appointmentform.php">Add Appointment</a>
-                        <a href="appointment.php">Pending Appointments</a>
-                        <a href="#">All Appointments</a>
-                    </div>
-                    <a href="displayCustomer.php">Customers</a>
-                    <a href="stock_module_display.php">Stock</a>
-                    <a href="displaystaff.php">Staff</a>
-                    
-                    <div class="btm-menu">
-                        <button class="dropdown-btn">Settings</button>
-                        <div class="dropdown-container">
-                            <a href="#">Manage Users</a>
-                            <a href="#">Manage Services</a>
-                        </div>
-                        <a href="#">Logout</a>
-                    </div>
+    
+        <div class="sideNav">
+            <button class="dropdown-btn">Appointment</button>
+            <div class="dropdown-container">
+                <a href="appointmentform.php">Add Appointment</a>
+                <a href="appointment.php">Pending Appointments</a>
+                <a href="#">All Appointments</a>
+            </div>
+            <a href="displayCustomer.php">Customers</a>
+            <a href="stock_module_display.php">Stock</a>
+            <a href="displaystaff.php">Staff</a>
+
+            <div class="btm-menu">
+                <button class="dropdown-btn">Settings</button>
+                <div class="dropdown-container">
+                    <a href="#">Manage Users</a>
+                    <a href="#">Manage Services</a>
                 </div>
+                <a href="#">Logout</a>
+            </div>
         </div>
-        <div class="col-md-10">
-            <?php
+   
+    <?php
      $servername = "localhost";
     $username = "root";
     $pw = "";
@@ -96,11 +94,24 @@
         $appointmentID = NULL;
         $button = "Submit";
     }
-
-   
+    $selectCustomer = "SELECT * FROM customer";
+    $resultCustomer = mysqli_query($conn,$selectCustomer);
+    $array = array();
+    class Customer{
+        public $customerID;
+        public $customerName;
+        public $customerPhone;
+    }
+    while ($row = mysqli_fetch_assoc($resultCustomer)){
+        $customer = new Customer();
+        $customer->customerID = $row["customerID"];
+        $customer->customerName = $row["customerName"];
+        $customer->customerPhone = $row["customerPhone"];
+        $array[] = $customer;
+    }
     ?>
     <h1>Appointment Form</h1>
-    <div class="container contents">
+    <div class="container contents" data-ng-init="customers=<?php echo htmlspecialchars(json_encode($array));?>">
         <div data-ng-init="nameVal=<?php echo $nameVal;?>"></div>
         <div data-ng-init="phoneVal=<?php echo $phoneVal;?>"></div>
 
@@ -112,7 +123,7 @@
 
                         <p><input type="hidden" name="appID" value="<?php echo $row['appointmentID'];?>" /></p>
                         <div class="col-md-4">
-                            <p><label for="cID">Client ID:</label> <input type="text" placeholder="123456" id="cID" name="cID" value="<?php echo $row['customerID'];?>" /></p>
+                            <p><label for="cID">Client ID:</label> <input type="text" placeholder="123456" id="cID" name="cID" data-ng-model="cID" data-ng-init="cID='<?php echo $row['customerID'];?>'" /></p>
                         </div>
                         <div class="col-md-4">
                             <p>
@@ -132,7 +143,8 @@
                 </fieldset>
                 <fieldset>
                     <legend>Appointment Details:</legend>
-                    <div class="row">
+                    
+                    <div class="row" >
                         <div class="col-md-4">
                             <p><label for="cSv">Customer Services</label></p>
                             <select id="cSv" name="cSv" data-ng-model ="cSv" data-ng-init="cSv=services[<?php echo $row['appointmentService'];?>-1].serviceID" required>
@@ -159,11 +171,6 @@
         </form>
     </div>
     </div>
-        </div>
-    </div>
-        
-   
-    
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -189,16 +196,32 @@
                 }else{
                     $scope.checkName="";
                     $scope.nameVal = true;
+                    
                 }
+                $scope.match = false;
+                for ($scope.i=0;$scope.i<$scope.customers.length;$scope.i++){
+                    if (input === $scope.customers[$scope.i].customerName){
+                        $scope.cID = $scope.customers[$scope.i].customerID;
+                        $scope.cPhone = $scope.customers[$scope.i].customerPhone;
+                        $scope.match = true;
+
+                        break;  
+                    }
+                }
+                if ($scope.match=== false){
+                    $scope.cID = "";
+                    $scope.cPhone ="";
+                }
+
             };
             
             $scope.phoneChange = function(input){
                 $scope.pattern=/^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$/;
                 if (input.length===0){
-                    $scope.checkPhone="Please Input Customer Name";
+                    $scope.checkPhone="Please Input Customer Phone";
                     $scope.phoneVal = false;
                 }else if (!input.match($scope.pattern)){
-                    $scope.checkPhone="Please Input Valid Customer Name";
+                    $scope.checkPhone="Please Input Valid Customer Phone";
                     $scope.phoneVal = false;
                 }else{
                     $scope.checkPhone="";
