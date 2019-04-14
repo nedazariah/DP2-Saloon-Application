@@ -63,13 +63,13 @@
                 <div class="sideNav">
                     <button class="dropdown-btn">Appointment</button>
                     <div class="dropdown-container">
-                        <a href="#">Add Appointment</a>
-                        <a href="#">Pending Appointments</a>
+                        <a href="appointmentform.php">Add Appointment</a>
+                        <a href="appointment.php">Pending Appointments</a>
                         <a href="#">All Appointments</a>
                     </div>
-                    <a href="#">Customers</a>
+                    <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
-                    <a href="#">Staff</a>
+                    <a href="displaystaff.php">Staff</a>
                     
                     <div class="btm-menu">
                         <button class="dropdown-btn">Settings</button>
@@ -77,7 +77,7 @@
                             <a href="#">Manage Users</a>
                             <a href="#">Manage Services</a>
                         </div>
-                        <a href="login.php">Logout</a>
+                        <a href="#">Logout</a>
                     </div>
                 </div>
             </div>

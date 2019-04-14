@@ -10,9 +10,9 @@
     <meta name="keywords" content="Edit,Staff,Style and Smile Saloon House, Saloon" />
     <meta name="description" content="Style and Smile Saloon House Editing Staff Form" />
     <title>Edit Staff</title>
-    <link rel="stylesheet" href="framework/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="nav_style.css">
+    <link rel="stylesheet" href="css/nav_style.css">
 </head>
 
 
@@ -44,14 +44,14 @@
                 <div class="sideNav">
                     <button class="dropdown-btn">Appointment</button>
                     <div class="dropdown-container">
-                        <a href="appointmentform.html">Add Appointment</a>
+                        <a href="appointmentform.php">Add Appointment</a>
                         <a href="appointment.php">Pending Appointments</a>
                         <a href="#">All Appointments</a>
                     </div>
                     <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
                     <a href="displaystaff.php">Staff</a>
-
+                    
                     <div class="btm-menu">
                         <button class="dropdown-btn">Settings</button>
                         <div class="dropdown-container">
@@ -153,10 +153,10 @@
 
 
 
-    <script src="framework/js/jquery.min.js"></script>
-    <script src="framework/js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="staffFormValidation.js"></script>
-    <script src="nav.js"></script>
+    <script src="js/nav.js"></script>
 </body>
 <?php
 //    $staffID = $_GET['staffID'];

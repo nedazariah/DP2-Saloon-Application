@@ -16,7 +16,7 @@
 	<link href="css/stock_style.css" rel="stylesheet"/>
 	<link href="css/nav_style.css" rel="stylesheet"/>
    
-    <!--Internal CSS for PHP Generatred table-->
+    <!--Internal CSS for PHP Generatred elements-->
     <style>
     th{
         background-color: #ddd;
@@ -25,7 +25,30 @@
     th, td{  
         padding: .5em;
         border: 1px solid black; 	
-    }     
+    }
+        
+    #searchInput{
+        padding: 0.4em;
+        margin: 1em auto;
+        margin-right: 0.5em;
+    }
+        
+    #display_table{
+        margin: 0 auto;
+        width: 90%;
+        
+        font-size: 1.2em;
+        text-align: left;
+        color: black;
+
+        border-collapse: collapse;
+    } 
+        
+    #display_module_manager{
+        text-align: left;
+        margin: 0 auto;
+        width: 90%;
+    }
     </style>
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
@@ -76,9 +99,17 @@ if($result = mysqli_query($connect, $sql))
 {    
     if(mysqli_num_rows($result) > 0)
 	{
-        echo "<input type='text' id='search' onkeyup='Filter()' placeholder='Search by '>";
-        echo "<a href='addCustomer.html' id='add_stock_link'>Add New Customer</a>"; 
-        echo "<table id='inventory_table'>";
+        echo "<div id='display_module_manager'>";
+            
+        echo "<input type='text' id='searchInput' placeholder='Search table'/>";
+            
+        echo "<a href='addCustomer.html' id='add_stock_link'>Add new customer</a>";
+            
+        echo "</div>";
+        
+        echo "<table id='display_table'>";
+        
+        echo "<thead>";
             echo "<tr>";
                 echo "<th>Customer ID</th>";
                 echo "<th>Customer Type</th>";
@@ -89,9 +120,11 @@ if($result = mysqli_query($connect, $sql))
                 echo "<th>Additional Information</th>";
 				echo "<th>Action</th>";
             echo "</tr>";
+        echo "</thead>";
         
             while($row = mysqli_fetch_array($result))
 			{
+                echo "<tbody id='filterTable'>";
 				echo "<tr>";
 					echo "<td>" . $row['customerID'] . "</td>";
 					echo "<td>" . $row['customerType'] . "</td>";
@@ -102,6 +135,7 @@ if($result = mysqli_query($connect, $sql))
                     echo "<td>" . $row['customerAddInfo'] . "</td>";
 					echo "<td><a href='editCustomer.php?target=". $row['customerID'] ."'>Update</a></td>";
 				echo "</tr>";
+                echo "</tbody>";
 			}                           
         echo "</table>"; 
 
@@ -127,5 +161,16 @@ mysqli_close($connect);
     
 <!--Javascript for Navigation Menu-->
 <script src="js/nav.js"></script>
+<!--Script to control search function-->
+<script>
+    $(document).ready(function() {
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#filterTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 </body>
 </html>

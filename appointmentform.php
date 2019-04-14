@@ -22,29 +22,31 @@
 </head>
 
 <body data-ng-controller="myCtrl">
-    
-        <div class="sideNav">
-            <button class="dropdown-btn">Appointment</button>
-            <div class="dropdown-container">
-                <a href="appointmentform.php">Add Appointment</a>
-                <a href="appointment.php">Pending Appointments</a>
-                <a href="#">All Appointments</a>
-            </div>
-            <a href="displayCustomer.php">Customers</a>
-            <a href="stock_module_display.php">Stock</a>
-            <a href="displaystaff.php">Staff</a>
-
-            <div class="btm-menu">
-                <button class="dropdown-btn">Settings</button>
-                <div class="dropdown-container">
-                    <a href="#">Manage Users</a>
-                    <a href="#">Manage Services</a>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="sideNav">
+                    <button class="dropdown-btn">Appointment</button>
+                    <div class="dropdown-container">
+                        <a href="appointmentform.php">Add Appointment</a>
+                        <a href="appointment.php">Pending Appointments</a>
+                        <a href="#">All Appointments</a>
+                    </div>
+                    <a href="displayCustomer.php">Customers</a>
+                    <a href="stock_module_display.php">Stock</a>
+                    <a href="displaystaff.php">Staff</a>
+                    
+                    <div class="btm-menu">
+                        <button class="dropdown-btn">Settings</button>
+                        <div class="dropdown-container">
+                            <a href="#">Manage Users</a>
+                            <a href="#">Manage Services</a>
+                        </div>
+                        <a href="#">Logout</a>
+                    </div>
                 </div>
-                <a href="#">Logout</a>
-            </div>
         </div>
-   
-    <?php
+        <div class="col-md-10">
+            <?php
      $servername = "localhost";
     $username = "root";
     $pw = "";
@@ -157,6 +159,11 @@
         </form>
     </div>
     </div>
+        </div>
+    </div>
+        
+   
+    
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
