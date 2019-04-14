@@ -126,7 +126,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
 		if(($row['userID'] == $user) && ($row['userPass'] == $pws))
 		{
-			$_SESSION['logged'] = true;			
+			$_SESSION['logged'] = true;	
+            $_SESSION['loggedUser'] = $user;
 			mysqli_free_result($results);
 			header("location: stock_module_display.php"); 
 			exit();

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" data-ng-app="myApp">
-
+<?php
+include "session_check.php";
+?>
 <head>
     <title>Appointment Booking</title>
     <meta name="viewport" content="width=device-width, initialscale=1.0" />
@@ -44,25 +46,33 @@
 
             <div class="btm-menu">
                 <button class="dropdown-btn">Settings</button>
-                <div class="dropdown-container">
-                    <a href="#">Manage Users</a>
-                    <a href="#">Manage Services</a>
-                </div>
-                <a href="#">Logout</a>
+				<?php
+				                        if($role == "Manager"){
+				                            echo "<button class='dropdown-btn'>";
+				                            echo "Settings";
+				                            echo "</button>";
+				                            echo "<div class='dropdown-container'>";
+				                            echo "<a href='#'>";
+				                            echo "Manage Users";
+				                            echo "</a>";
+				                            echo "<a href='#'>";
+				                            echo "Manage Services";
+				                            echo "</a>";
+				                            echo "</div>";
+				                        }
+				                        echo ("<script>console.log('Role: ".$role."')</script>");
+				                        ?>
+                <a href="logout.php">Logout</a>
             </div>
         </div>
    <h1>Appointment Records</h1>
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $pw = "";
-    $db = "salon";
-    $conn = mysqli_connect($servername, $username, $pw, $db);
-    if (!$conn){
+    
+    if (!$connect){
         die("Connection failed: " . mysqli_connect_error());
     }
     $select = "SELECT * FROM appointment";
-    $result = mysqli_query($conn,$select);
+    $result = mysqli_query($connect,$select);
     $array = array();
     class Appointment{
         public $appointmentID;

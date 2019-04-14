@@ -3,7 +3,9 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+include "session_check.php";
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="language" content="english" />
@@ -31,12 +33,23 @@
                     <a href="displaystaff.php">Staff</a>
                     
                     <div class="btm-menu">
-                        <button class="dropdown-btn">Settings</button>
-                        <div class="dropdown-container">
-                            <a href="#">Manage Users</a>
-                            <a href="#">Manage Services</a>
-                        </div>
-                        <a href="#">Logout</a>
+						<?php
+						                        if($role == "Manager"){
+						                            echo "<button class='dropdown-btn'>";
+						                            echo "Settings";
+						                            echo "</button>";
+						                            echo "<div class='dropdown-container'>";
+						                            echo "<a href='#'>";
+						                            echo "Manage Users";
+						                            echo "</a>";
+						                            echo "<a href='#'>";
+						                            echo "Manage Services";
+						                            echo "</a>";
+						                            echo "</div>";
+						                        }
+						                        echo ("<script>console.log('Role: ".$role."')</script>");
+						                        ?>
+                        <a href="logout.php">Logout</a>
                     </div>
                 </div>
             </div>
@@ -136,19 +149,14 @@
         $staffRole = $_POST['staffRole'];
         $staffAdd = $_POST['staffAdd'];
         
-        $servername = "localhost";
-        $username = "root";
-        $pass = "";
-        $db = "salon";
         
-        $conn = mysqli_connect($servername, $username, $pass, $db);
-        if (!$conn) {
+        if (!$connect) {
             die("Connection failed: " . mysqli_connect_error());
         }
 
         $sql = "INSERT INTO staff(staffName,staffDoB,staffGender,staffPhone,staffEmail,staffRole,staffAddress) VALUES('$staffName','$staffDOB','$staffGender','$staffPhone','$staffEmail','$staffRole','$staffAdd')";
 
-        if (mysqli_query($conn,$sql)){
+        if (mysqli_query($connect,$sql)){
             echo "Success";
             header("location: displaystaff.php");
             ob_enf_fluch();

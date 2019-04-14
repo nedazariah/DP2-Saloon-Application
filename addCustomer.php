@@ -1,35 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
-	include "session_check.php";
+	include "session_check.php"
 ?>
 <head>
-    <title>Edit Customer Profile</title>
+    <title>Add Customer Profile</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/cust_style.css">
     <link rel="stylesheet" type="text/css" href="css/nav_style.css">
 </head>
 
 <body>
-    <?php
-    $custID = $_GET['target'];
-    $result = mysqli_query($connect, "SELECT * FROM customer WHERE customerID ='".$custID."'");
-    //$row = mysqli_fetch_array($sql,MYSQLI_ASSOC);
-    
-    if($result){
-        while($row = mysqli_fetch_array($result)){
-            $custName = $row['customerName'];
-            $custDob = $row['customerDoB'];
-            $custGender = $row['customerGender'];
-            $custType = $row['customerType'];
-            $custPhone = $row['customerPhone'];
-            $custInfo = $row['customerAddInfo'];
-        }
-    }
-    
-    
-    ?>
     <div class="container">
         <div class="row">
             <div class="col-md-2">
@@ -67,12 +48,12 @@
             </div>
 
             <div class="col-md-10">
-                <h1>Edit Customer Profile</h1>
+                <h1>Add Customer Profile</h1>
                 <br />
-                <form method="post" action="addCustProcess.php?action=update&custID=<?php echo $custID; ?>" onsubmit="return custValidate()">
+                <form method="post" action="addCustProcess.php?action=add" onsubmit="return custValidate()">
                     <div class="row">
                         <div class="col-xs-6">
-                            <p><input type="text" placeholder="Full Name" id="custFullname" name="custFullname" value="<?php echo $custName;?>"/></p>
+                            <p><input type="text" placeholder="Full Name" id="custFullname" name="custFullname" /></p>
                             <p id="nameErrorMsg"></p>
                         </div>
                     </div>
@@ -80,13 +61,13 @@
                     <div class="row">
                         <div class="col-xs-6 custForm">
                             <label for="custDob">Date of Birth</label><br />
-                            <input type="date" id="custDob" name="custDob" value="<?php echo $custDob;?>"/>
+                            <input type="date" id="custDob" name="custDob" />
                             <p id="dobErrorMsg"></p>
                         </div>
                         <div class="col-xs-6">
                             <label>Gender</label><br />
-                            <input type="radio" name="custGender" id="genderF" value="Female" <?php echo ($custGender == 'F') ? 'checked' : '' ?>> F
-                            <input type="radio" name="custGender" id="genderM" value="Male" <?php echo ($custGender == 'M') ? 'checked' : '' ?>> M
+                            <input type="radio" name="custGender" id="genderF" value="Female"> F
+                            <input type="radio" name="custGender" id="genderM" value="Male"> M
                             <p id="genderErrorMsg"></p>
                         </div>
                     </div>
@@ -95,14 +76,14 @@
                         <div class="col-xs-6 custForm">
                             <label for="custType">Type</label><br />
                             <select id="custType" name="custType">
-                                <option value="Regular" <?php echo ($custType == 'Regular') ? 'selected = \'selected\' ' : '' ?>>Regular</option>
-                                <option value="Guest" <?php echo ($custType == 'Guest') ? 'selected = \'selected\' ' : '' ?>>Guest</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Guest">Guest</option>
                             </select>
                             <p id="typeErrorMsg"></p>
                         </div>
                         <div class="col-xs-6">
                             <label for="custPhoneNum">Phone Number</label><br />
-                            <input type="tel" id="custPhoneNum" name="custPhoneNum" value="<?php echo $custPhone; ?>"/>
+                            <input type="tel" id="custPhoneNum" name="custPhoneNum" />
                             <p id="phoneErrorMsg"></p>
                         </div>
                     </div>
@@ -110,7 +91,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <label for="custInfo">Additional Information</label><br />
-                            <textarea name="custInfo" id="custInfo" cols="47" rows="5"><?php echo $custInfo; ?></textarea>
+                            <textarea name="custInfo" id="custInfo" cols="47" rows="5"></textarea>
                         </div>
                     </div>
                     <br />
@@ -124,7 +105,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         function custValidate() {
             var isAllOK = true;
@@ -182,18 +163,14 @@
                     }
                 }
             
-            if(isAllOK === true){
-                confirm('Confirm edit?');
-            }
-            
+
             return isAllOK;
-            
         }
-        
 
     </script>
     <script src="js/nav.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
+
 </html>
