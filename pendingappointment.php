@@ -74,7 +74,9 @@
     if (!$connect){
         die("Connection failed: " . mysqli_connect_error());
     }
-    $select = "SELECT * FROM appointment";
+    $today = date("Y-m-d");
+    
+    $select = "SELECT * FROM appointment Where appointmentDate >= '$today'";
     $result = mysqli_query($connect,$select);
     $array = array();
     class Appointment{
@@ -106,7 +108,7 @@
     
     <div  class="container contents" data-ng-init="appointments=<?php echo htmlspecialchars(json_encode($array));?>" >
        <div data-ng-init="filterValue='customerName'"></div>
-        <p><label for="cID"></label> <input type="text" name="cID" ng-model="Obj[filterValue]" id="cID" placeholder="{{FilterSelect}}"/>
+        <p><label for="cID"></label> <input type="text" name="cID" ng-model="Obj[filterValue]" id="cID" placeholder="{{FilterSelect}}" />
         <select name="cFilter" data-ng-model="cFilter" id="cFilter" data-ng-change="filterChange(cFilter)" data-ng-init="cFilter='customername'">
             <option value="customerid">Customer ID</option>
             <option value="appointmentid">Appointment ID</option>
@@ -162,7 +164,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script>
-        var app = angular.module("myApp", []);
+       var app = angular.module("myApp", []);
         app.controller("myCtrl", ['$scope','$window',function ($scope,$window) {
         "use strict";
             $scope.FilterSelect="Customer Name";

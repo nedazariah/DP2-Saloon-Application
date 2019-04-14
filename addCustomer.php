@@ -18,8 +18,8 @@
                     <button class="dropdown-btn">Appointment</button>
                     <div class="dropdown-container">
                         <a href="appointmentform.php">Add Appointment</a>
-                        <a href="appointment.php">Pending Appointments</a>
-                        <a href="#">All Appointments</a>
+                        <a href="pendingappointment.php">Pending Appointments</a>
+                        <a href="appointment.php">All Appointments</a>
                     </div>
                     <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>

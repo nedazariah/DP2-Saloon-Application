@@ -1,5 +1,15 @@
 <?php
     require_once "dbconnect.php";
+    
+    //If logout is set (via clicking the Logout button), unsets the users logged in status, destroys the session and redirects to login page
+    if(!isset($_SESSION['logged']) && ($_SESSION['logged'] == true)) 
+    { 
+        unset($_SESSION['logged']);
+        $_SESSION = array();
+        session_destroy();
+        header("location: login.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -2,6 +2,7 @@
 <html lang="en" data-ng-app="myApp">
 <?php
 include "session_check.php";
+
 ?>
 <head>
     <title>Appointment Booking</title>
@@ -30,8 +31,8 @@ include "session_check.php";
             <button class="dropdown-btn">Appointment</button>
             <div class="dropdown-container">
                 <a href="appointmentform.php">Add Appointment</a>
-                <a href="appointment.php">Pending Appointments</a>
-                <a href="#">All Appointments</a>
+                <a href="pendingappointment.php">Pending Appointments</a>
+                <a href="appointment.php">All Appointments</a>
             </div>
             <a href="displayCustomer.php">Customers</a>
             <a href="stock_module_display.php">Stock</a>
@@ -66,18 +67,18 @@ include "session_check.php";
     }
         $selectService = "SELECT * FROM service";
     $resultService = mysqli_query($connect,$selectService);
-    $array = array();
+    $arrayServ = array();
     class Service{
         public $serviceID;
         public $serviceName;
         public $serviceCharge;
     }
-    while ($row = mysqli_fetch_assoc($resultService)){
+    while ($rowServ = mysqli_fetch_assoc($resultService)){
         $service = new Service();
-       $service->serviceID = $row["serviceID"];
-        $service->serviceName= $row["serviceName"];
-        $service->serviceCharge = $row["serviceCharge"];
-       $array[] = $service;
+       $service->serviceID = $rowServ["serviceID"];
+        $service->serviceName= $rowServ["serviceName"];
+        $service->serviceCharge = $rowServ["serviceCharge"];
+       $arrayServ[] = $service;
     }
     $num = 0;
     $i = 0;
@@ -98,35 +99,37 @@ include "session_check.php";
         $nameVal = true;
         $phoneVal = true;
          $select = "SELECT appointmentID,customerID,customerName,customerPhone,appointmentService,appointmentDate,appointmentTime,appointmentNotes FROM appointment WHERE appointmentID='$appointmentID'";
-    $result = mysqli_query($conn,$select);
-    $row = mysqli_fetch_array($result);
-
-    }else{
+    $result = mysqli_query($connect,$select);
+    $row = mysqli_fetch_assoc($result);
+    
+    }      
+    else{
         $appointmentID = NULL;
         $button = "Submit";
     }
+    
     $selectCustomer = "SELECT * FROM customer";
-    $resultCustomer = mysqli_query($conn,$selectCustomer);
-    $array = array();
+    $resultCustomer = mysqli_query($connect,$selectCustomer);
+    $arrayCust = array();
     class Customer{
         public $customerID;
         public $customerName;
         public $customerPhone;
     }
-    while ($row = mysqli_fetch_assoc($resultCustomer)){
+    while ($rowCust = mysqli_fetch_assoc($resultCustomer)){
         $customer = new Customer();
-        $customer->customerID = $row["customerID"];
-        $customer->customerName = $row["customerName"];
-        $customer->customerPhone = $row["customerPhone"];
-        $array[] = $customer;
+        $customer->customerID = $rowCust["customerID"];
+        $customer->customerName = $rowCust["customerName"];
+        $customer->customerPhone = $rowCust["customerPhone"];
+        $arrayCust[] = $customer;
     }
     ?>
     <h1>Appointment Form</h1>
-    <div class="container contents" data-ng-init="customers=<?php echo htmlspecialchars(json_encode($array));?>">
+    <div class="container contents" data-ng-init="customers=<?php echo htmlspecialchars(json_encode($arrayCust));?>">
         <div data-ng-init="nameVal=<?php echo $nameVal;?>"></div>
         <div data-ng-init="phoneVal=<?php echo $phoneVal;?>"></div>
 
-        <div data-ng-init="services=<?php echo htmlspecialchars(json_encode($array));?>">
+        <div data-ng-init="services=<?php echo htmlspecialchars(json_encode($arrayServ));?>">
             <form name="ApplicationForm" method="post" action="appointment_process.php">
                 <fieldset>
                     <legend>Customer Information:</legend>
