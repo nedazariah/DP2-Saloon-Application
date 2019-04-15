@@ -18,17 +18,27 @@ h1{
     margin-right: 8.5em;
 }
 
-#label_pws{ 
-    margin-right: 7em;
+#label_password{
     margin-top: 1em;
+    margin-right: 7em;
+}
+
+#label_newpassword{
+    margin-top: 1em;
+    margin-right: 5em;    
+}
+
+#label_repassword{
+    margin-top: 1em;
+    margin-right: 3em;
 }
 
 #label_email{
     margin-top: 0.5em;
-    margin-right: 9em;
+    margin-right: 9.5em;
 }
 
-#login_button, #send_pws_button{
+#login_button, #reset_pws_button, #forgot_back{
     height: 3em;
     width: 11em;
     margin-top: 1em;
