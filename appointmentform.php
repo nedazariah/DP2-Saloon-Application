@@ -82,6 +82,8 @@ include "session_check.php";
     }
     $num = 0;
     $i = 0;
+
+    
     if (isset($_POST["editButton"])){
         $editButton = $_POST["editButton"];
         while($editButton!="button".$i){
@@ -90,10 +92,8 @@ include "session_check.php";
             }
             $i++;
         }
-    }
-    
-    if (isset($_POST["appointmentID"])){
-        $appointmentArray = $_POST["appointmentID"];
+        
+         $appointmentArray = $_POST["appointmentID"];
         $appointmentID = $appointmentArray[$i];
         $button = "Edit";
         $nameVal = true;
@@ -101,9 +101,7 @@ include "session_check.php";
          $select = "SELECT appointmentID,customerID,customerName,customerPhone,appointmentService,appointmentDate,appointmentTime,appointmentNotes FROM appointment WHERE appointmentID='$appointmentID'";
     $result = mysqli_query($connect,$select);
     $row = mysqli_fetch_assoc($result);
-    
-    }      
-    else{
+    }else{
         $appointmentID = NULL;
         $button = "Submit";
     }
@@ -178,7 +176,9 @@ include "session_check.php";
                     </div>
         <p><label for="cNotes">Notes:</label></p>
         <textarea id="cNotes" name="cNotes" cols="40" rows="5"><?php echo $row['appointmentNotes'];?></textarea>
-        <p><span data-ng-show="nameVal == true && phoneVal==true "><input type="submit" name="cButton" value='<?php echo $button;?>' /></span></p>
+        
+        <p><span data-ng-show="nameVal == true && phoneVal==true "><input type="submit" name="cButton" value='<?php echo $button;?>' data-ng-model="Button" data-ng-click="confirmation($event)" /></span></p>
+       <div data-ng-init="Button='<?php echo $button;?>'"></div>
        
         </fieldset>
         </form>
@@ -242,7 +242,16 @@ include "session_check.php";
                     $scope.checkPhone="";
                     $scope.phoneVal = true;
                 }
-            }
+            };
+            $scope.confirmation = function(input){
+                if ($scope.Button === "Edit"){
+                    $scope.check = confirm("Are you sure you want to edit this record");
+                    if ($scope.check === false){
+                        input.preventDefault();
+                    }
+                }
+               
+            };
             
         });
     </script>
