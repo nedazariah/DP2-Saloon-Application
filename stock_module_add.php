@@ -118,14 +118,7 @@ include "session_check.php";
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {	
     //Initialize all inventory fields
-    $itemID = $itemName = $itemDesc = $itemType = $itemBPrice = $itemSPrice = $itemQuantity = "";
-    
-    //Generate item ID by getting number of rows
-	$sql = "SELECT * FROM inventory";
-	$select_items = mysqli_query($connect, $sql);
-	$number_of_items = mysqli_num_rows($select_items);
-    $itemID = $number_of_items + 1;
-    mysqli_free_result($select_items);
+    $itemName = $itemDesc = $itemType = $itemBPrice = $itemSPrice = $itemQuantity = "";
     
 	//Processing Item Name <Start>
     $input_itemName = SanitizeData($_POST["itemName"]);
@@ -217,7 +210,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	//If there is no error count, proceed to insert data
 	if(!($hasError))
 	{
-		$sql = "INSERT INTO inventory (itemID, itemName, itemDesc, itemType, itemBPrice, itemSPrice, itemQuantity) VALUES ('$itemID', '$itemName', '$itemDesc', '$itemType', '$itemBPrice', '$itemSPrice', '$itemQuantity')";
+		$sql = "INSERT INTO inventory (itemName, itemDesc, itemType, itemBPrice, itemSPrice, itemQuantity) VALUES ('$itemName', '$itemDesc', '$itemType', '$itemBPrice', '$itemSPrice', '$itemQuantity')";
 		
 		if (mysqli_query($connect, $sql)) {
             $link_summary = "stock_module_summary.php?target=" . $itemID;
