@@ -19,7 +19,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <link rel="stylesheet" href="css/login_style.css"/>
+       <link rel="stylesheet" href="css/login_style.css?v=<?php echo time(); ?>"/>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label id="label_pws" for="pws">Password: </label>
+                            <label id="label_password" for="pws">Password: </label>
                         </div>
                     </div>
 
