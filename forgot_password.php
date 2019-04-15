@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/login_style.css"/>   
+    <link rel="stylesheet" href="css/login_style.css?v=<?php echo time(); ?>"/>   
    
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label id="label_email" for="pws">Email: </label>
+                            <label id="label_email" for="email">Email: </label>
                         </div>
                     </div>
 
@@ -60,9 +60,40 @@
                             <input type="text" name="email" id="email" maxlength="40"/>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" name="login" id="send_pws_button" value="Send New Password"/>
+                            <label id="label_newpassword" for="pws">New Password: </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="password" name="pws" id="pws" maxlength="20"/>
+                        </div>
+                    </div>   
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label id="label_repassword" for="re_pws">Re-Enter Password: </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="password" name="re_pws" id="re_pws" maxlength="20"/>
+                        </div>
+                    </div>              
+                
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" name="reset" id="reset_pws_button" value="Reset Password"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="login.php" id="forgot_back">Go Back</a>
                         </div>
                     </div>
                     
@@ -79,7 +110,7 @@
 <?php
 if($_SERVER["REQUEST_METHOD"] == "POST")
 { 
-	//Validate email	
+	//Validate ID	
     $input_user = SanitizeData($_POST["user"]);
 	if(empty($input_user)){
 		echo "Error: Username not found." . "</br>";
@@ -90,7 +121,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $user = $input_user;
     }	
 	
-	//Validate password
+	//Validate email
     $input_email = SanitizeData($_POST["email"]);
     if(empty($input_email)){
 		echo "Error: Email not found." . "</br>";
@@ -99,7 +130,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	else
 	{
         $email = $input_email;
-    }		
+    }
+    
+    //Validate password
+    $input_pws = SanitizeData($_POST["pws"]);
+    if(empty($input_pws)){
+		echo "Error: Password not found." . "</br>";
+		$hasError = true;
+    }
+	else
+	{
+        $pws = $input_pws;
+    }
+    
+    //Validate confirm password
+    $input_repws = SanitizeData($_POST["re_pws"]);
+    if(empty($input_repws)){
+		echo "Error: Password not re-entered." . "</br>";
+		$hasError = true;
+    }
+	else if($pws !== $input_repws)
+	{
+        echo "Error: Entered passwords do not match." . "</br>";
+        $hasError = true;
+    }
+    else
+    {
+        $repws = $input_repws;
+    }
 
 	if(!($hasError))
 	{
@@ -108,14 +166,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$row = mysqli_fetch_array($results);
 
 		if(($row['staffID'] == $user) && ($row['staffEmail'] == $email))
-		{		
-            $new_pws = rand(100000, 999999);
-            
-            $sql = "UPDATE user SET userPass = '$new_pws' WHERE userID = $user";
+		{   
+            $sql = "UPDATE user SET userPass = '$pws' WHERE userID = $user";
 
-            if (mysqli_query($connect, $sql)) {
-                $message = "SSS Application: Your new password is " . $new_pws;
-                mail($email, "SSS Account Verification", $message);
+            if (mysqli_query($connect, $sql)) 
+            {
                 mysqli_free_result($results);
                 header("location: login.php");
                 exit();
