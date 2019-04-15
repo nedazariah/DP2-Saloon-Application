@@ -176,7 +176,6 @@ include "session_check.php";
                         </div>
 
                     </div>
-        
         <p><label for="cNotes">Notes:</label></p>
         <textarea id="cNotes" name="cNotes" cols="40" rows="5"><?php echo $row['appointmentNotes'];?></textarea>
         <p><span data-ng-show="nameVal == true && phoneVal==true "><input type="submit" name="cButton" value='<?php echo $button;?>' /></span></p>
@@ -220,7 +219,7 @@ include "session_check.php";
                         $scope.cID = $scope.customers[$scope.i].customerID;
                         $scope.cPhone = $scope.customers[$scope.i].customerPhone;
                         $scope.match = true;
-
+                        $scope.phoneVal = true;
                         break;  
                     }
                 }

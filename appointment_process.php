@@ -41,10 +41,10 @@
     $sql = "INSERT INTO appointment(customerID,customerName,customerPhone,appointmentService,appointmentDate,appointmentTime,appointmentNotes) VALUES('$cID','$cName','$cPhone','$cSv','$cDate','$cTime','$cNotes')";
     
     if (mysqli_query($conn,$sql)){
-        echo '<script type="text/javascript">alert("Successfully Submitting Enquiry");</script>';
+        echo '<script type="text/javascript">alert("Successfully Adding Appointment");</script>';
 	}
 	else{
-		echo '<script type="text/javascript">alert("Fail to Submit Enquiry");</script>';
+		echo '<script type="text/javascript">alert("Fail to Adding Appointment");</script>';
 	}
     }else if ($cButton == "Edit"){
         $update = 	"UPDATE appointment SET customerID='$cID' WHERE appointmentID='$appointmentID'";
@@ -55,17 +55,15 @@
         $update5 = 	"UPDATE appointment SET appointmentTime='$cTime' WHERE appointmentID='$appointmentID'";
         $update6 = 	"UPDATE appointment SET appointmentNotes='$cNotes' WHERE appointmentID='$appointmentID'";
         if (mysqli_query($conn,$update)&&mysqli_query($conn,$update2)&&mysqli_query($conn,$update1)&&mysqli_query($conn,$update3)&&mysqli_query($conn,$update4)&&mysqli_query($conn,$update5)&&mysqli_query($conn,$update6)){
-		  echo '<script type="text/javascript">alert("Successfully Updated");</script>';
+		  echo '<script type="text/javascript">alert("Successfully Updating Appointment");</script>';
 	   }
 	   else{
-		  echo '<script type="text/javascript">alert("Failed to edit");</script>';
+		  echo '<script type="text/javascript">alert("Failed to edit Appointment");</script>';
 	   }
     }
-    
-    echo $cPhone;
+    echo '<script>window.history.back();</script>'
 ?>
-  <p><?php echo $cID?></p>
-  <p><?php echo $cSv?></p>
+    
    <p><?php echo mysqli_error($conn)?></p>
     
 
