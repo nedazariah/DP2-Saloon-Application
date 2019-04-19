@@ -18,4 +18,5 @@ $row = mysqli_fetch_array($sql,MYSQLI_ASSOC);
 
 $loggedUser = $row['staffID'];
 $role = $row['staffRole'];
+mysqli_free_result($sql);
 ?>
