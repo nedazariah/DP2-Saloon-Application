@@ -179,6 +179,7 @@ include "session_check.php";
         
         <p><span data-ng-show="nameVal == true && phoneVal==true "><input type="submit" name="cButton" value='<?php echo $button;?>' data-ng-model="Button" data-ng-click="confirmation($event)" /></span></p>
        <div data-ng-init="Button='<?php echo $button;?>'"></div>
+        <p><span><input type="button" name="cButton" value='Cancel' onclick="window.location.replace('appointment.php')"/></span></p>
        
         </fieldset>
         </form>
