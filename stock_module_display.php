@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <?php
@@ -14,7 +13,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     
 	<!--Custom Style-->
-	<link href="css/stock_style.css" rel="stylesheet"/>
+	<link href="css/nstyle.css" rel="stylesheet"/>
 	<link href="css/nav_style.css" rel="stylesheet"/>
    
     <!--Internal CSS for PHP Generatred elements-->
@@ -28,10 +27,16 @@
         border: 1px solid black; 	
     }
     
-    #searchInput{
+    #itemSearch{
         padding: 0.4em;
         margin: 1em auto;
+    }
+        
+    #filter_options{
+        height: 2.5em; 
+        margin-top: 1em;
         margin-right: 0.5em;
+        margin-left: 0.5em;
     }
         
     #display_table{
@@ -58,7 +63,7 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div id="stock_page">   
+    <div id="npage">   
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
@@ -70,6 +75,7 @@
                     </div>
                     <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
+                    <a href="service_module_display.php">Services</a>
                     <a href="displaystaff.php">Staff</a>
                     
                     <div class="btm-menu">
@@ -115,39 +121,44 @@ if($result = mysqli_query($connect, $sql))
 	{
             echo "<div id='display_module_manager'>";
             
-            echo "<input type='text' id='searchInput' placeholder='Search table'/>";
+            echo "<input type='text' id='itemSearch' placeholder='Search by' onkeyup='Filter()'/>";
             
-            echo "<a href='stock_module_add.php' id='add_stock_link'>Record New Item</a>";
+            echo "<select id='filter_options'>
+                    <option value='0' selected='selected'>Name</option>
+                    <option value='1'>Description</option>
+                    <option value='2'>Type</option>
+                    <option value='3'>Buying Price</option>
+                    <option value='4'>Selling Price</option>
+                  </select>";
+            
+            echo "<a href='stock_module_add.php' id='add_link'>Record New Item</a>";
             
             echo "</div>";
         
             echo "<table id='display_table'>";
         
-                echo "<thead>"; 
-                    echo "<tr>";
-                        echo "<th>Item Name</th>";
-                        echo "<th>Description</th>";
-                        echo "<th>Type</th>";
-                        echo "<th>Buying Price (RM)</th>";
-                        echo "<th>Selling Price (RM)</th>";
-                        echo "<th>Quantity</th>";
-                        echo "<th>Action</th>";
-                    echo "</tr>";
-                echo "</thead>";
-        
+                echo "<tr>";
+                    echo "<th>Item Name</th>";
+                    echo "<th>Description</th>";
+                    echo "<th>Type</th>";
+                    echo "<th>Buying Price (RM)</th>";
+                    echo "<th>Selling Price (RM)</th>";
+                    echo "<th>Quantity</th>";
+                    echo "<th colspan='2'>Action</th>";
+                echo "</tr>";
+
             while($row = mysqli_fetch_array($result))
 			{
-                echo "<tbody id='filterTable'>";
-                    echo "<tr>";
-                        echo "<td>" . $row['itemName'] . "</td>";
-                        echo "<td>" . $row['itemDesc'] . "</td>";
-                        echo "<td>" . $row['itemType'] . "</td>"; 
-                        echo "<td>" . $row['itemBPrice'] . "</td>";
-                        echo "<td>" . $row['itemSPrice'] . "</td>";
-                        echo "<td>" . $row['itemQuantity'] . "</td>"; 
-                        echo "<td><a href='stock_module_edit.php?target=". $row['itemID'] ."'>Update</a></td>";
-                    echo "</tr>";
-                echo "</tbody>";
+                echo "<tr>";
+                    echo "<td>" . $row['itemName'] . "</td>";
+                    echo "<td>" . $row['itemDesc'] . "</td>";
+                    echo "<td>" . $row['itemType'] . "</td>"; 
+                    echo "<td>" . $row['itemBPrice'] . "</td>";
+                    echo "<td>" . $row['itemSPrice'] . "</td>";
+                    echo "<td>" . $row['itemQuantity'] . "</td>"; 
+                    echo "<td><a href='stock_module_edit.php?target=". $row['itemID'] ."'>Update</a></td>";
+                    echo "<td><input id='itemID' type='hidden' value='" . $row['itemID'] . "'/><button id='delete_link' onclick='confirmDelete()'>Delete</button></td>";                
+                echo "</tr>";
 			}                           
             
             echo "</table>";
@@ -156,6 +167,7 @@ if($result = mysqli_query($connect, $sql))
     } 
 	else
 	{
+        echo "</br> <a href='stock_module_add.php' id='add_link'>Record New Item</a> </br>";
 		echo "<br/><p><em>No records were found.</em></p>";
 	}
 } 
@@ -175,14 +187,42 @@ mysqli_close($connect);
 <!--Javascript for Navigation Menu-->
 <script src="js/nav.js"></script>
 <script>
-    $(document).ready(function() {
-        $("#searchInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#filterTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
+    function Filter()
+	{
+		var search, search_input, display_table, tr, td, i;
+		search = document.getElementById("itemSearch");
+		search_input = search.value.toUpperCase();
+		display_table = document.getElementById("display_table");
+		tr = display_table.getElementsByTagName("tr");
+ 
+		for (i = 0; i < tr.length; i++) 
+		{
+            var filter_option = document.getElementById('filter_options');
+            
+			td = tr[i].getElementsByTagName("td")[filter_option.value];
+			
+			if (td) {
+				if (td.innerHTML.toUpperCase().indexOf(search_input) > -1) 
+				{
+					tr[i].style.display = "";
+				} 
+				else 
+				{
+					tr[i].style.display = "none";
+				}
+			} 
+		}
+	}
+    
+    function confirmDelete()
+    {
+        var id = document.getElementById("itemID").value;
+        
+        if(confirm("Confirm deleting this item record?"))
+        {
+            location.href = "stock_module_delete.php?target=" + id;       
+        }
+    }    
 </script>
 </body>
 </html>
