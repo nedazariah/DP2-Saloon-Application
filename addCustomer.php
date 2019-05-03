@@ -23,7 +23,6 @@
                     </div>
                     <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
-		    <a href="service_module_display.php">Services</a>
                     <a href="displaystaff.php">Staff</a>
                     
                     <div class="btm-menu">
@@ -36,7 +35,7 @@
 						                            echo "<a href='#'>";
 						                            echo "Manage Users";
 						                            echo "</a>";
-						                            echo "<a href='#'>";
+						                            echo "<a href='service_module_display.php'>";
 						                            echo "Manage Services";
 						                            echo "</a>";
 						                            echo "</div>";
