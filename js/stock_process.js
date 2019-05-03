@@ -1,8 +1,8 @@
-document.getElementById("itemSubmit_back").onclick = function () {
+document.getElementById("formSubmit_back").onclick = function () {
     location.href = "stock_module_display.php";
 };
 
-document.getElementById("stock_form").onsubmit = function(){
+document.getElementById("nform").onsubmit = function(){
     
     var hasEmpty = false, message = "";
     var itemName = document.getElementById("itemName").value;
