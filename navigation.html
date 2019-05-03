@@ -11,23 +11,30 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
-                    <button class="dropdown-btn">Appointment</button>
-                    <div class="dropdown-container">
-                        <a href="appointmentform.html">Add Appointment</a>
-                        <a href="appointment.php">Pending Appointments</a>
-                        <a href="#">All Appointments</a>
-                    </div>
-                    <a href="displayCustomer.php">Customers</a>
-                    <a href="stock_module_display.php">Stock</a>
-                    <a href="displaystaff.php">Staff</a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="dropdown-btn"><a href="#">Appointment</a>
+                            <ul class="nav nav-pills nav-stacked dropdown-container">
+                                <li><a href="appointmentform.php">Add Appointment</a></li>
+                                <li><a href="pendingappointment.php">Pending Appointments</a></li>
+                                <li><a href="appointment.php">All Appointments</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="displayCustomer.php">Customers</a></li>
+                        <li><a href="stock_module_display.php">Stock</a></li>
+                        <li><a href="displaystaff.php">Staff</a></li>
+                    </ul>
                     
                     <div class="btm-menu">
-                        <button class="dropdown-btn">Settings</button>
-                        <div class="dropdown-container">
-                            <a href="#">Manage Users</a>
-                            <a href="#">Manage Services</a>
-                        </div>
-                        <a href="#">Logout</a>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="dropdown-btn"><a href="#">Settings</a>
+                                <ul class="nav nav-stacked nav-pills dropdown-container">
+                                    <li><a href="#">Manage Users</a></li>
+                                    <li><a href="#">Manage Services</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="logout.php">Logout</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -38,23 +45,7 @@
         </div>
     </div>
 
-    <!--Script that controls the dropdown menu-->
-    <script>
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-
-        for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
-                }
-            });
-        }
-    </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
 </body></html>
