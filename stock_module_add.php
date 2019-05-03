@@ -1,11 +1,9 @@
 <?php
     ob_start();
+    include "session_check.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php
-include "session_check.php";
-?>
 <head>
     <title>Add New Item</title>
     
@@ -16,7 +14,7 @@ include "session_check.php";
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     
 	<!--Custom Style-->
-	<link href="css/stock_style.css" rel="stylesheet"/>
+	<link href="css/nstyle.css" rel="stylesheet"/>
 	<link href="css/nav_style.css" rel="stylesheet"/> 
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
@@ -27,7 +25,7 @@ include "session_check.php";
 </head>
 <body> 
     
-    <div id="stock_page">
+    <div id="npage">
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
@@ -39,6 +37,7 @@ include "session_check.php";
                     </div>
                     <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
+					<a href="service_module_display.php">Services</a>
                     <a href="displaystaff.php">Staff</a>
                     
                     <div class="btm-menu">
@@ -65,7 +64,7 @@ include "session_check.php";
            
             <div class="col-md-10">
                
-                <form id="stock_form" name="stock_form" method="post" action="stock_module_add.php">
+                <form id="nform" name="nform" method="post" action="stock_module_add.php">
                    
                     <div class="row">
                         <div class="col-md-12">
@@ -106,8 +105,8 @@ include "session_check.php";
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" name="add" id="itemSubmit_change">Add</button> 
-                            <a href="stock_module_display.php" id="itemSubmit_back">Go Back</a>
+                            <button type="submit" name="add" id="formSubmit_change">Add</button> 
+                            <a href="stock_module_display.php" id="formSubmit_back">Go Back</a>
                         </div>
                     </div>
                 </form>                       
@@ -213,9 +212,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$sql = "INSERT INTO inventory (itemName, itemDesc, itemType, itemBPrice, itemSPrice, itemQuantity) VALUES ('$itemName', '$itemDesc', '$itemType', '$itemBPrice', '$itemSPrice', '$itemQuantity')";
 		
 		if (mysqli_query($connect, $sql)) {
+            $itemID = mysqli_insert_id($connect);
             $link_summary = "stock_module_summary.php?target=" . $itemID;
             header("location: $link_summary");
-			exit();
+            exit();
         }
 		else
 		{
