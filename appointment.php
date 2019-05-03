@@ -143,7 +143,7 @@
                     <td>{{appointment.appointmentService}}</td>
                     <td>{{appointment.appointmentNotes}}</td>
                     <td class="test"><button type="submit" name="editButton"  value="button{{$index}}">Edit</button></td>
-<!--                    <td class="test"><button type="submit" name="cancel"  value="cancel{{$index}}" formaction="appointmentcancel.php" data-ng-click="confirmCancel($event)">Cancel</button></td>-->
+                    <td class="test"><button type="submit" name="cancel"  value="cancel{{$index}}" formaction="appointmentcancel.php" data-ng-click="confirmCancel($event)">Cancel</button></td>
                 
                     
                 </tr>
