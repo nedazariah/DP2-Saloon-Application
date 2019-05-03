@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -14,7 +13,7 @@ include "session_check.php";
     <link href="css/bootstrap.min.css" rel="stylesheet" />
 	
 	<!--Custom Style-->
-	<link href="css/stock_style.css" rel="stylesheet"/>
+	<link href="css/nstyle.css" rel="stylesheet"/>
 	<link href="css/nav_style.css" rel="stylesheet"/>
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
@@ -25,7 +24,7 @@ include "session_check.php";
 </head>
 <body>
     
-    <div id="stock_page">
+    <div id="npage">
            
         <div class="row">
                
@@ -39,6 +38,7 @@ include "session_check.php";
                     </div>
                     <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
+                    <a href="service_module_display.php">Services</a>
                     <a href="displaystaff.php">Staff</a>
                     
                     <div class="btm-menu">
@@ -199,7 +199,7 @@ else
     }
 }
 ?>
-                <form id="stock_form" name="stock_form" method="post" action="stock_module_edit.php">
+                <form id="nform" name="nform" method="post" action="stock_module_edit.php">
                    
                     <div class="row">
                         <div class="col-md-12">
@@ -242,8 +242,8 @@ else
                         <div class="col-md-12">
                             <input type="hidden" name="target" id="target" value="<?php echo $target; ?>"/>
                                
-                            <button type="submit" name="update" id="itemSubmit_change">Update</button> 
-                            <a href="stock_module_display.php" id="itemSubmit_back">Go Back</a>
+                            <button type="submit" name="update" id="formSubmit_change">Update</button> 
+                            <a href="stock_module_display.php" id="formSubmit_back">Go Back</a>
                         </div>
                     </div>
                 </form>
