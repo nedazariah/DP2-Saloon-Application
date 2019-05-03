@@ -5,36 +5,41 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #D3D3D3;
     padding-top: 20px;
+    background: beige;
 }
 
 .sideNav a, .dropdown-btn {
-  padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
-  color: #111;
   display: block;
-  border: 1px solid black;
-  background: none;
   width:100%;
   text-align: left;
   cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+li.dropdown-btn:hover ul.dropdown-container{
+    display: block;
 }
 
 .sideNav a:hover, .dropdown-btn:hover {
-  color: #f1f1f1;
+  background-color: #EEEEEE;
+  color: black;
 }
 
 .active {
-  background-color: green;
+  background-color: #377BB5;
   color: white;
 }
 
 .dropdown-container {
   display: none;
-  background-color: #C0C0C0;
-  padding-left: 8px;
+  background-color: #377BB5;
+}
+
+.dropdown-container a{
+    color: white;
 }
 
 .btm-menu{
