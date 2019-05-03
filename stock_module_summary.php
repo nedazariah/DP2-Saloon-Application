@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -14,7 +13,7 @@ include "session_check.php";
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     
 	<!--Custom Style-->
-	<link href="css/stock_style.css" rel="stylesheet"/>
+	<link href="css/nstyle.css" rel="stylesheet"/>
 	<link href="css/nav_style.css" rel="stylesheet"/>
    
     <!--Internal CSS for PHP Generatred elements-->
@@ -47,7 +46,7 @@ include "session_check.php";
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div id="stock_page">   
+    <div id="npage">   
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
@@ -59,6 +58,7 @@ include "session_check.php";
                     </div>
                     <a href="displayCustomer.php">Customers</a>
                     <a href="stock_module_display.php">Stock</a>
+                    <a href="service_module_display.php">Services</a>
                     <a href="displaystaff.php">Staff</a>
                     
                     <div class="btm-menu">
@@ -145,9 +145,9 @@ else
 ?>  
                         <br/><br/><br/>
                         
-                        <a href='stock_module_display.php' id='display_stock_link'>View All Stock</a>
+                        <a href='stock_module_display.php' id='display_link'>View All Stock</a>
                                  
-                        <a href='stock_module_add.php' id='add_stock_link'>Record New Item</a>
+                        <a href='stock_module_add.php' id='add_link'>Record New Item</a>
                                   
                     </div>
                 </div> 
