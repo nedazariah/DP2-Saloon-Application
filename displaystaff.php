@@ -63,7 +63,17 @@
             <div class="col-md-10">
                 <h1>Staffs</h1>
                 <div>
-                    <input type="text" placeholder="Search..." class="fWidth" id="searchInput">
+                    <input type="text" placeholder="Search By" id="searchInput" onkeyup="filter()">
+                    <select name="filterCat" id="filterCat">
+                        <option value="0">ID</option>
+                        <option value="1" selected="selected">Name</option>
+                        <option value="2">D.O.B</option>
+                        <option value="3">Gender</option>
+                        <option value="4">Phone No.</option>
+                        <option value="5">Email</option>
+                        <option value="6">Role</option>
+                        <option value="7">Address</option>
+                    </select>
                 </div>
                 <br>
                 <?php
@@ -131,14 +141,15 @@
             window.location.href = "addstaff.php";
         }
 
-        $(document).ready(function() {
-            $("#searchInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#filterTable tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
+        function filter() {
+            var cat = $("#filterCat").val();
+            
+            var search = $("#searchInput").val().toLowerCase();
+            var cat = $("#filterCat").val();
+            $("#filterTable tr").filter(function() {
+                $(this).toggle($(this).find("td:eq(" + cat + ")").text().toLowerCase().indexOf(search) > -1);
             });
-        });
+        }
         
         function createAcc(staffID){
             if(confirm("Create account for this staff?"))
