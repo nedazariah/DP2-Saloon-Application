@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 04, 2019 at 05:42 AM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- Host: localhost
+-- Generation Time: May 04, 2019 at 06:39 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -59,7 +59,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customerID`, `customerType`, `customerName`, `customerDoB`, `customerGender`, `customerPhone`, `customerAddInfo`) VALUES
-(2001, 'Regular', 'Emma Lee', '1999-03-13', 'F', '111111111', NULL),
+(2001, 'Regular', 'Emma Lee', '1999-03-13', 'F', '111111111', ''),
 (2002, 'Guest', 'Jim Mee', '1988-02-14', 'M', '124578369', 'Prefers male hairdresser'),
 (2003, 'Guest', 'Almira Putri Sandy', '2000-01-01', 'F', '12345678', '');
 
@@ -95,7 +95,9 @@ INSERT INTO `inventory` (`itemID`, `itemName`, `itemDesc`, `itemType`, `itemBPri
 
 CREATE TABLE `item_sales` (
   `salesID` int(11) NOT NULL,
-  `itemID` int(11) NOT NULL
+  `itemID` int(11) NOT NULL,
+  `qtyPurchased` int(11) NOT NULL,
+  `datePurchased` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
