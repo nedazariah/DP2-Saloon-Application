@@ -42,22 +42,23 @@
                         
                         <li><a href="displayCustomer.php">Customers</a></li>
                         <li><a href="stock_module_display.php">Stock</a></li> 
-                        <li><a href="displaystaff.php">Staff</a></li>
+                        <?php
+				            if($role == "Manager"){ 
+                                echo "<li><a href='service_module_display.php'>Services</a></li>";
+                                echo "<li><a href='displaystaff.php'>Staff</a></li>";
+				            }
+						    echo ("<script>console.log('Role: ".$role."')</script>");
+				        ?>
                     </ul>
                     
                     <div class="btm-menu">
                         <ul class="nav nav-pills nav-stacked">
-                            <li class="dropdown-btn"><a href="#">Settings</a>
-                                <ul class="nav nav-stacked nav-pills dropdown-container">
-                                    <li><a href="#">Manage Users</a></li>
-                                    <li><a href="service_module_display.php">Manage Services</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="user_module_account_setting.php">Account</a></li>
                             <li><a href="logout.php">Logout</a></li>
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> 
 
             <div class="col-md-10">
                 <h1>Staffs</h1>
@@ -80,8 +81,8 @@
                             <th>Staff Email</th>
                             <th>Staff Role</th>
                             <th>Staff Address</th>
-                            <th colspan="2">Action</th>
-                            <th>Create Account</th>
+                            <th>Action</th>
+                            <th>Account</th>
                         </tr>
                     </thead>
                     <?php
@@ -98,12 +99,11 @@
                             <td> <?php echo $row['staffRole'] ?> </td>
                             <td> <?php echo $row['staffAddress'] ?> </td>
                             <td> <button type="button" onclick="updateStaff(<?php echo $row['staffID'] ?>)">Update</button> </td>
-                            <td> <button type="button" onclick="deleteStaff(<?php echo $row['staffID'] ?>)">Delete</button></td>
                             <?php
                                 if(in_array($row['staffID'], $uIDs)) {
-                                    echo "<td>Created</td>";
+                                    echo "<td><button type='button' onclick='removeAcc(" . $row['staffID'] . ")'>Remove</button></td>";
                                 } else {
-                                    echo "<td><button type='button' onclick='')>Create</button></td>";
+                                    echo "<td><button type='button' onclick='createAcc(" . $row['staffID'] . ")')>Create</button></td>";
                                 }
                             ?>
                         </tr>
@@ -126,12 +126,6 @@
         function updateStaff(staffID) {
             window.location.href = "editstaff.php?staffID=" + staffID;
         }
-        
-        function deleteStaff(staffID) {
-            if(confirm("Are you sure you want to delete this record?")) {
-                window.location.href = "deletestaff.php?staffID=" + staffID;
-            }
-        }
 
         function addStaff() {
             window.location.href = "addstaff.php";
@@ -145,6 +139,32 @@
                 });
             });
         });
+        
+        function createAcc(staffID){
+            if(confirm("Create account for this staff?"))
+            {
+                var hasPws = 0;
+        
+                while(hasPws == 0)
+                {
+                    var password = prompt("Please enter a password.");
+                    
+                    if(password.length > 0)
+                    {
+                        hasPws = 1;
+                    }
+                }    
+
+                location.href = "user_module_password_set.php?target=" + staffID + "&pws=" + password; 
+            }
+        }
+        
+        function removeAcc(staffID){
+            if(confirm("Remove this user from the user?"))
+            {
+                location.href = "user_module_delete.php?target=" + staffID;       
+            }
+        }
     </script>
 </body>
 
