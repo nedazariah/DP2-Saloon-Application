@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2019 at 05:38 AM
+-- Generation Time: May 04, 2019 at 05:42 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -165,8 +165,8 @@ CREATE TABLE `staff_performance` (
 CREATE TABLE `user` (
   `userID` int(11) NOT NULL,
   `userPass` varchar(20) NOT NULL,
-  `secQuestion` varchar(250) NOT NULL,
-  `secAnswer` varchar(250) NOT NULL
+  `secQuestion` varchar(250) DEFAULT NULL,
+  `secAnswer` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
