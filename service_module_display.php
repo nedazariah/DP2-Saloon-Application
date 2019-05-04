@@ -65,36 +65,33 @@
 <body>
     <div id="npage">   
         <div class="row">
-            <div class="col-md-2">
+                        <div class="col-md-2">
                 <div class="sideNav">
-                    <button class="dropdown-btn">Appointment</button>
-                    <div class="dropdown-container">
-                        <a href="appointmentform.php">Add Appointment</a>
-                        <a href="pendingappointment.php">Pending Appointments</a>
-                        <a href="appointment.php">All Appointments</a>
-                    </div>
-                    <a href="displayCustomer.php">Customers</a>
-                    <a href="stock_module_display.php">Stock</a> 
-                    <a href="displaystaff.php">Staff</a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="dropdown-btn"><a href="#">Appointment</a>
+                            <ul class="nav nav-pills nav-stacked dropdown-container">
+                                <li><a href="appointmentform.php">Add Appointment</a></li>
+                                <li><a href="pendingappointment.php">Pending Appointments</a></li>
+                                <li><a href="appointment.php">All Appointments</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="displayCustomer.php">Customers</a></li>
+                        <li><a href="stock_module_display.php">Stock</a></li> 
+                        <?php
+				            if($role == "Manager"){ 
+                                echo "<li><a href='service_module_display.php'>Services</a></li>";
+                                echo "<li><a href='displaystaff.php'>Staff</a></li>";
+				            }
+						    echo ("<script>console.log('Role: ".$role."')</script>");
+				        ?>
+                    </ul>
                     
                     <div class="btm-menu">
-                        <?php
-                        if($role == "Manager"){
-                            echo "<button class='dropdown-btn'>";
-                            echo "Settings";
-                            echo "</button>";
-                            echo "<div class='dropdown-container'>";
-                            echo "<a href='#'>";
-                            echo "Manage Users";
-                            echo "</a>";
-                            echo "<a href='service_module_display.php'>";
-                            echo "Manage Services";
-                            echo "</a>";
-                            echo "</div>";
-                        }
-                        echo ("<script>console.log('Role: ".$role."')</script>");
-                        ?>
-                        <a href="logout.php">Logout</a>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="user_module_account_setting.php">Account</a></li>
+                            <li><a href="logout.php">Logout</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
