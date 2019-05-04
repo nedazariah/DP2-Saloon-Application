@@ -21,6 +21,7 @@
                $sql = "INSERT INTO customer(customerType,customerName,customerDoB,customerGender,customerPhone,customerAddInfo) VALUES('$custType','$custFullname','$custDob','$custGender','$custPhoneNum','$custInfo')";
             
                $updateSql = "UPDATE customer SET customerType = '$custType', customerName = '$custFullname', customerDoB = '$custDob', customerGender = '$custGender', customerPhone = '$custPhoneNum', customerAddInfo = '$custInfo' WHERE customerID = '$custID'";
+            
         
                if($action == "add"){
                    $insert_cust = mysqli_query($connect,$sql);
@@ -39,13 +40,28 @@
 				   $update_cust = mysqli_query($connect,$updateSql);
 				   
 				   if($update_cust){
-					   header("location: displayCustomer.php");
+                       echo ("<script language='javascript'>alert('Update Successful!')</script>");
+					   header("Refresh:1; URL=displayCustomer.php");
 				   }
 				   
 			   }
         
 	           
 	       }
+    
+           $removeSql = "DELETE FROM customer WHERE customerID = '$custID'";
+
+           if($action == "remove"){
+                   echo ("<script>console.log('ID: ". $custID. "')</script>");
+                   echo ("<script>console.log('Action: ". $action. "')</script>");
+                   
+                   $remove_cust = mysqli_query($connect,$removeSql);
+                   
+                   if($remove_cust){
+                       echo ("<script language='javascript'>alert('Customer Removed!')</script>");
+					   header("Refresh:1; URL=displayCustomer.php");
+                   }
+               }
 
 //           if($action == "update"){
 //               

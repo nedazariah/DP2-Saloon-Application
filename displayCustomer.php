@@ -14,7 +14,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     
 	<!--Custom Style-->
-	<link href="css/stock_style.css" rel="stylesheet"/>
+	<link href="css/nstyle.css" rel="stylesheet"/>
 	<link href="css/nav_style.css" rel="stylesheet"/>
    
     <!--Internal CSS for PHP Generatred elements-->
@@ -27,11 +27,17 @@
         padding: .5em;
         border: 1px solid black; 	
     }
-        
+    
     #searchInput{
         padding: 0.4em;
         margin: 1em auto;
+    }
+        
+    #filter_options{
+        height: 2.5em; 
+        margin-top: 1em;
         margin-right: 0.5em;
+        margin-left: 0.5em;
     }
         
     #display_table{
@@ -62,34 +68,35 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
-                    <button class="dropdown-btn">Appointment</button>
-                    <div class="dropdown-container">
-                        <a href="appointmentform.php">Add Appointment</a>
-                        <a href="pendingappointment.php">Pending Appointments</a>
-                        <a href="appointment.php">All Appointments</a>
-                    </div>
-                    <a href="displayCustomer.php">Customers</a>
-                    <a href="stock_module_display.php">Stock</a> 
-                    <a href="displaystaff.php">Staff</a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="dropdown-btn"><a href="#">Appointment</a>
+                            <ul class="nav nav-pills nav-stacked dropdown-container">
+                                <li><a href="appointmentform.php">Add Appointment</a></li>
+                                <li><a href="pendingappointment.php">Pending Appointments</a></li>
+                                <li><a href="appointment.php">All Appointments</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="displayCustomer.php">Customers</a></li>
+                        <li><a href="stock_module_display.php">Stock</a></li>
+                        <li><a href="displaystaff.php">Staff</a></li>
+                    </ul>
                     
                     <div class="btm-menu">
+                        <ul class="nav nav-pills nav-stacked">
 						<?php
-						                        if($role == "Manager"){
-						                            echo "<button class='dropdown-btn'>";
-						                            echo "Settings";
-						                            echo "</button>";
-						                            echo "<div class='dropdown-container'>";
-						                            echo "<a href='#'>";
-						                            echo "Manage Users";
-						                            echo "</a>";
-						                            echo "<a href='service_module_display.php'>";
-						                            echo "Manage Services";
-						                            echo "</a>";
-						                            echo "</div>";
-						                        }
-						                        echo ("<script>console.log('Role: ".$role."')</script>");
-						                        ?>
-                        <a href="logout.php">Logout</a>
+						  if($role == "Manager"){
+						      echo "<li class='dropdown-btn'><a href='#'>Settings</a>";
+						      echo "<ul class='nav nav-stacked nav-pills dropdown-container'>";
+						      echo "<li><a href='#'>Manage Users</a></li>";
+						      echo "<li><a href='#'>Manage Services</a></li>";
+						      echo "</ul>";
+						      echo "</li>";
+						  }
+						  echo ("<script>console.log('Role: ".$role."')</script>");
+				        ?>
+                            <li><a href="logout.php">Logout</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -113,9 +120,19 @@ if($result = mysqli_query($connect, $sql))
 	{
         echo "<div id='display_module_manager'>";
             
-        echo "<input type='text' id='searchInput' placeholder='Search table'/>";
+        echo "<input type='text' id='searchInput' placeholder='Search table' onkeyup='Filter()'/>";
+        
+        echo "<select id='filter_options'>
+                    <option value='0' selected='selected'>Customer ID</option>
+                    <option value='1'>Customer Type</option>
+                    <option value='2'>Name</option>
+                    <option value='3'>Date of Birth</option>
+                    <option value='4'>Gender</option>
+                    <option value='5'>Phone Number</option>
+                    <option value='6'>Additional Info</option>
+                  </select>";
             
-        echo "<a href='addCustomer.php' id='add_stock_link'>Add new customer</a>";
+        echo "<a href='addCustomer.php' id='add_link'>Add new customer</a>";
             
         echo "</div>";
         
@@ -130,7 +147,7 @@ if($result = mysqli_query($connect, $sql))
                 echo "<th>Gender</th>";
                 echo "<th>Phone Number</th>";
                 echo "<th>Additional Information</th>";
-				echo "<th>Action</th>";
+				echo "<th colspan='2'>Action</th>";
             echo "</tr>";
         echo "</thead>";
         
@@ -146,6 +163,7 @@ if($result = mysqli_query($connect, $sql))
 					echo "<td>" . $row['customerPhone'] . "</td>";
                     echo "<td>" . $row['customerAddInfo'] . "</td>";
 					echo "<td><a href='editCustomer.php?target=". $row['customerID'] ."'>Update</a></td>";
+                    echo "<td><a href='addCustProcess.php?action=remove&custID=". $row['customerID'] ."' onclick=\"javascript: return confirm('Are you sure you want to remove this customer?');\">Remove</a></td>";
 				echo "</tr>";
                 echo "</tbody>";
 			}                           
@@ -171,18 +189,35 @@ mysqli_close($connect);
         </div>
     </div>
     
-<!--Javascript for Navigation Menu-->
-<script src="js/nav.js"></script>
+    
 <!--Script to control search function-->
 <script>
-    $(document).ready(function() {
-        $("#searchInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#filterTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
+    function Filter()
+	{
+		var search, search_input, display_table, tr, td, i;
+		search = document.getElementById("searchInput");
+		search_input = search.value.toUpperCase();
+		display_table = document.getElementById("display_table");
+		tr = display_table.getElementsByTagName("tr");
+ 
+		for (i = 0; i < tr.length; i++) 
+		{
+            var filter_option = document.getElementById('filter_options');
+            
+			td = tr[i].getElementsByTagName("td")[filter_option.value];
+			
+			if (td) {
+				if (td.innerHTML.toUpperCase().indexOf(search_input) > -1) 
+				{
+					tr[i].style.display = "";
+				} 
+				else 
+				{
+					tr[i].style.display = "none";
+				}
+			} 
+		}
+	}
 </script>
 </body>
 </html>
