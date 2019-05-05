@@ -64,7 +64,7 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div id="stock_page">   
+    <div id="npage">   
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
@@ -78,23 +78,25 @@
                         </li>
                         
                         <li><a href="displayCustomer.php">Customers</a></li>
-                        <li><a href="stock_module_display.php">Stock</a></li>
-                        <li><a href="displaystaff.php">Staff</a></li>
+                        <li><a href="stock_module_display.php">Stock</a></li> 
+                        <?php
+				            if($role == "Manager"){ 
+                                echo "<li><a href='service_module_display.php'>Services</a></li>";
+                                echo "<li><a href='displaystaff.php'>Staff</a></li>";
+                                echo "<li class='dropdown-btn'><a href='#'>Reports</a>";
+                                echo   "<ul class='nav nav-pills nav-stacked dropdown-container'>";
+                                echo       "<li><a href='item_sales_report.php'>Items Sales</a></li>";
+                                echo       "<li><a href='#'>Staff Performance</a></li>";
+                                echo   "</ul>";
+                                echo "</li>";
+				            }
+						    echo ("<script>console.log('Role: ".$role."')</script>");
+				        ?>
                     </ul>
                     
                     <div class="btm-menu">
                         <ul class="nav nav-pills nav-stacked">
-						<?php
-						  if($role == "Manager"){
-						      echo "<li class='dropdown-btn'><a href='#'>Settings</a>";
-						      echo "<ul class='nav nav-stacked nav-pills dropdown-container'>";
-						      echo "<li><a href='#'>Manage Users</a></li>";
-						      echo "<li><a href='#'>Manage Services</a></li>";
-						      echo "</ul>";
-						      echo "</li>";
-						  }
-						  echo ("<script>console.log('Role: ".$role."')</script>");
-				        ?>
+                            <li><a href="user_module_account_setting.php">Account</a></li>
                             <li><a href="logout.php">Logout</a></li>
                         </ul>
                     </div>

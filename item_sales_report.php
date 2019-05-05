@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+    include "session_check.php";
+?>
 <head>
-    <title>Title</title>
+    <title>Item Sales Report</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/nav_style.css">
+    <link rel="stylesheet" type="text/css" href="css/nstyle.css">
+    
+    <style>
+        h1{
+            padding-right: 15%;
+        }
+
+        th, td{  
+            padding: .5em;	
+            text-align: center;
+        }
+        
+        #header{
+            background-color: beige;
+            
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="npage">
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
@@ -47,7 +67,46 @@
             </div> 
 
             <div class="col-md-10">
-                <!--Your code here-->
+                <h1>Item Sales Report</h1><br/>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>Sales History</h2><br/>
+                        <?php
+                            $sql = "SELECT itemName, qtyPurchased, datePurchased FROM item_sales JOIN inventory WHERE item_sales.itemID = inventory.itemID";
+                        
+                            if($result = mysqli_query($connect, $sql)){
+                                echo "<div class='table-responsive'>";
+                                echo "<table class='table table-striped table-hover'>";
+                                echo "<thead id='header'>";
+                                    echo "<tr>";
+                                    echo "<th>Item Name</th>";
+                                    echo "<th>Quantity Purchased</th>";
+                                    echo "<th>Date Purchased</th>";
+                                    echo "</tr>";
+                                echo "</thead>";
+        
+                            while($row = mysqli_fetch_array($result))
+			             {
+                                echo "<tbody>";
+				                echo "<tr>";
+					               echo "<td>" . $row['itemName'] . "</td>";
+					               echo "<td>" . $row['qtyPurchased'] . "</td>";
+					               echo "<td>" . $row['datePurchased'] . "</td>";
+				                echo "</tr>";
+                                echo "</tbody>";
+			             }                           
+                        echo "</table>"; 
+
+		                        mysqli_free_result($result);
+                                echo "</div>";
+                            }
+                        ?>
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <h2>Monthly Sales</h2><br/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

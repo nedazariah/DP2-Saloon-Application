@@ -46,6 +46,12 @@
 				            if($role == "Manager"){ 
                                 echo "<li><a href='service_module_display.php'>Services</a></li>";
                                 echo "<li><a href='displaystaff.php'>Staff</a></li>";
+                                echo "<li class='dropdown-btn'><a href='#'>Reports</a>";
+                                echo   "<ul class='nav nav-pills nav-stacked dropdown-container'>";
+                                echo       "<li><a href='item_sales_report.php'>Items Sales</a></li>";
+                                echo       "<li><a href='#'>Staff Performance</a></li>";
+                                echo   "</ul>";
+                                echo "</li>";
 				            }
 						    echo ("<script>console.log('Role: ".$role."')</script>");
 				        ?>
@@ -131,7 +137,7 @@
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/nav.js"></script>
+    
     <script>
         function updateStaff(staffID) {
             window.location.href = "editstaff.php?staffID=" + staffID;
