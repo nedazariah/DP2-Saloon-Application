@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 04, 2019 at 06:39 AM
+-- Generation Time: May 05, 2019 at 05:34 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -31,12 +31,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `appointment` (
   `appointmentID` int(11) NOT NULL,
   `customerID` int(11) NOT NULL,
+  `customerName` varchar(50) NOT NULL,
+  `customerPhone` varchar(11) NOT NULL,
   `appointmentService` int(11) NOT NULL,
   `appointmentDate` date NOT NULL,
   `appointmentTime` varchar(10) NOT NULL,
   `appointmentNotes` varchar(50) DEFAULT NULL,
   `appointmentStatus` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`appointmentID`, `customerID`, `customerName`, `customerPhone`, `appointmentService`, `appointmentDate`, `appointmentTime`, `appointmentNotes`, `appointmentStatus`) VALUES
+(1, 2001, 'Emma Lee', '111111111', 2, '2019-05-07', '10:30', '', '');
 
 -- --------------------------------------------------------
 
@@ -99,6 +108,15 @@ CREATE TABLE `item_sales` (
   `qtyPurchased` int(11) NOT NULL,
   `datePurchased` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `item_sales`
+--
+
+INSERT INTO `item_sales` (`salesID`, `itemID`, `qtyPurchased`, `datePurchased`) VALUES
+(1, 1, 2, '2019-05-01'),
+(2, 1, 1, '2019-05-02'),
+(3, 2, 1, '2019-05-01');
 
 -- --------------------------------------------------------
 
@@ -243,7 +261,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -256,6 +274,12 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `inventory`
   MODIFY `itemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `item_sales`
+--
+ALTER TABLE `item_sales`
+  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `service`
