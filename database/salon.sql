@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 05, 2019 at 05:34 AM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Host: 127.0.0.1
+-- Generation Time: May 05, 2019 at 01:21 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -173,7 +173,10 @@ INSERT INTO `staff` (`staffID`, `staffName`, `staffDoB`, `staffGender`, `staffPh
 
 CREATE TABLE `staff_performance` (
   `performanceID` int(11) NOT NULL,
-  `staffID` int(11) NOT NULL
+  `staffID` int(11) NOT NULL,
+  `MonthYear` date NOT NULL,
+  `DaysWorked` int(11) NOT NULL,
+  `CustServed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -292,6 +295,12 @@ ALTER TABLE `service`
 --
 ALTER TABLE `staff`
   MODIFY `staffID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
+
+--
+-- AUTO_INCREMENT for table `staff_performance`
+--
+ALTER TABLE `staff_performance`
+  MODIFY `performanceID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
