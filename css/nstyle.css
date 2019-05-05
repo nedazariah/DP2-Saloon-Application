@@ -63,7 +63,7 @@ h1, h2{
     margin: 5px auto;
 }
 
-#formSubmit_change, #formSubmit_back{
+#setting_change, #formSubmit_change, #formSubmit_back{
     height: 3em;
     width: 10em;
     margin-top: 1.5em;
@@ -81,7 +81,7 @@ h1, h2{
     margin-left: 2em;  
 }
 
-#formSubmit_change:hover, #formSubmit_back:hover{
+#setting_change:hover, #formSubmit_change:hover, #formSubmit_back:hover{
     border: 2px solid grey;
     color: grey;
     text-decoration: underline;    
