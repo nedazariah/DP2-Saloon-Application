@@ -55,23 +55,18 @@ include "session_check.php";
             <div class="col-md-10">
               
 <?php
-function alertUser($str)
-{
-    echo "<script>alert('$str');</script>";
-}
 
 function runQuery($connect, $sql)
 {	
 	if (mysqli_query($connect, $sql)) {
+        mysqli_close($connect);	
 		header("location: user_module_account_setting.php");
 		exit();
 	}
 	else 
 	{
 		alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
-    } 
-    
-    mysqli_close($connect);	     
+    }
 }
                 
 //Form data processing block
@@ -134,7 +129,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         else
         {
             $hasNewSQ = true;
-            $userSQ = htmlspecialchars($input_SQ);
+            $userSQ = MysqliEscape($connect, $input_SQ);
         }	
         //Processing Securty Question <End>
 
@@ -147,7 +142,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         else
         {
             $hasNewSA = true;
-            $userSA = htmlspecialchars($input_SA);
+            $userSA = MysqliEscape($connect, $input_SA);
         }	
         //Processing Securty Answer <End>
 
@@ -257,6 +252,13 @@ else
                     </div>  
                                   
                 </form>
+                
+<?php
+function alertUser($str)
+{
+    echo $str;
+}   
+?>
                 
             </div>
         </div>
