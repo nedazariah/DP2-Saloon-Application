@@ -1,3 +1,6 @@
+<?php
+    ob_start();
+?>
 <!DOCTYPE html>
 <html lang="en" data-ng-app="">
 
@@ -19,6 +22,7 @@
     <div class="container">
         <div class="row">
 
+<!--
             <div class="col-md-2">
                 <div class="sideNav">
                     <ul class="nav nav-pills nav-stacked">
@@ -55,10 +59,11 @@
                     </div>
                 </div>
             </div>
+-->
 
             <div class="col-md-10">
                 <h1>Staff Performance</h1>
-                <form name="spForm" novalidate="novalidate">
+                <form method="post" action="staffPerformanceEntry.php" name="spForm" novalidate="novalidate">
                     <fieldset>
                         <legend>Staff Detail</legend>
                         <div class="form-group">
@@ -79,7 +84,7 @@
 
                         <div class="form-group">
                             <label for="staffName">Staff Name: </label>
-                            <input type="text" id="staffName" class="form-control" disabled>
+                            <input type="text" id="staffName" name="staffName" class="form-control" disabled>
                         </div>
                     </fieldset>
 
@@ -87,23 +92,32 @@
                         <legend>Performance</legend>
                         <div class="form-group">
                             <label for="duration">Duration: </label>
-                            <input type="month" id="duration" class="form-control" data-ng-model="duration" required>
+                            <input type="month" id="duration" name="duration" class="form-control" data-ng-model="duration" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="daysWorked">Day(s) Worked: </label>
-                            <input type="number" id="daysWorked" class="form-control" data-ng-model="daysW" placeholder="Number of Day(s)" required>
+                            <input type="number" id="daysWorked" name="daysWorked" class="form-control" data-ng-model="daysW" placeholder="Number of Day(s)" required>
                         </div>
 
                         <div class="form-group">
                             <label for="custServed">Cutomer(s) Served: </label>
-                            <input type="number" id="custServed" class="form-control" data-ng-model="custS" placeholder="Number of Customer(s)" required>
+                            <input type="number" id="custServed" name="custServed" class="form-control" data-ng-model="custS" placeholder="Number of Customer(s)" required>
                         </div>
                     </fieldset>
 
                     <div class="form-group text-center">
-                        <button type="submit" data-ng-disabled="spForm.$invalid" class="btn btn-primary">Submit</button>
-                        <button type="button" class="btn btn-default" onclick="window.location.replace('displaystaff.php')">Cancel</button>
+
+                        <div data-ng-if="spForm.$invalid">
+                            <button type="submit" disabled class="btn btn-primary" data-ng-toggle="tooltip" title="Cannot Have Empty Field(s)">Submit</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.replace('displaystaff.php')">Cancel</button>
+                        </div>
+
+                        <div data-ng-if="spForm.$valid">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.replace('displaystaff.php')">Cancel</button>
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -123,5 +137,30 @@
 
     </script>
 </body>
+
+<?php
+    if(isset($_POST['submit'])) {
+        $staffID = $_POST['staffID'];
+        $duration = $_POST['duration'];
+        $dWorked = $_POST['daysWorked'];
+        $cServed = $_POST['custServed'];        
+        
+        if (!$connect) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        $sql = "INSERT INTO staff_performance(staffID, MonthYear, DaysWorked, CustServed) VALUES('$staffID','$duration','$dWorked','$cServed')";
+
+        if (mysqli_query($connect,$sql)){
+            echo "Success";
+            header("location: displaystaff.php");
+            ob_enf_fluch();
+        }
+        else{
+            echo "Failed to insert into database";
+        }
+        
+    }
+?>
 
 </html>
