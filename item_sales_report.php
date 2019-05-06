@@ -5,9 +5,13 @@
 ?>
 <head>
     <title>Item Sales Report</title>
+<!--    <script src="xhr.js"></script>-->
+    <script src="getData.js"></script>
+    
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/nav_style.css">
     <link rel="stylesheet" type="text/css" href="css/nstyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     
     <style>
         h1{
@@ -105,6 +109,11 @@
                     
                     <div class="col-md-8">
                         <h2>Monthly Sales</h2><br/>
+                        <canvas id="myChart"></canvas>
+                        <script>
+                            getData();
+                            
+                        </script>
                     </div>
                 </div>
             </div>
