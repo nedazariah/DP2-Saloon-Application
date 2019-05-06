@@ -61,7 +61,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label id="label_password" for="pws">Password: </label>
+                            <label id="label_password_inlogin" for="pws">Password: </label>
                         </div>
                     </div>
 
