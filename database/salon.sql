@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2019 at 01:21 PM
+-- Generation Time: May 06, 2019 at 02:15 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -174,7 +174,7 @@ INSERT INTO `staff` (`staffID`, `staffName`, `staffDoB`, `staffGender`, `staffPh
 CREATE TABLE `staff_performance` (
   `performanceID` int(11) NOT NULL,
   `staffID` int(11) NOT NULL,
-  `MonthYear` date NOT NULL,
+  `MonthYear` varchar(8) NOT NULL,
   `DaysWorked` int(11) NOT NULL,
   `CustServed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
