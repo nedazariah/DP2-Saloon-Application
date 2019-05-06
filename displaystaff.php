@@ -118,9 +118,9 @@
                             <td> <button type="button" onclick="deleteStaff(<?php echo $row['staffID'] ?>)">Delete</button></td>
                             <?php
                                 if(in_array($row['staffID'], $uIDs)) {
-                                    echo "<td>Created</td>";
+                                    echo "<td><button type='button' onclick='removeAcc(" . $row['staffID'] . ")'>Remove</button></td>";
                                 } else {
-                                    echo "<td><button type='button' onclick='')>Create</button></td>";
+                                    echo "<td><button type='button' onclick='createAcc(" . $row['staffID'] . ")')>Create</button></td>";
                                 }
                             ?>
                         </tr>
