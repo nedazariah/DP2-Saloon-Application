@@ -22,7 +22,6 @@
     <div class="container">
         <div class="row">
 
-<!--
             <div class="col-md-2">
                 <div class="sideNav">
                     <ul class="nav nav-pills nav-stacked">
@@ -59,7 +58,6 @@
                     </div>
                 </div>
             </div>
--->
 
             <div class="col-md-10">
                 <h1>Staff Performance</h1>
@@ -69,16 +67,16 @@
                         <div class="form-group">
                             <label for="staffID">Staff ID: </label>
                             <select name="staffID" id="staffID" class="form-control" data-ng-model="staffID" onchange="setName(this)" required>
-                                <option value="">Select An ID</option>
+                                <option value="">Select Staff ID</option>
                                 <?php
-                            if($result = mysqli_query($connect, $sql)) {
-                                if(mysqli_num_rows($result) > 0) {
-                                    while($row = mysqli_fetch_array($result)) {
-                                        echo "<option value='".$row['staffID']."' id='".$row['staffName']."'>".$row['staffID']."</option>";
+                                    if($result = mysqli_query($connect, $sql)) {
+                                        if(mysqli_num_rows($result) > 0) {
+                                            while($row = mysqli_fetch_array($result)) {
+                                                echo "<option value='".$row['staffID']."' id='".$row['staffName']."'>".$row['staffID']."</option>";
+                                            }
+                                        }
                                     }
-                                }
-                            }
-                        ?>
+                                ?>
                             </select>
                         </div>
 
@@ -134,7 +132,6 @@
         function setName(id) {
             document.getElementById("staffName").value = id[id.selectedIndex].id;
         }
-
     </script>
 </body>
 
