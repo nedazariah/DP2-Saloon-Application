@@ -176,7 +176,7 @@
                     }
                 }
 
-                location.href = "user_module_password_set.php?target=" + staffID + "&pws=" + password;
+                location.href = "user_module_add.php?target=" + staffID + "&pws=" + password; 
             }
         }
 
