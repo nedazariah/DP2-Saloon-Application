@@ -11,7 +11,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/nav_style.css">
     <link rel="stylesheet" type="text/css" href="css/nstyle.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     
     <style>
         h1{
@@ -76,7 +76,7 @@
                     <div class="col-md-4">
                         <h2>Sales History</h2><br/>
                         <?php
-                            $sql = "SELECT itemName, qtyPurchased, datePurchased FROM item_sales JOIN inventory WHERE item_sales.itemID = inventory.itemID";
+                            $sql = "SELECT itemName, qtyPurchased, datePurchased FROM item_sales JOIN inventory WHERE item_sales.itemID = inventory.itemID ORDER BY datePurchased DESC";
                         
                             if($result = mysqli_query($connect, $sql)){
                                 echo "<div class='table-responsive'>";
@@ -112,7 +112,6 @@
                         <canvas id="myChart"></canvas>
                         <script>
                             getData();
-                            
                         </script>
                     </div>
                 </div>
