@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 06, 2019 at 03:51 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- Host: localhost
+-- Generation Time: May 07, 2019 at 09:26 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -116,7 +116,10 @@ CREATE TABLE `item_sales` (
 INSERT INTO `item_sales` (`salesID`, `itemID`, `qtyPurchased`, `datePurchased`) VALUES
 (1, 1, 2, '2019-05-01'),
 (2, 1, 1, '2019-05-02'),
-(3, 2, 1, '2019-05-01');
+(3, 2, 1, '2019-05-01'),
+(4, 2, 2, '2019-04-30'),
+(5, 1, 1, '2019-06-01'),
+(6, 2, 1, '2019-03-28');
 
 -- --------------------------------------------------------
 
@@ -282,7 +285,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `item_sales`
 --
 ALTER TABLE `item_sales`
-  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `service`
