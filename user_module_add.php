@@ -32,7 +32,9 @@ if(isset($_GET['target']) && !empty(trim($_GET['target'])) && isset($_GET['pws']
         {
             mysqli_free_result($result);
             
-            $sql = "INSERT INTO user (userID, userPass) VALUES ($target, '$pws')";
+            $pws_hash = password_hash($pws, PASSWORD_DEFAULT);
+        
+            $sql = "INSERT INTO user (userID, userPass) VALUES ($target, '$pws_hash')";
             
             if(mysqli_query($connect, $sql))
             {
