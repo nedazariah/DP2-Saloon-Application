@@ -19,7 +19,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-       <link rel="stylesheet" href="css/login_style.css?v=<?php echo time(); ?>"/>
+    <link rel="stylesheet" href="css/login_style.css?v=<?php echo time(); ?>"/>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -42,45 +42,23 @@
         </div>
         
         <div class="row">
-           
+
             <div class="col-md-12">
                
-                <form name="login" id="login" method="post" action="login.php">
+                <form name="login" id="login" class="form-horizontal" method="post" action="login.php">
                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label id="label_user" for="user">User ID: </label>
-                        </div>
+                    <div class="form-group">
+                        <label for="user" class="col-md-1 col-md-offset-4">User ID: </label>
+                        <input type="text" name="user" id="user" maxlength="11" class="col-md-3"/> <br/><br/>
+                        
+                        <label for="pws" class="col-md-1 col-md-offset-4">Password: </label>
+                        <input type="password" name="pws" id="pws" maxlength="20" class="col-md-3"/>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" name="user" id="user" maxlength="11"/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label id="label_password_inlogin" for="pws">Password: </label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="password" name="pws" id="pws" maxlength="20"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="submit" name="login" id="login_button" value="Login"/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="forgot_password.php" id="forgot_pws_link">Forgot Password</a>
-                        </div>
-                    </div>
+                    
+                    <input type="submit" name="login" id="login_button" value="Login"/> <br/>
+                    
+                    <a href="forgot_password.php" id="forgot_pws_link">Forgot Password</a>
+                     
                     
                 </form>
                 
@@ -124,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$results = mysqli_query($connect, $sql);
 		$row = mysqli_fetch_array($results);
 
-		if(($row['userID'] == $user) && ($row['userPass'] == $pws))
+		if(($row['userID'] == $user) && password_verify($pws, $row['userPass']))
 		{
 			$_SESSION['logged'] = true;	
             $_SESSION['loggedUser'] = $user; //Added by Almira
