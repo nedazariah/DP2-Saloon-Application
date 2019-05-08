@@ -55,7 +55,6 @@ include "session_check.php";
             <div class="col-md-10">
               
 <?php
-
 function runQuery($connect, $sql)
 {	
 	if (mysqli_query($connect, $sql)) {
@@ -86,7 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         mysqli_free_result($results);
 
         //Initialize fields
-        $userPWS = $userSQ = $userSA ="";
+        $userSQ = $userSA = $message = "";
         $hasError = false;
         $hasNewPws = $hasNewSQ = $hasNewSA = false;
 
@@ -97,22 +96,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
         if(!(empty($input_PWS)))
         {
-
-            if($input_OPWS == $storedPWS)
+            $pws_hash = password_hash($input_PWS, PASSWORD_DEFAULT);
+            
+            if(password_verify($input_PWS, $storedPWS))
             {
                 $message .= "Error: Entered old password does not match current password. </br>";
                 $hasError = true;
             }
-            else if($input_PWS == $input_CPWS)
-            {
-                $message .= "Error: Entered new password does not match re-entered password. </br>";
-                $hasError = true;
-            }
             else
             {
-                $hasNewPws = true;
-                $userPWS = $input_PWS;
-            }         
+                if($input_PWS != $input_CPWS)
+                {
+                    $message .= "Error: Entered new password does not match re-entered password. </br>";
+                    $hasError = true;
+                }
+                else
+                {
+                    $hasNewPws = true;
+                }
+            }
         }
         else
         {
@@ -146,32 +148,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }	
         //Processing Securty Answer <End>
 
-        if($hasNewPws)
+        if(!($hasError))
         {
-            $sql = "UPDATE user SET userPass = '$userPWS' WHERE userID = " . $loggedUser; 
-
-            if(!($hasError))
+            if($hasNewPws && !($hasNewSQ) && !($hasNewSA))
             {
-                runQuery($connect, $sql);    
+                $sql = "UPDATE user SET userPass = '$pws_hash' WHERE userID = " . $loggedUser; 
             }
-            else
+            else if($hasNewSQ && !($hasNewPws) && !($hasNewSA))
             {
-                alertUser($message);
+                $sql = "UPDATE user SET secQuestion = '$userSQ' WHERE userID = " . $loggedUser;          
             }
-
+            else if($hasNewSA && !($hasNewPws) && !($hasNewSQ))
+            {
+                $sql = "UPDATE user SET secAnswer = '$userSA' WHERE userID = " . $loggedUser;   
+            }
+            else if($hasNewPws && $hasNewSA && !($hasNewSQ))
+            {
+                $sql = "UPDATE user SET userPass = '$pws_hash', secAnswer = '$userSA' WHERE userID = " . $loggedUser; 
+            }
+            else if($hasNewPws && $hasNewSQ && !($hasNewSA))
+            {
+                $sql = "UPDATE user SET userPass = '$pws_hash', secQuestion = '$userSQ' WHERE userID = " . $loggedUser; 
+            }
+            else if($hasNewSA && $hasNewSQ && !($hasNewPws))
+            {
+                $sql = "UPDATE user SET secQuestion = '$userSQ', secAnswer = '$userSA' WHERE userID = " . $loggedUser;
+            }
+            else if($hasNewPws && $hasNewSQ && $hasNewSA)
+            {
+                $sql = "UPDATE user SET userPass = '$pws_hash', secQuestion = '$userSQ', secAnswer = '$userSA' WHERE userID = " . $loggedUser;
+            }
+            
+            runQuery($connect, $sql);    
         }
-
-        if($hasNewSQ)
+        else
         {
-            $sql = "UPDATE user SET secQuestion = '$userSQ' WHERE userID = " . $loggedUser; 
-            runQuery($connect, $sql);        
+            alertUser($message);
         }
-
-        if($hasNewSA)
-        {
-            $sql = "UPDATE user SET secAnswer = '$userSA' WHERE userID = " . $loggedUser; 
-            runQuery($connect, $sql);
-        }  
     }
     else 
     {
@@ -257,7 +270,9 @@ else
 function alertUser($str)
 {
     echo $str;
-}   
+} 
+                                                                                                    
+                                                                                                    
 ?>
                 
             </div>
