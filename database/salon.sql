@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 07, 2019 at 09:26 AM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Host: 127.0.0.1
+-- Generation Time: May 08, 2019 at 07:36 AM
+-- Server version: 10.1.26-MariaDB
+-- PHP Version: 7.0.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -116,10 +116,7 @@ CREATE TABLE `item_sales` (
 INSERT INTO `item_sales` (`salesID`, `itemID`, `qtyPurchased`, `datePurchased`) VALUES
 (1, 1, 2, '2019-05-01'),
 (2, 1, 1, '2019-05-02'),
-(3, 2, 1, '2019-05-01'),
-(4, 2, 2, '2019-04-30'),
-(5, 1, 1, '2019-06-01'),
-(6, 2, 1, '2019-03-28');
+(3, 2, 1, '2019-05-01');
 
 -- --------------------------------------------------------
 
@@ -200,8 +197,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userID`, `userPass`, `secQuestion`, `secAnswer`) VALUES
-(1001, 'jonjon', 'First Pet\'s Name', 'Bobby'),
-(1003, 'merks1003', '', '');
+(1001, '$2y$10$eq/JkGmuShjQSNC2lWe3R.7Akq1XP/7SKu7aCdHr.BPuT2bP4fDKS', 'First Pet\'s Name', 'Bobby'),
+(1002, '$2y$10$r9aFJ.eq00.zKfxQ2YwQBeP5E52FlP0iPYjS6RcQus35P5rjCewo.', NULL, NULL),
+(1003, '$2y$10$fvRJRI/SxMTNeqR4mBD.2.1SB0XC7V8sdfpbMeHOv26DTkPlsU6d2', 'Who is the MVP', 'an');
 
 --
 -- Indexes for dumped tables
@@ -285,7 +283,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `item_sales`
 --
 ALTER TABLE `item_sales`
-  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `service`
