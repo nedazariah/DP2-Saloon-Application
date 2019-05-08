@@ -213,7 +213,9 @@ function submit($userID, $userNPass, $hasError, $connect, $message)
 	//If there is no error, proceed to insert data
 	if(!($hasError))
 	{
-		$sql = "UPDATE user SET userPass = '" . $userNPass . "' WHERE userID = " . $userID;
+        $pws_hash = password_hash($userNPass, PASSWORD_DEFAULT);
+        
+		$sql = "UPDATE user SET userPass = '$pws_hash' WHERE userID = " . $userID;
 		
 		if (mysqli_query($connect, $sql)) {
 			header("location: login.php");
