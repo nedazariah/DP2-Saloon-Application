@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2019 at 05:17 AM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- Generation Time: May 08, 2019 at 08:29 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 5.6.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,11 +31,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `appointment` (
   `appointmentID` int(11) NOT NULL,
   `customerID` int(11) NOT NULL,
+  `customerName` varchar(50) NOT NULL,
+  `customerPhone` varchar(11) NOT NULL,
   `appointmentService` int(11) NOT NULL,
   `appointmentDate` date NOT NULL,
   `appointmentTime` varchar(10) NOT NULL,
-  `appointmentNotes` varchar(50) DEFAULT NULL
+  `appointmentNotes` varchar(50) DEFAULT NULL,
+  `appointmentStatus` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`appointmentID`, `customerID`, `customerName`, `customerPhone`, `appointmentService`, `appointmentDate`, `appointmentTime`, `appointmentNotes`, `appointmentStatus`) VALUES
+(1, 2001, 'Emma Lee', '111111111', 2, '2019-05-07', '10:30', '', '');
 
 -- --------------------------------------------------------
 
@@ -58,7 +68,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customerID`, `customerType`, `customerName`, `customerDoB`, `customerGender`, `customerPhone`, `customerAddInfo`) VALUES
-(2001, 'Regular', 'Emma Lee', '1999-03-13', 'F', '111111111', NULL),
+(2001, 'Regular', 'Emma Lee', '1999-03-13', 'F', '111111111', ''),
 (2002, 'Guest', 'Jim Mee', '1988-02-14', 'M', '124578369', 'Prefers male hairdresser'),
 (2003, 'Guest', 'Almira Putri Sandy', '2000-01-01', 'F', '12345678', '');
 
@@ -94,8 +104,22 @@ INSERT INTO `inventory` (`itemID`, `itemName`, `itemDesc`, `itemType`, `itemBPri
 
 CREATE TABLE `item_sales` (
   `salesID` int(11) NOT NULL,
-  `itemID` int(11) NOT NULL
+  `itemID` int(11) NOT NULL,
+  `qtyPurchased` int(11) NOT NULL,
+  `datePurchased` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `item_sales`
+--
+
+INSERT INTO `item_sales` (`salesID`, `itemID`, `qtyPurchased`, `datePurchased`) VALUES
+(1, 1, 2, '2019-05-01'),
+(2, 1, 1, '2019-05-02'),
+(3, 2, 1, '2019-05-01'),
+(4, 2, 2, '2019-04-30'),
+(5, 1, 1, '2019-06-01'),
+(6, 2, 1, '2019-03-28');
 
 -- --------------------------------------------------------
 
@@ -152,8 +176,22 @@ INSERT INTO `staff` (`staffID`, `staffName`, `staffDoB`, `staffGender`, `staffPh
 
 CREATE TABLE `staff_performance` (
   `performanceID` int(11) NOT NULL,
-  `staffID` int(11) NOT NULL
+  `staffID` int(11) NOT NULL,
+  `MonthYear` varchar(8) NOT NULL,
+  `DaysWorked` int(11) NOT NULL,
+  `CustServed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `staff_performance`
+--
+
+INSERT INTO `staff_performance` (`performanceID`, `staffID`, `MonthYear`, `DaysWorked`, `CustServed`) VALUES
+(1, 1001, '1-2019', 15, 18),
+(2, 1002, '1-2019', 20, 35),
+(3, 1001, '2-2019', 27, 40),
+(4, 1002, '2-2019', 28, 45),
+(5, 1003, '1-2019', 15, 60);
 
 -- --------------------------------------------------------
 
@@ -163,16 +201,18 @@ CREATE TABLE `staff_performance` (
 
 CREATE TABLE `user` (
   `userID` int(11) NOT NULL,
-  `userPass` varchar(20) NOT NULL
+  `userPass` varchar(255) NOT NULL,
+  `secQuestion` varchar(250) DEFAULT NULL,
+  `secAnswer` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`userID`, `userPass`) VALUES
-(1001, 'jonjon'),
-(1003, 'merks1003');
+INSERT INTO `user` (`userID`, `userPass`, `secQuestion`, `secAnswer`) VALUES
+(1001, 'jonjon', 'First Pet\'s Name', 'Bobby'),
+(1003, 'merks1003', '', '');
 
 --
 -- Indexes for dumped tables
@@ -235,16 +275,46 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `appointment`
+--
+ALTER TABLE `appointment`
+  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
   MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2004;
 
 --
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `itemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `item_sales`
+--
+ALTER TABLE `item_sales`
+  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `service`
+--
+ALTER TABLE `service`
+  MODIFY `serviceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
   MODIFY `staffID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
+
+--
+-- AUTO_INCREMENT for table `staff_performance`
+--
+ALTER TABLE `staff_performance`
+  MODIFY `performanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -254,8 +324,8 @@ ALTER TABLE `staff`
 -- Constraints for table `appointment`
 --
 ALTER TABLE `appointment`
-  ADD CONSTRAINT `appointment_ibfk_2` FOREIGN KEY (`appointmentService`) REFERENCES `service` (`serviceID`),
-  ADD CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`);
+  ADD CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`),
+  ADD CONSTRAINT `appointment_ibfk_4` FOREIGN KEY (`appointmentService`) REFERENCES `service` (`serviceID`);
 
 --
 -- Constraints for table `item_sales`
