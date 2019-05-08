@@ -54,20 +54,7 @@ include "session_check.php";
            
             <div class="col-md-10">
               
-<?php
-function runQuery($connect, $sql)
-{	
-	if (mysqli_query($connect, $sql)) {
-        mysqli_close($connect);	
-		header("location: user_module_account_setting.php");
-		exit();
-	}
-	else 
-	{
-		alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
-    }
-}
-                
+<?php                
 //Form data processing block
 if($_SERVER["REQUEST_METHOD"] == "POST") 
 {
@@ -267,12 +254,23 @@ else
                 </form>
                 
 <?php
+function runQuery($connect, $sql)
+{	
+	if (mysqli_query($connect, $sql)) {
+        mysqli_close($connect);	
+		header("location: user_module_account_setting.php");
+		exit();
+	}
+	else 
+	{
+		alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
+    }
+}
+                                                                                                    
 function alertUser($str)
 {
     echo $str;
-} 
-                                                                                                    
-                                                                                                    
+}                                                                                                 
 ?>
                 
             </div>
