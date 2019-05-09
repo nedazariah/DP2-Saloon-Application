@@ -18,43 +18,38 @@
    
     <!--Internal CSS for PHP Generatred elements-->
     <style>        
-    th{
-        background-color: #ddd;
-    } 
+        th, td{  
+            padding: .5em; 	
+            text-align: center;
+        }
 
-    th, td{  
-        padding: .5em;
-        border: 1px solid black; 	
-    }
-    
-    #itemSearch{
-        padding: 0.4em;
-        margin: 1em auto;
-    }
-        
-    #filter_options{
-        height: 2.5em; 
-        margin-top: 1em;
-        margin-right: 0.5em;
-        margin-left: 0.5em;
-    }
-        
-    #display_table{
-        margin: 0 auto;
-        width: 90%;
-        
-        font-size: 1.2em;
-        text-align: left;
-        color: black;
+        #searchInput{
+            padding: 0.4em;
+            margin: 1em auto;
+        }
 
-        border-collapse: collapse;
-    } 
-        
-    #display_module_manager{
-        text-align: left;
-        margin: 0 auto;
-        width: 90%;
-    }
+        #filter_options{
+            height: 2.5em; 
+            margin-top: 1em;
+            margin-right: 0.5em;
+            margin-left: 0.5em;
+        }
+
+        #display_table{
+            margin: 0 auto;
+            width: 90%;
+            text-align: center;
+        } 
+
+        #display_module_manager{
+            text-align: left;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        th{
+            background-color: beige;
+        }        
     </style>
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
@@ -123,7 +118,7 @@ if($result = mysqli_query($connect, $sql))
 	{
             echo "<div id='display_module_manager'>";
             
-            echo "<input type='text' id='itemSearch' placeholder='Search by' onkeyup='Filter()'/>";
+            echo "<input type='text' id='searchInput' placeholder='Search by' onkeyup='Filter()'/>";
             
             echo "<select id='filter_options'>
                     <option value='0' selected='selected'>Name</option>
@@ -133,11 +128,11 @@ if($result = mysqli_query($connect, $sql))
                     <option value='4'>Selling Price</option>
                   </select>";
             
-            echo "<a href='stock_module_add.php' id='add_link'>Record New Item</a>";
+            echo "<a href='stock_module_add.php' class='btn btn-default'>Record New Item</a>";
             
             echo "</div>";
         
-            echo "<table id='display_table'>";
+            echo "<table id='display_table' class='table table-striped table-responsive table-hover'>";
         
                 echo "<tr>";
                     echo "<th>Item Name</th>";
@@ -159,7 +154,7 @@ if($result = mysqli_query($connect, $sql))
                     echo "<td>" . $row['itemSPrice'] . "</td>";
                     echo "<td>" . $row['itemQuantity'] . "</td>"; 
                     echo "<td><a href='stock_module_edit.php?target=". $row['itemID'] ."'>Update</a></td>";
-                    echo "<td><input id='itemID' type='hidden' value='" . $row['itemID'] . "'/><button id='delete_link' onclick='confirmDelete()'>Delete</button></td>";                
+                    echo "<td><a href='stock_module_delete.php?target=". $row['itemID'] ."' onclick=\"javascript: return confirm('Are you sure you want to delete this record?');\">Remove</a></td>";                
                 echo "</tr>";
 			}                           
             
@@ -191,7 +186,7 @@ mysqli_close($connect);
     function Filter()
 	{
 		var search, search_input, display_table, tr, td, i;
-		search = document.getElementById("itemSearch");
+		search = document.getElementById("searchInput");
 		search_input = search.value.toUpperCase();
 		display_table = document.getElementById("display_table");
 		tr = display_table.getElementsByTagName("tr");
@@ -213,17 +208,7 @@ mysqli_close($connect);
 				}
 			} 
 		}
-	}
-    
-    function confirmDelete()
-    {
-        var id = document.getElementById("itemID").value;
-        
-        if(confirm("Confirm deleting this item record?"))
-        {
-            location.href = "stock_module_delete.php?target=" + id;       
-        }
-    }    
+	}  
 </script>
 </body>
 </html>
