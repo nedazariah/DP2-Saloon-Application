@@ -6,42 +6,66 @@
 ?>
 
 <head>
-    <title>Appointment Booking</title>
+    
+    <title>Pending Appointments</title>
+    
     <meta name="viewport" content="width=device-width, initialscale=1.0" />
     <meta charset="utf-8" />
+    
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-
     <link href="css/nav_style.css" rel="stylesheet" />
-    <style>
-        table,
-        td,
-        th {
-            border: 1px solid black;
-
-        }
-
-        td,
-        th {
-            text-align: center;
-            padding: 10px 25px;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        h1 {
+    <link href="css/nstyle.css?v=<?php echo time(); ?>" rel="stylesheet"/>     
+    
+    <style>      
+        th, td{  
+            padding: .5em; 	
             text-align: center;
         }
 
-        .contents {
-            margin-right: 100px;
+        #searchInput{
+            padding: 0.4em;
+            margin: 1em auto;
         }
 
+        #filter_options{
+            height: 2.5em; 
+            margin-top: 1em;
+            margin-right: 0.5em;
+            margin-left: 0.5em;
+        }
+
+        #display_table{
+            margin: 0 auto;
+            width: 90%;
+            text-align: center;
+        } 
+
+        #display_module_manager{
+            text-align: left;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        th{
+            background-color: beige;
+        }
+        
+        .btn_action{
+            background:none;
+            border:none; 
+            color: steelblue;
+            padding-top: 0;
+            cursor: pointer;            
+        } 
+        
+        .btn_action:hover{
+            text-decoration: underline;
+        }        
     </style>
 </head>
 
-<body data-ng-controller="myCtrl">
+<body data-ng-controller="myCtrl" id="npage">
+    
     <div class="row">
         <div class="col-md-2">
             <div class="sideNav">
@@ -79,8 +103,11 @@
                     </div>
             </div>
         </div>
+        
         <div class="col-md-10">
-            <h1>Appointment Records</h1>
+           
+            <h1>Pending Appointments</h1>
+            
             <?php
     
     if (!$connect){
@@ -118,10 +145,17 @@
 
     ?>
 
-            <div class="container contents" data-ng-init="appointments=<?php echo htmlspecialchars(json_encode($array));?>">
-                <div data-ng-init="filterValue='customerName'"></div>
-                <p><label for="cID"></label> <input type="text" name="cID" ng-model="Obj[filterValue]" id="cID" placeholder="{{FilterSelect}}" />
-                    <select name="cFilter" data-ng-model="cFilter" id="cFilter" data-ng-change="filterChange(cFilter)" data-ng-init="cFilter='customername'">
+            <div class="container" data-ng-init="appointments=<?php echo htmlspecialchars(json_encode($array));?>">
+                
+                <div id='display_module_manager'>
+                
+                    <div data-ng-init="filterValue='customerName'"></div>
+                
+                    <label for="cID"></label> 
+                    
+                    <input type="text" name="cID" id="searchInput" data-ng-model="Obj[filterValue]" placeholder="{{FilterSelect}}" />
+                    
+                    <select name="cFilter" data-ng-model="cFilter" id="cFilter" data-ng-change="filterChange(cFilter)" data-ng-init="cFilter='customername'" style="height: 2.5em; margin-top: 1em; margin-right: 0.5em; margin-left: 0.5em">
                         <option value="customerid">Customer ID</option>
                         <option value="appointmentid">Appointment ID</option>
                         <option value="customername">Customer Name</option>
@@ -129,11 +163,12 @@
                         <option value="time">Time</option>
                         <option value="phonenumber">Phone Number</option>
                         <option value="appointmentservice">Appointment Service</option>
-
                     </select>
-                </p>
+                    
+                </div>
+                
                 <form method="post" action="appointmentform.php" class="php">
-                    <table>
+                    <table id='display_table' class='table table-striped table-responsive table-hover'>
                         <tr>
                             <th>Appointment ID</th>
                             <th>customer ID</th>
