@@ -2,20 +2,72 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    
     <title>Staffs</title>
+    
+    <meta charset="UTF-8">
     <meta name="language" content="english" />
     <meta name="keywords" content="Display,View,Staff,Style and Smile Saloon House, Saloon" />
     <meta name="description" content="Style and Smile Saloon House Viewing/Display Staff" />
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/nav_style.css">
+    
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    
+	<!--Custom Style-->
+	<link href="css/nstyle.css" rel="stylesheet"/>
+	<link href="css/nav_style.css" rel="stylesheet"/>
+   
+    <style>
+        th, td{  
+            padding: .5em; 	
+            text-align: center;
+        }
+
+        #searchInput{
+            padding: 0.4em;
+            margin: 1em auto;
+        }
+
+        #filter_options{
+            height: 2.5em; 
+            margin-top: 1em;
+            margin-right: 0.5em;
+            margin-left: 0.5em;
+        }
+
+        #display_table{
+            margin: 0 auto;
+            width: 90%;
+            text-align: center;
+        } 
+
+        #display_module_manager{
+            text-align: left;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        #header{
+            background-color: beige;
+        }
+        
+        .btn_action{
+            background:none;
+            border:none; 
+            color: steelblue;
+            padding-top: 0;
+            cursor: pointer;            
+        } 
+        
+        .btn_action:hover{
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
     <?php    
     include "session_check.php";
-    $sql = "SELECT * FROM staff";
     $sql2 = "SELECT * FROM user";
 
     if($result = mysqli_query($connect, $sql2)) {
@@ -27,7 +79,7 @@
     }
     ?>
 
-    <div class="container">
+    <div class="npage">
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
@@ -67,126 +119,157 @@
             </div>
 
             <div class="col-md-10">
-                <h1>Staffs</h1>
-                <div>
-                    <input type="text" placeholder="Search By" id="searchInput" onkeyup="filter()">
-                    <select name="filterCat" id="filterCat">
-                        <option value="0">ID</option>
-                        <option value="1" selected="selected">Name</option>
-                        <option value="2">D.O.B</option>
-                        <option value="3">Gender</option>
-                        <option value="4">Phone No.</option>
-                        <option value="5">Email</option>
-                        <option value="6">Role</option>
-                        <option value="7">Address</option>
-                    </select>
+               
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Staffs</h1>  
+                    </div>
                 </div>
-                <br>
-                <?php
-        if($result = mysqli_query($connect, $sql)) {
-            if(mysqli_num_rows($result) > 0) {
-    ?>
-                <table class="staffTable">
-                    <thead>
-                        <tr>
-                            <th>Staff ID</th>
-                            <th>Staff Name</th>
-                            <th>Staff Date of Birth</th>
-                            <th>Staff Gender</th>
-                            <th>Staff Phone No.</th>
-                            <th>Staff Email</th>
-                            <th>Staff Role</th>
-                            <th>Staff Address</th>
-                            <th colspan="2">Action</th>
-                            <th>Create Account</th>
-                        </tr>
-                    </thead>
-                    <?php
-                while($row = mysqli_fetch_array($result)) { 
-    ?>
-                    <tbody id="filterTable">
-                        <tr>
-                            <td> <?php echo $row['staffID'] ?> </td>
-                            <td> <?php echo $row['staffName'] ?> </td>
-                            <td> <?php echo $row['staffDoB'] ?> </td>
-                            <td> <?php echo $row['staffGender'] ?> </td>
-                            <td> <?php echo $row['staffPhone'] ?> </td>
-                            <td> <?php echo $row['staffEmail'] ?> </td>
-                            <td> <?php echo $row['staffRole'] ?> </td>
-                            <td> <?php echo $row['staffAddress'] ?> </td>
-                            <td> <button type="button" onclick="updateStaff(<?php echo $row['staffID'] ?>)">Update</button> </td>
-                            <td> <button type="button" onclick="deleteStaff(<?php echo $row['staffID'] ?>)">Delete</button></td>
-                            <?php
-                                if(in_array($row['staffID'], $uIDs)) {
-                                    echo "<td><button type='button' onclick='removeAcc(" . $row['staffID'] . ")'>Remove</button></td>";
-                                } else {
-                                    echo "<td><button type='button' onclick='createAcc(" . $row['staffID'] . ")')>Create</button></td>";
-                                }
-                            ?>
-                        </tr>
-                    </tbody>
-                    <?php
-                }
-            }
-        }
-    ?>
-                </table>
-                <br>
-                <button type="button" class="addStaffBtn" onclick="addStaff()">Add Staff</button>
+                
+                <div class="row">
+                    <div class="col-md-12">
+<?php
+$sql = "SELECT * FROM staff";
+					            
+if($result = mysqli_query($connect, $sql))
+{    
+    if(mysqli_num_rows($result) > 0)
+	{
+        echo "<div id='display_module_manager'>";
+            
+        echo "<input type='text' id='searchInput' placeholder='Search table' onkeyup='Filter()'/>";
+        
+        echo "<select id='filter_options'>
+                    <option value='0'>Staff ID</option>
+                    <option value='1' selected='selected'>Name</option>
+                    <option value='2'>Date of Birth</option>
+                    <option value='3'>Gender</option>
+                    <option value='4'>Phone Number</option>
+                    <option value='5'>Email</option>
+                    <option value='6'>Role</option>
+                    <option value='7'>Address</option>
+              </select>";
+        
+        echo "<a href='addstaff.php' class='btn btn-default'>Add new staff</a>";
+            
+        echo "</div>";
+    
+        echo "<table id='display_table' class='table table-striped table-responsive table-hover'>";
+        
+        echo "<thead id='header'>
+                <tr>
+                    <th>Staff ID</th>
+                    <th>Staff Name</th>
+                    <th>Staff Date of Birth</th>
+                    <th>Staff Gender</th>
+                    <th>Staff Phone No.</th>
+                    <th>Staff Email</th>
+                    <th>Staff Role</th>
+                    <th>Staff Address</th>
+                    <th colspan='2'>Action</th>
+                    <th>Account</th>
+                </tr>
+             </thead>";
+        
+            while($row = mysqli_fetch_array($result))
+			{
+                echo "<tbody id='filterTable'>";
+				echo "<tr>";
+					echo "<td>" . $row['staffID'] . "</td>";
+					echo "<td>" . $row['staffName'] . "</td>";
+					echo "<td>" . $row['staffDoB'] . "</td>"; 
+                    echo "<td>" . $row['staffGender'] . "</td>";
+					echo "<td>" . $row['staffPhone'] . "</td>";
+					echo "<td>" . $row['staffEmail'] . "</td>";
+                    echo "<td>" . $row['staffRole'] . "</td>";
+                    echo "<td>" . $row['staffAddress'] . "</td>";
+					echo "<td><a href='editstaff.php?staffID=". $row['staffID'] ."'>Update</a></td>
+                          <td><a href='deletestaff.php?staffID=". $row['staffID'] ."' onclick=\"javascript: return confirm('Are you sure you want to delete this record?');\">Remove</a></td>";
+                          
+                          if(in_array($row['staffID'], $uIDs)) {
+                                echo "<td><button type='button' class='btn_action' onclick='removeAcc(" . $row['staffID'] . ")'>Remove</a></td>";
+                          } else {
+                                echo "<td><button type='button' class='btn_action' onclick='createAcc(" . $row['staffID'] . ")')>Create</button></td>";
+                          }
+                
+				echo "</tr>";
+                echo "</tbody>";               
+			}                           
+        echo "</table>"; 
+
+		mysqli_free_result($result);
+    } 
+	else
+	{
+		echo "<p><em>No records were found.</em></p>";
+	}
+} 
+else
+{
+    echo "Error: Could not execute $sql. " . mysqli_error($connect);
+}
+
+mysqli_close($connect);
+?>                                                       
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
-    <script>
-        function updateStaff(staffID) {
-            window.location.href = "editstaff.php?staffID=" + staffID;
-        }
+<script>
+    function Filter()
+	{
+		var search, search_input, display_table, tr, td, i;
+		search = document.getElementById("searchInput");
+		search_input = search.value.toUpperCase();
+		display_table = document.getElementById("display_table");
+		tr = display_table.getElementsByTagName("tr");
+ 
+		for (i = 0; i < tr.length; i++) 
+		{
+            var filter_option = document.getElementById('filter_options');
+            
+			td = tr[i].getElementsByTagName("td")[filter_option.value];
+			
+			if (td) {
+				if (td.innerHTML.toUpperCase().indexOf(search_input) > -1) 
+				{
+					tr[i].style.display = "";
+				} 
+				else 
+				{
+					tr[i].style.display = "none";
+				}
+			} 
+		}
+	}
 
-        function addStaff() {
-            window.location.href = "addstaff.php";
-        }
+    function createAcc(staffID) {
+        if (confirm("Create account for this staff?")) {
+            var hasPws = 0;
+            while (hasPws == 0) {
+            var password = prompt("Please enter a password.");
 
-        function deleteStaff(staffID) {
-            if (confirm("Are you sure you want to delete this record?")) {
-                window.location.href = "deletestaff.php?staffID=" + staffID;
-            }
-        }
-
-        function filter() {
-            var cat = $("#filterCat").val();
-
-            var search = $("#searchInput").val().toLowerCase();
-            var cat = $("#filterCat").val();
-            $("#filterTable tr").filter(function() {
-                $(this).toggle($(this).find("td:eq(" + cat + ")").text().toLowerCase().indexOf(search) > -1);
-            });
-        }
-
-        function createAcc(staffID) {
-            if (confirm("Create account for this staff?")) {
-                var hasPws = 0;
-
-                while (hasPws == 0) {
-                    var password = prompt("Please enter a password.");
-
-                    if (password.length > 0) {
-                        hasPws = 1;
-                    }
+                if (password.length > 0) {
+                    hasPws = 1;
                 }
-
-                location.href = "user_module_add.php?target=" + staffID + "&pws=" + password; 
             }
-        }
 
-        function removeAcc(staffID) {
-            if (confirm("Remove this user from the user?")) {
-                location.href = "user_module_delete.php?target=" + staffID;
-            }
+            location.href = "user_module_add.php?target=" + staffID + "&pws=" + password; 
         }
+    }
 
-    </script>
+    function removeAcc(staffID) {
+        if (confirm("Remove this user from the user?")) {
+            location.href = "user_module_delete.php?target=" + staffID;
+        }
+    }
+
+</script>
 </body>
 
 </html>
