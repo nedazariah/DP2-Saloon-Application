@@ -19,13 +19,10 @@
    
     <!--Internal CSS for PHP Generatred elements-->
     <style>
-    th{
-        background-color: #ddd;
-    } 
 
     th, td{  
-        padding: .5em;
-        border: 1px solid black; 	
+        padding: .5em; 	
+        text-align: center;
     }
     
     #searchInput{
@@ -43,18 +40,17 @@
     #display_table{
         margin: 0 auto;
         width: 90%;
-        
-        font-size: 1.2em;
-        text-align: left;
-        color: black;
-
-        border-collapse: collapse;
+        text-align: center;
     } 
         
     #display_module_manager{
         text-align: left;
         margin: 0 auto;
         width: 90%;
+    }
+        
+    #header{
+        background-color: beige;
     }
     </style>
     
@@ -107,7 +103,7 @@
                
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Customers</h1>         
+                        <h1>Customers</h1>  
                     </div>
                 </div>
         
@@ -134,13 +130,13 @@ if($result = mysqli_query($connect, $sql))
                     <option value='6'>Additional Info</option>
                   </select>";
             
-        echo "<a href='addCustomer.php' id='add_link'>Add new customer</a>";
+        echo "<a href='addCustomer.php' class='btn btn-default'>Add new customer</a>";
             
         echo "</div>";
         
-        echo "<table id='display_table'>";
+        echo "<table id='display_table' class='table table-striped table-responsive table-hover'>";
         
-        echo "<thead>";
+        echo "<thead id='header'>";
             echo "<tr>";
                 echo "<th>Customer ID</th>";
                 echo "<th>Customer Type</th>";
