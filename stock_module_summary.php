@@ -18,26 +18,21 @@ include "session_check.php";
    
     <!--Internal CSS for PHP Generatred elements-->
     <style>        
-    th{
-        background-color: #ddd;
-    } 
+        th, td{  
+            padding: .5em; 	
+            text-align: center;
+        }
 
-    th, td{  
-        padding: .5em;
-        border: 1px solid black; 	
-    }
-        
-    #inventory_table{
-        margin: 0 auto;
-        margin-top: 2em;
-        width: 90%;
-        
-        font-size: 1.2em;
-        text-align: left;
-        color: black;
+        #inventory_table{
+            margin: 0 auto;
+            margin-top: 2em;
+            width: 90%;
+            text-align: center;
+        }
 
-        border-collapse: collapse;
-    }
+        th{
+            background-color: beige;
+        }
     </style>
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
@@ -110,7 +105,7 @@ if(isset($_GET['target']) && !empty(trim($_GET['target'])))
         $results = mysqli_query($connect, $sql);
         $row = mysqli_fetch_array($results);
         
-        echo "<table id='inventory_table'>";
+        echo "<table id='inventory_table' class='table table-striped table-responsive table-hover'>";
             echo "<tr>";
                 echo "<th>Item Name</th>";
                 echo "<th>Description</th>";
@@ -147,9 +142,9 @@ else
 ?>  
                         <br/><br/><br/>
                         
-                        <a href='stock_module_display.php' id='display_link'>View All Stock</a>
+                        <a class="btn btn-default" href='stock_module_display.php'>View All Stock</a>
                                  
-                        <a href='stock_module_add.php' id='add_link'>Record New Item</a>
+                        <a class="btn btn-default" href='stock_module_add.php'>Record New Item</a>
                                   
                     </div>
                 </div> 
