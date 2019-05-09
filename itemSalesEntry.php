@@ -104,12 +104,12 @@
                     <div class="form-group text-center">
                         <div data-ng-if="isForm.$invalid">
                             <button type="submit" disabled class="btn btn-primary" data-ng-toggle="tooltip" title="Cannot Have Empty Field(s)">Submit</button>
-                            <button type="button" class="btn btn-default" onclick="window.location.replace('stock_module_display.php')">Cancel</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.replace('item_sales_report.php')">Cancel</button>
                         </div>
 
                         <div data-ng-if="isForm.$valid">
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                            <button type="button" class="btn btn-default" onclick="window.location.replace('stock_module_display.php')">Cancel</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.replace('item_sales_report.php')">Cancel</button>
                         </div>
                     </div>
 
@@ -145,7 +145,7 @@
 
         if (mysqli_query($connect,$sql)){
             echo "Success";
-            header("location: stock_module_display.php");
+            header("location: item_sales_report.php");
             ob_enf_fluch();
         }
         else{

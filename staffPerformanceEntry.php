@@ -108,12 +108,12 @@
 
                         <div data-ng-if="spForm.$invalid">
                             <button type="submit" disabled class="btn btn-primary" data-ng-toggle="tooltip" title="Cannot Have Empty Field(s)">Submit</button>
-                            <button type="button" class="btn btn-default" onclick="window.location.replace('displaystaff.php')">Cancel</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.replace('staffperformance.php')">Cancel</button>
                         </div>
 
                         <div data-ng-if="spForm.$valid">
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                            <button type="button" class="btn btn-default" onclick="window.location.replace('displaystaff.php')">Cancel</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.replace('staffperformance.php')">Cancel</button>
                         </div>
 
                     </div>
@@ -150,7 +150,7 @@
 
         if (mysqli_query($connect,$sql)){
             echo "Success";
-            header("location: displaystaff.php");
+            header("location: staffperformance.php");
             ob_enf_fluch();
         }
         else{
