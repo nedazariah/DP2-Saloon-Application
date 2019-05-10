@@ -50,17 +50,9 @@
                         </div>
                     </div>
                 
-                    <!--Buttons-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="submit" name="reset" id="confirm_button" value="Confirm"/>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="login.php" id="forgot_back">Go Back</a>
-                        </div>
+                    <div class="form-group text-center">
+                        <input type="submit" name="reset" id="confirm_button" class="btn btn-primary" value="Confirm"/><br/>
+                        <a href="login.php" id="forgot_back">Go Back</a>
                     </div>
                     
                 </form>
