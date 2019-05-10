@@ -1,7 +1,3 @@
-document.getElementById("formSubmit_back").onclick = function () {
-    location.href = "stock_module_display.php";
-};
-
 document.getElementById("nform").onsubmit = function(){
     
     var hasEmpty = false, message = "";
