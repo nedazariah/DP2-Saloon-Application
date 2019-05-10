@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2019 at 07:36 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.0.22
+-- Generation Time: May 10, 2019 at 01:57 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,6 +36,7 @@ CREATE TABLE `appointment` (
   `appointmentService` int(11) NOT NULL,
   `appointmentDate` date NOT NULL,
   `appointmentTime` varchar(10) NOT NULL,
+  `staffID` int(11) NOT NULL,
   `appointmentNotes` varchar(50) DEFAULT NULL,
   `appointmentStatus` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -44,8 +45,8 @@ CREATE TABLE `appointment` (
 -- Dumping data for table `appointment`
 --
 
-INSERT INTO `appointment` (`appointmentID`, `customerID`, `customerName`, `customerPhone`, `appointmentService`, `appointmentDate`, `appointmentTime`, `appointmentNotes`, `appointmentStatus`) VALUES
-(1, 2001, 'Emma Lee', '111111111', 2, '2019-05-07', '10:30', '', '');
+INSERT INTO `appointment` (`appointmentID`, `customerID`, `customerName`, `customerPhone`, `appointmentService`, `appointmentDate`, `appointmentTime`, `staffID`, `appointmentNotes`, `appointmentStatus`) VALUES
+(1, 2001, 'Emma Lee', '111111111', 2, '2019-05-07', '10:30', 1001, '', '');
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,8 @@ CREATE TABLE `item_sales` (
 INSERT INTO `item_sales` (`salesID`, `itemID`, `qtyPurchased`, `datePurchased`) VALUES
 (1, 1, 2, '2019-05-01'),
 (2, 1, 1, '2019-05-02'),
-(3, 2, 1, '2019-05-01');
+(3, 2, 1, '2019-05-01'),
+(4, 2, 2, '2019-05-08');
 
 -- --------------------------------------------------------
 
@@ -179,6 +181,13 @@ CREATE TABLE `staff_performance` (
   `CustServed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `staff_performance`
+--
+
+INSERT INTO `staff_performance` (`performanceID`, `staffID`, `MonthYear`, `DaysWorked`, `CustServed`) VALUES
+(1, 1003, '2019-05', 28, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -211,7 +220,8 @@ INSERT INTO `user` (`userID`, `userPass`, `secQuestion`, `secAnswer`) VALUES
 ALTER TABLE `appointment`
   ADD PRIMARY KEY (`appointmentID`),
   ADD KEY `appointmentService` (`appointmentService`),
-  ADD KEY `customerID` (`customerID`);
+  ADD KEY `customerID` (`customerID`),
+  ADD KEY `staffID` (`staffID`);
 
 --
 -- Indexes for table `customer`
@@ -283,7 +293,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `item_sales`
 --
 ALTER TABLE `item_sales`
-  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `service`
@@ -301,7 +311,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `staff_performance`
 --
 ALTER TABLE `staff_performance`
-  MODIFY `performanceID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `performanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -312,7 +322,8 @@ ALTER TABLE `staff_performance`
 --
 ALTER TABLE `appointment`
   ADD CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`),
-  ADD CONSTRAINT `appointment_ibfk_4` FOREIGN KEY (`appointmentService`) REFERENCES `service` (`serviceID`);
+  ADD CONSTRAINT `appointment_ibfk_4` FOREIGN KEY (`appointmentService`) REFERENCES `service` (`serviceID`),
+  ADD CONSTRAINT `appointment_ibfk_5` FOREIGN KEY (`staffID`) REFERENCES `staff` (`staffID`);
 
 --
 -- Constraints for table `item_sales`
