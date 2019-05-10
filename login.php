@@ -49,19 +49,21 @@
                    
                     <div class="form-group">
                         <label for="user" class="col-md-1 col-md-offset-4">User ID: </label>
-                        <input type="text" name="user" id="user" maxlength="11" class="col-md-3"/> <br/><br/>
-                        
+                        <input type="text" name="user" id="user" maxlength="11" class="col-md-3"/>
+                    </div>
+                       
+                    <div class="form-group">   
                         <label for="pws" class="col-md-1 col-md-offset-4">Password: </label>
                         <input type="password" name="pws" id="pws" maxlength="20" class="col-md-3"/>
                     </div>
                     
-                    <input type="submit" name="login" id="login_button" value="Login"/> <br/>
-                    
-                    <a href="forgot_password.php" id="forgot_pws_link">Forgot Password</a>
-                     
+                    <div class="form-group text-center">
+                        <input type="submit" name="login" id="login_button" class="btn btn-primary" value="Login"/><br/>
+                        <a href="forgot_password.php" id="forgot_pws_link">Forgot Password</a>
+                    </div>
                     
                 </form>
-                
+
             </div>
             
         </div>
