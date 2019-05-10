@@ -13,8 +13,16 @@ include "session_check.php";
     <link href="css/bootstrap.min.css" rel="stylesheet" />
 	
 	<!--Custom Style-->
-	<link href="css/nstyle.css" rel="stylesheet"/>
 	<link href="css/nav_style.css" rel="stylesheet"/>
+    <style>
+        h1{
+            text-align: center;
+        }
+        
+        .btn{
+            width: 10em;
+        }
+    </style>   
     
     <!-- jQuery – required for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>
@@ -24,15 +32,44 @@ include "session_check.php";
 </head>
 <body>
     
-    <div id="npage">
+    <div class="container">
            
         <div class="row">
                
-                        <div class="col-md-2">
+            <div class="col-md-2">
                 <div class="sideNav">
-                    <?php
-                        include "navigation.php";
-                    ?>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="dropdown-btn"><a href="#">Appointment</a>
+                            <ul class="nav nav-pills nav-stacked dropdown-container">
+                                <li><a href="appointmentform.php">Add Appointment</a></li>
+                                <li><a href="pendingappointment.php">Pending Appointments</a></li>
+                                <li><a href="appointment.php">All Appointments</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="displayCustomer.php">Customers</a></li>
+                        <li><a href="stock_module_display.php">Stock</a></li> 
+                        <?php
+				            if($role == "Manager"){ 
+                                echo "<li><a href='service_module_display.php'>Services</a></li>";
+                                echo "<li><a href='displaystaff.php'>Staff</a></li>";
+                                echo "<li class='dropdown-btn'><a href='#'>Reports</a>";
+                                echo   "<ul class='nav nav-pills nav-stacked dropdown-container'>";
+                                echo       "<li><a href='item_sales_report.php'>Items Sales</a></li>";
+                                echo       "<li><a href='#'>Staff Performance</a></li>";
+                                echo   "</ul>";
+                                echo "</li>";
+				            }
+						    echo ("<script>console.log('Role: ".$role."')</script>");
+				        ?>
+                    </ul>
+                    
+                    <div class="btm-menu">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="user_module_account_setting.php">Account</a></li>
+                            <li><a href="logout.php">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
                               
@@ -172,53 +209,47 @@ else
     }
 }
 ?>
-                <form id="nform" name="nform" method="post" action="stock_module_edit.php">
+                <h1>Update Stock</h1> 
+                
+                <form name="nform" method="post" action="stock_module_edit.php">
                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Update Stock</h1>                    
-                        </div>
+                    <input type="hidden" name="target" id="target" value="<?php echo $target; ?>"/>    
+                     
+                    <div class="form-group">
+                        <label for="itemName">Item Name:</label>
+                        <input type="text" id="itemName" name="itemName" class="form-control" value="<?php echo $itemName; ?>" required="required"/>
+                    </div> 
+                       
+                    <div class="form-group">
+                        <label for="itemDesc">Item Description:</label>
+                        <textarea name="itemDesc" id="itemDesc" class="form-control"><?php echo $itemDesc; ?></textarea>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" id="itemName" name="itemName" placeholder="Product Name  (required)"  required="required" value="<?php echo $itemName; ?>"/> 
-                        </div>
+                    
+                    <div class="form-group">
+                       <label for="itemType">Item Type:</label> 
+                        <input type="text" id="itemType" name="itemType" class="form-control" maxlength="50" value="<?php echo $itemType; ?>"/>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <textarea name="itemDesc" id="itemDesc" placeholder="Description"><?php echo $itemDesc; ?></textarea>
-                        </div>
+                    
+                    <div class="form-group">
+                        <label for="itemBPrice">Buying Price:</label>
+                        <input type="number" class="form-control" id="itemBPrice" name="itemBPrice" value="<?php echo $itemBPrice; ?>"/>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" id="itemType" name="itemType" placeholder="Product Type" maxlength="50" value="<?php echo $itemType; ?>"/>
-                        </div>
+                    
+                    <div class="form-group">
+                        <label for="itemSPrice">Selling Price:</label>
+                        <input type="number" class="form-control" id="itemSPrice" name="itemSPrice" value="<?php echo $itemSPrice; ?>"/>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="itemBPrice">Buying Price:</label><input type="number" id="itemBPrice" name="itemBPrice" value="<?php echo $itemBPrice; ?>"/> 
-                            <label for="itemSPrice">Selling Price:</label><input type="number" id="itemSPrice" name="itemSPrice" value="<?php echo $itemSPrice; ?>"/>
-                        </div>
+                    
+                    <div class="form-group">
+                        <label for="itemQuantity">Number of stock:</label>
+                        <input type="number" class="form-control" id="itemQuantity" name="itemQuantity" value="<?php echo $itemQuantity; ?>"/>
+                    </div>   
+                    
+                    <div class="form-group text-center">        
+                        <button type="submit" name="update" class="btn btn-primary">Update</button> 
+                        <a href="stock_module_display.php" class="btn btn-default">Go Back</a>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="itemQuantity">Number of stock:</label><input type="number" id="itemQuantity" name="itemQuantity" value="<?php echo $itemQuantity; ?>"/>
-                        </div>
-                    </div>
-                        
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="hidden" name="target" id="target" value="<?php echo $target; ?>"/>
-                               
-                            <button type="submit" name="update" id="formSubmit_change">Update</button> 
-                            <a href="stock_module_display.php" id="formSubmit_back">Go Back</a>
-                        </div>
-                    </div>
+                    
                 </form>
 <?php 
 function submit($itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $hasError, $target, $connect, $message)
