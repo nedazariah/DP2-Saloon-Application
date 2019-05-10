@@ -9,7 +9,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/login_style.css?v=<?php echo time(); ?>"/>   
+    <style>
+        h1{
+            text-align: center;
+        }
+        
+        .btn{
+            width: 10em;
+        }
+    </style>    
    
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -118,84 +126,42 @@ else
                 <form name="f_password" id="f_password" method="post" action="forgot_password_process.php">
                    
                     <!--User ID-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label id="label_user" for="user">User ID: </label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" name="user" id="user" maxlength="11" disabled="disabled" value="<?php echo $target ?>"/>
-                            <input type="hidden" name="target" value="<?php echo $target ?>"/>
-                        </div>
+                    <div class="form-group">
+                        <label for="user">User ID: </label>
+                        <input type="text" name="user" id="user" maxlength="11" class="form-control" disabled="disabled" value="<?php echo $target ?>"/>
+                        <input type="hidden" name="target" value="<?php echo $target ?>"/>
                     </div>
                     
                     <!--Security Question-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label id="label_sq" for="sq">Security Question: </label>
-                        </div>
+                    <div class="form-group">
+                        <label for="sq">Security Question: </label>
+                        <textarea name="sq" id="sq" maxlength="250" class="form-control" disabled="disabled"><?php echo $SQ ?></textarea>
+                        <input type="hidden" name="ssa" value="<?php echo $SA ?>"/>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <textarea name="sq" id="sq" maxlength="250" disabled="disabled"><?php echo $SQ ?></textarea>
-                            <input type="hidden" name="ssa" value="<?php echo $SA ?>"/>
-                        </div>
-                    </div>   
                     
                     <!--Security Answer-->                                  
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label id="label_sa" for="sa">Answer: </label>
-                        </div>
+                    <div class="form-group">
+                        <label for="sa">Answer: </label>
+                        <textarea name="sa" id="sa" class="form-control" maxlength="250"></textarea>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <textarea name="sa" id="sa" maxlength="250"></textarea>
-                        </div>
-                    </div>   
                     
                     <!--New Password-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label id="label_newpassword" for="pws">New Password: </label>
-                        </div>
+                    <div class="form-group">
+                        <label for="pws">New Password: </label>
+                        <input type="password" name="pws" class="form-control" id="pws" maxlength="20"/>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="password" name="pws" id="pws" maxlength="20"/>
-                        </div>
-                    </div>   
-
-                   <!--Confirm password-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label id="label_repassword" for="re_pws">Re-Enter Password: </label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="password" name="re_pws" id="re_pws" maxlength="20"/>
-                        </div>
-                    </div>                                    
+                    <!--Confirm password-->
+                    <div class="form-group">
+                        <label for="re_pws">Re-Enter Password: </label>
+                        <input type="password" name="re_pws" class="form-control" id="re_pws" maxlength="20"/>
+                    </div>                       
                 
                     <!--Buttons-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="submit" name="reset" id="reset_pws_button" value="Reset Password"/>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="forgot_password.php" id="forgot_back">Go Back</a>
-                        </div>
-                    </div>
+                    <div class="form-group text-center">  
+                        <input type="submit" name="reset" id="reset_pws_button" value="Reset Password" class="btn btn-primary"/>
+                        <a href="forgot_password.php" class="btn btn-default">Go Back</a>
+                    </div>  
                     
                 </form>
                 
