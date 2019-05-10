@@ -13,19 +13,50 @@ include "session_check.php";
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     
 	<!--Custom Style-->
-	<link href="css/nstyle.css?v=<?php echo time(); ?>" rel="stylesheet"/>
 	<link href="css/nav_style.css" rel="stylesheet"/> 
+    <style>
+        h1{
+            text-align: center;
+        }
+        
+        .btn{
+            width: 10em;
+        }
+    </style> 
 
 </head>
 <body> 
     
-    <div id="npage">
+    <div class="container">
         <div class="row">
             <div class="col-md-2">
                 <div class="sideNav">
-                    <?php
-                        include "navigation.php";
-                    ?>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="dropdown-btn"><a href="#">Appointment</a>
+                            <ul class="nav nav-pills nav-stacked dropdown-container">
+                                <li><a href="appointmentform.php">Add Appointment</a></li>
+                                <li><a href="pendingappointment.php">Pending Appointments</a></li>
+                                <li><a href="appointment.php">All Appointments</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="displayCustomer.php">Customers</a></li>
+                        <li><a href="stock_module_display.php">Stock</a></li> 
+                        <?php
+				            if($role == "Manager"){ 
+                                echo "<li><a href='service_module_display.php'>Services</a></li>";
+                                echo "<li><a href='displaystaff.php'>Staff</a></li>";
+				            }
+						    echo ("<script>console.log('Role: ".$role."')</script>");
+				        ?>
+                    </ul>
+                    
+                    <div class="btm-menu">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="user_module_account_setting.php">Account</a></li>
+                            <li><a href="logout.php">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>        
            
@@ -176,58 +207,45 @@ else
 
     mysqli_close($connect);	
 }
-?> 
+?>
+                <h1>My Account</h1>
+                
                 <form id="nform" name="nform" method="post" action="user_module_account_setting.php">
    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>My Account</h1>                    
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="userID" class="col-md-offset-4 col-md-1">ID: </label><input type="text" disabled="disabled" id="userID" name="userID" value="<?php echo $loggedUser ?>" class="col-md-4"/>
-                        </div>
+                    <div class="form-group">
+                        <label for="userID">ID: </label>
+                        <input type="text" disabled="disabled" class="form-control" id="userID" name="userID" value="<?php echo $loggedUser ?>"/>
                     </div>
                     
-                    <br/>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="inputOPWS" class="col-md-offset-3 col-md-3">Old Password: </label><input type="password" id="inputOPWS" name="userOPWS" maxlength="20" class="col-md-3"/><br/><br/> 
-                        </div>
-                    </div> 
-                
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="inputPWS" class="col-md-offset-3 col-md-3">New Password: </label><input type="password" id="inputPWS" name="userPWS" maxlength="20" class="col-md-3"/><br/><br/>
-                        </div>
-                    </div> 
-                
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="inputCPWS" class="col-md-offset-3 col-md-3">Confirm Password: </label><input type="password" id="inputCPWS" name="userCPWS" maxlength="20" class="col-md-3"/><br/><br/>
-                        </div>
-                    </div>     
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="inputSQ" class="col-md-offset-2 col-md-2">Security Question: </label><textarea id="inputSQ" name="userSQ" maxlength="250" class="control-label col-md-6"><?php echo $SQ ?></textarea><br/><br/><br/>
-                        </div>
+                    <div class="form-group">
+                        <label for="inputOPWS">Old Password: </label>
+                        <input type="password" id="inputOPWS" class="form-control" name="userOPWS" maxlength="20"/>
                     </div>
                     
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="userSA" class="col-md-offset-2 col-md-2">Answer: </label><textarea id="inputSA" name="userSA" maxlength="250" class="col-md-6"><?php echo $SA ?></textarea><br/><br/><br/>                        
-                        </div>
-                    </div>                                                                                                                                                                                   
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="submit" id="setting_change">Update</button>
-                        </div>
-                    </div>  
-                                  
+                    <div class="form-group">
+                        <label for="inputPWS">New Password: </label>
+                        <input type="password" id="inputPWS" class="form-control" name="userPWS" maxlength="20"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputCPWS">Confirm Password: </label>
+                        <input type="password" id="inputCPWS" class="form-control" name="userCPWS" maxlength="20"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputSQ">Security Question: </label>
+                        <textarea id="inputSQ" name="userSQ" class="form-control" maxlength="250"><?php echo $SQ ?></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userSA">Answer: </label>
+                        <textarea id="inputSA" name="userSA" class="form-control" maxlength="250"><?php echo $SA ?></textarea>
+                    </div>
+                           
+                    <div class="form-group text-center">        
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>   
+        
                 </form>
                 
 <?php
