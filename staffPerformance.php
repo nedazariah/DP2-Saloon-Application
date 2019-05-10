@@ -6,11 +6,11 @@
 ?>
 
 <head>
-	<title>Appointment Booking</title>
+	<title>Staff Performance Report</title>
 	<meta name="viewport" content="width=device-width, initialscale=1.0" />
 	<meta charset="utf-8" />
 	<link href="css/bootstrap.min.css" rel="stylesheet" />
-
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
 	<link href="css/nav_style.css" rel="stylesheet" />
 	<style>
 		table,

@@ -29,30 +29,25 @@ function getData() {
             var resp = JSON.parse(xhrResp.responseText);
             console.log(resp);
             for (x = 0; x <12; x++) {
+                sunsilkQty[x] = 0;
+                ubermanQty[x] = 0;
                 for (var i = 0; i < resp.length; i++) {
                     if (resp[i].itemName == "Sunsilk Hair Dye") {
                         if (resp[i].month == x+1) {
                             sunsilkQty[x] = parseInt(resp[i].qty);
-                        } 
-                        else if(resp[i].month != x){
-                            sunsilkQty[x] = 0;
                         }
                     }
+                    
                     if (resp[i].itemName == "UBERMAN Hair Gel") {
                         if (resp[i].month == x+1) {
                             ubermanQty[x] = parseInt(resp[i].qty);
                         }
-                        else if(resp[i].month != x){
-                            ubermanQty[x] = 0;
-                        }
                     }
                 }
+                sunsilkQtyArray.push(sunsilkQty[x]);
+                ubermanQtyArray.push(ubermanQty[x]);
             }
 
-            for (var y = 0; y < 12; y++) {
-                sunsilkQtyArray.push(sunsilkQty[y]);
-                ubermanQtyArray.push(ubermanQty[y]);
-            }
             console.log(ubermanQty);
             console.log(sunsilkQty);
             console.log(sunsilkQtyArray.length);
