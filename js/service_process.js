@@ -1,7 +1,3 @@
-document.getElementById("formSubmit_back").onclick = function () {
-    location.href = "service_module_display.php";
-};
-
 document.getElementById("nform").onsubmit = function(){
     
     var message = "";
