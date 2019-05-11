@@ -50,6 +50,12 @@
                         </div>
                     </div>
                 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span id="userIDError" class="text-danger"></span>
+                        </div>
+                    </div>                   
+                   
                     <div class="form-group text-center">
                         <input type="submit" name="reset" id="confirm_button" class="btn btn-primary" value="Confirm"/><br/>
                         <a href="login.php" id="forgot_back">Go Back</a>
@@ -66,12 +72,17 @@
             <div class="col-md-12" id="echo">
                
 <?php
+//Message variable to be used for back-end validation
+$user_error = "";
+
+//Form data processing block
 if($_SERVER["REQUEST_METHOD"] == "POST")
 { 
 	//Validate ID	
     $input_user = SanitizeData($_POST["user"]);
-	if(empty($input_user)){
-		echo "Error: User ID not found." . "</br>";
+	if(empty($input_user))
+    {
+		$user_error = "User ID not found.";
     } 
 	else
 	{
@@ -86,7 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
         else
         {
-            echo "Error: User does not exist." . "</br>";
+            $user_error = "User does not exist.";
         }
         mysqli_free_result($result);
 	}
@@ -98,6 +109,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         </div>
         
     </div>
+
+<!--Back-end form validation error output-->    
+<script>
+    var user_error = "<?php echo $user_error; ?>";
     
+    if(user_error.length !== 0)
+    {
+        document.getElementById("userIDError").innerHTML = user_error;
+    }
+</script>    
 </body>
 </html>
