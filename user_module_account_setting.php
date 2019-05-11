@@ -39,7 +39,24 @@ include "session_check.php";
            
             <div class="col-md-10">
               
-<?php                
+<?php
+//Message variable to be used for back-end validation
+$opws_error = $cpws_error = $server_comm_error = "";
+                
+//Function definition for running queries
+function runQuery($connect, $sql)
+{	
+	if (mysqli_query($connect, $sql)) {
+        mysqli_close($connect);	
+		header("location: user_module_account_setting.php");
+		exit();
+	}
+	else 
+	{
+		$server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
+    }
+}  
+                
 //Form data processing block
 if($_SERVER["REQUEST_METHOD"] == "POST") 
 {
@@ -70,22 +87,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $pws_hash = password_hash($input_PWS, PASSWORD_DEFAULT);
             
-            if(password_verify($input_PWS, $storedPWS))
-            {
-                $message .= "Error: Entered old password does not match current password. </br>";
-                $hasError = true;
-            }
-            else
+            if(password_verify($input_OPWS, $storedPWS))
             {
                 if($input_PWS != $input_CPWS)
                 {
-                    $message .= "Error: Entered new password does not match re-entered password. </br>";
+                    $cpws_error = "Entered new password does not match re-entered password.";
                     $hasError = true;
                 }
                 else
                 {
                     $hasNewPws = true;
-                }
+                }                
+            }
+            else
+            {
+                $opws_error = "Entered old password does not match current password.";
+                $hasError = true;
             }
         }
         else
@@ -153,14 +170,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             
             runQuery($connect, $sql);    
         }
-        else
-        {
-            alertUser($message);
-        }
     }
     else 
     {
-        alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
+       $server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
     }    
 }
 else
@@ -179,7 +192,7 @@ else
     }
     else 
     {
-        alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
+        $server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
     }
 
     mysqli_close($connect);	
@@ -197,6 +210,7 @@ else
                     <div class="form-group">
                         <label for="inputOPWS">Old Password: </label>
                         <input type="password" id="inputOPWS" class="form-control" name="userOPWS" maxlength="20"/>
+                        <span id="oldPasswordError" class="text-danger"></span>
                     </div>
                     
                     <div class="form-group">
@@ -207,16 +221,25 @@ else
                     <div class="form-group">
                         <label for="inputCPWS">Confirm Password: </label>
                         <input type="password" id="inputCPWS" class="form-control" name="userCPWS" maxlength="20"/>
+                        <span id="confirmPasswordError" class="text-danger"></span>
                     </div>
                     
                     <div class="form-group">
                         <label for="inputSQ">Security Question: </label>
-                        <textarea id="inputSQ" name="userSQ" class="form-control" maxlength="250"><?php echo $SQ ?></textarea>
+                        <textarea id="inputSQ" name="userSQ" class="form-control" maxlength="250"><?php 
+                                if($_SERVER["REQUEST_METHOD"] == "POST")
+                                    echo $_POST["userSQ"];
+                                else 
+                                    echo $SQ; ?></textarea>
                     </div>
-                    
+                   
                     <div class="form-group">
                         <label for="userSA">Answer: </label>
-                        <textarea id="inputSA" name="userSA" class="form-control" maxlength="250"><?php echo $SA ?></textarea>
+                        <textarea id="inputSA" name="userSA" class="form-control" maxlength="250"><?php  
+                                if($_SERVER["REQUEST_METHOD"] == "POST")
+                                    echo $_POST["userSA"];
+                                else 
+                                    echo $SA; ?></textarea>
                     </div>
                            
                     <div class="form-group text-center">        
@@ -224,27 +247,6 @@ else
                     </div>   
         
                 </form>
-                
-<?php
-function runQuery($connect, $sql)
-{	
-	if (mysqli_query($connect, $sql)) {
-        mysqli_close($connect);	
-		header("location: user_module_account_setting.php");
-		exit();
-	}
-	else 
-	{
-		alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
-    }
-}
-                                                                                                    
-function alertUser($str)
-{
-    echo $str;
-}                                                                                                 
-?>
-                
             </div>
         </div>
     </div>
@@ -257,5 +259,26 @@ function alertUser($str)
 <script src="js/angular.min.js"></script>
 <!--Javascript for Navigation Menu-->
 <script src="js/nav.js"></script>
+<!--Back-end form validation error output-->
+<script>
+    var opws_error = "<?php echo $opws_error; ?>";
+    var cpws_error = "<?php echo $cpws_error; ?>";
+    var server_error = "<?php echo $server_comm_error; ?>";
+    
+    if(opws_error.length !== 0)
+    {
+        document.getElementById("oldPasswordError").innerHTML = opws_error;
+    }   
+    
+    if(cpws_error.length !== 0)
+    {
+        document.getElementById("confirmPasswordError").innerHTML = cpws_error;
+    }
+    
+    if(server_error.length !== 0)
+    {
+        alert(server_error);
+    }
+</script>
 </body>
 </html>
