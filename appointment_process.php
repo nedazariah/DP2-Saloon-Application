@@ -27,6 +27,7 @@
     $cDate = $_POST["cDate"];
     $cTime = $_POST["cTime"];
     $cNotes = $_POST["cNotes"];
+	$cStaff = $_POST["cStaff"];
     $cButton = $_POST["cButton"];
     if (!$cID){
         $select = "SELECT customerID from customer ORDER BY customerID DESC LIMIT 1";
@@ -55,7 +56,9 @@
         $update4 = 	"UPDATE appointment SET appointmentDate='$cDate' WHERE appointmentID='$appointmentID'";
         $update5 = 	"UPDATE appointment SET appointmentTime='$cTime' WHERE appointmentID='$appointmentID'";
         $update6 = 	"UPDATE appointment SET appointmentNotes='$cNotes' WHERE appointmentID='$appointmentID'";
-        if (mysqli_query($conn,$update)&&mysqli_query($conn,$update2)&&mysqli_query($conn,$update1)&&mysqli_query($conn,$update3)&&mysqli_query($conn,$update4)&&mysqli_query($conn,$update5)&&mysqli_query($conn,$update6)){
+		$update7 = 	"UPDATE appointment SET staffID='$cStaff' WHERE appointmentID='$appointmentID'";
+
+        if (mysqli_query($conn,$update)&&mysqli_query($conn,$update2)&&mysqli_query($conn,$update1)&&mysqli_query($conn,$update3)&&mysqli_query($conn,$update4)&&mysqli_query($conn,$update5)&&mysqli_query($conn,$update6)&&mysqli_query($conn,$update7)){
 		  echo '<script type="text/javascript">alert("Successfully Updating Appointment");</script>';
             
 	   }
