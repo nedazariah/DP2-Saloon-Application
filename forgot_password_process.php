@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     if(empty($input_userSA))
     {
 		$hasError = true;
-        $sa_error = "Security question not found.";
+        $sa_error = "Answer not found.";
     }
 	else if($input_userSA != $storedSA)
     {
