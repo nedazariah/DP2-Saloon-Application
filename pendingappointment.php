@@ -110,6 +110,7 @@
         $appointment->appointmentTime = $row["appointmentTime"];
         $appointment->customerPhone = $row["customerPhone"];
         $appointment->appointmentService = $row["appointmentService"];
+		$appointment->staffID = $row["staffID"];
         $appointment->appointmentNotes = $row["appointmentNotes"];
            $array[] = $appointment;
 }
@@ -148,6 +149,7 @@
                             <th>Time</th>
                             <th>Phone Number</th>
                             <th>Appointment Service</th>
+                            <th>Staff ID</th>
                             <th>Description</th>
 
                         </tr>
@@ -161,6 +163,7 @@
                             <td>{{appointment.appointmentTime}}</td>
                             <td>{{appointment.customerPhone}}</td>
                             <td>{{appointment.appointmentService}}</td>
+                            <td>{{appointment.staffID}}</td>
                             <td>{{appointment.appointmentNotes}}</td>
                             <td class="test"><button type="submit" name="editButton" value="button{{$index}}">Edit</button></td>
                             <td class="test"><button type="submit" name="cancel" value="cancel{{$index}}" formaction="appointmentcancel.php" data-ng-click="confirmCancel($event)">Cancel</button></td>
