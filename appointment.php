@@ -96,6 +96,7 @@
         public $customerPhone;
         public $appointmentService;
         public $appointmentNotes;
+		public $staffID;
     }
 
     while ($row = mysqli_fetch_assoc($result)){
@@ -108,7 +109,9 @@
         $appointment->appointmentTime = $row["appointmentTime"];
         $appointment->customerPhone = $row["customerPhone"];
         $appointment->appointmentService = $row["appointmentService"];
+		$appointment->staffID = $row["staffID"];
         $appointment->appointmentNotes = $row["appointmentNotes"];
+		
            $array[] = $appointment;
 }
 
@@ -141,6 +144,7 @@
                             <th>Time</th>
                             <th>Phone Number</th>
                             <th>Appointment Service</th>
+                            <th>Staff ID</th>
                             <th>Description</th>
                             <th colspan="2">Actions</th>
                         </tr>
@@ -154,6 +158,7 @@
                             <td>{{appointment.appointmentTime}}</td>
                             <td>{{appointment.customerPhone}}</td>
                             <td>{{appointment.appointmentService}}</td>
+                            <td>{{appointment.staffID}}</td>
                             <td>{{appointment.appointmentNotes}}</td>
                             <td class="test"><button type="submit" class="btn_action" name="editButton"  value="button{{$index}}">Edit</button></td>
                             <td class="test"><button type="submit" class="btn_action" name="cancel"  value="cancel{{$index}}" formaction="appointmentcancel.php" data-ng-click="confirmCancel($event)">Cancel</button></td>
@@ -164,7 +169,7 @@
                 </form>
             </div>
     
-            <p>{{appointment.apppointmentID}}</p>
+            
         
         </div>
     </div>
