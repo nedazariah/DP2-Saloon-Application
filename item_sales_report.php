@@ -46,11 +46,6 @@
             <div class="col-md-10">
                 <h1>Item Sales Report</h1><br />
                 <div class="row">
-                    <div class="col-md-12">
-                        <a href='itemSalesEntry.php' class='btn btn-default'>Add New Sales</a>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-4">
                         <h2>Sales History</h2><br />
                         
@@ -88,7 +83,8 @@
 
                     <div class="col-md-8">
                         <h2>Monthly Sales</h2><br />
-                        <canvas id="myChart"></canvas>
+                        <canvas id="myChart"></canvas><br/>
+                        <a href='itemSalesEntry.php' class='btn btn-default'>Add New Sales</a>
                         <script>
                             getData();
                         </script>
