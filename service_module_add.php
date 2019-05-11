@@ -50,7 +50,8 @@ include "session_check.php";
                    
                     <div class="form-group">
                         <label for="serviceName">Service Name:</label>
-                        <input type="text" id="serviceName" name="serviceName" class="form-control" required="required" maxlength="30"/>
+                        <input type="text" id="serviceName" name="serviceName" class="form-control" required="required" value="<?php echo $_POST["serviceName"]; ?>" maxlength="30"/>
+                        <span id="serviceNameError" class="text-danger"></span>
                     </div>
                                                 
                     <div class="form-group">
@@ -68,6 +69,9 @@ include "session_check.php";
             </div>
         </div>
 <?php
+//Message variable to be used for back-end validation
+$message = $server_comm_error = "";
+        
 //Form data processing block
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {	
@@ -83,12 +87,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	$service = mysqli_fetch_assoc($result);
 	if($service)
 	{
-		echo "Error: Service already exists" . "</br>";
+		$message = "Service already exists.";
 		$hasError = true;
 	}
 	else if(empty($input_serviceName))
     {
-		echo "Error: Input service name not found." . "</br>";
+		$message =  "Service name not found.";
 		$hasError = true;
     }
 	else
@@ -122,13 +126,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
 		else
 		{
-			echo "Error: " . $sql . "</br>" . die(mysqli_error($connect));
+			$server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
 		} 		
 	}
-	else
-	{
-		echo "Error: Please check input fields.";
-	}	
     
     mysqli_close($connect);
 }
@@ -138,5 +138,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
 <!--Javascript for Back button-->
 <script src="js/service_process.js"></script>
+<!--Back-end form validation error output-->
+<script>
+    var error_msg = "<?php echo $message; ?>";
+    var server_error = "<?php echo $server_comm_error; ?>";
+    
+    if(error_msg.length !== 0)
+    {
+        document.getElementById("serviceNameError").innerHTML = error_msg;
+    }
+    
+    if(server_error.length !== 0)
+    {
+        alert(server_error);
+    }
+</script>
 </body>
 </html>
