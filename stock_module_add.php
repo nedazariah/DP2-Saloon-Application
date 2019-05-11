@@ -50,33 +50,68 @@
                 <form id="nform" name="nform" method="post" action="stock_module_add.php">
                    
                     <div class="form-group">
+    
                         <label for="itemName">Item Name:</label>
-                        <input type="text" class="form-control" id="itemName" name="itemName" maxlength="50" required="required"/>
+                        
+                        <input type="text" class="form-control" 
+                        id="itemName" name="itemName" 
+                        maxlength="50" required="required"
+                        value="<?php echo $_POST["itemName"]; ?>"/>
+                        
+                        <span id="itemNameError" class="text-danger"></span>
+                        
                     </div>
 
                     <div class="form-group">
+                       
                         <label for="itemDesc">Item Description:</label>
-                        <textarea name="itemDesc" class="form-control" id="itemDesc" maxlength="250"></textarea>
+                        
+                        <textarea name="itemDesc" class="form-control" id="itemDesc" maxlength="250"><?php echo $_POST["itemDesc"]; ?></textarea>
+                        
                     </div>
 
                     <div class="form-group">
+                       
                         <label for="itemType">Item Type:</label>
-                        <input type="text" class="form-control" id="itemType" name="itemType" maxlength="50"/>
+                        
+                        <input type="text" class="form-control" 
+                        id="itemType" name="itemType" 
+                        maxlength="50" 
+                        value="<?php echo $_POST["itemType"]; ?>"/>
+                        
                     </div>
                         
                     <div class="form-group">
+                       
                         <label for="itemBPrice">Buying Price:</label>
-                        <input type="number" class="form-control" id="itemBPrice" name="itemBPrice" maxlength="6"/> 
+                        
+                        <input type="number" class="form-control" 
+                        id="itemBPrice" name="itemBPrice" 
+                        maxlength="6"
+                        value="<?php echo $_POST["itemBPrice"]; ?>"/> 
+                        
                     </div>
 
                     <div class="form-group">
+                       
                         <label for="itemSPrice">Selling Price:</label>
-                        <input type="number" class="form-control" id="itemSPrice" name="itemSPrice" maxlength="6"/>
+                        
+                        <input type="number" class="form-control" 
+                        id="itemSPrice" name="itemSPrice"
+                        maxlength="6"
+                        value="<?php echo $_POST["itemSPrice"]; ?>"/>
+                        
                     </div>
 
                     <div class="form-group">
+                       
                         <label for="itemQuantity">Number of stock:</label>
-                        <input type="number" class="form-control" id="itemQuantity" name="itemQuantity" maxlength="6"/>
+                        
+                        <input type="number" class="form-control" 
+                        id="itemQuantity" name="itemQuantity" 
+                        maxlength="6"
+                        value="<?php echo $_POST["itemQuantity"]; ?>"/>
+                        
                     </div>
                    
                     <div class="form-group text-center">        
@@ -88,6 +123,9 @@
             </div>
         </div>
 <?php
+//Message variable to be used for back-end validation
+$message = $server_comm_error = "";
+        
 //Form data processing block
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {	
@@ -103,12 +141,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	$item = mysqli_fetch_assoc($result);
 	if($item)
 	{
-		echo "Error: Item already exists" . "</br>";
+		$message = "Item already exists.";
 		$hasError = true;
 	}
 	else if(empty($input_itemName))
     {
-		echo "Error: Input item name not found." . "</br>";
+		$message = "Item name not found.";
 		$hasError = true;
     }
 	else
@@ -194,13 +232,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
 		else
 		{
-			echo "Error: " . $sql . "</br>" . die(mysqli_error($connect));
+			$server_comm_error =  "Error: " . $sql . "</br>" . die(mysqli_error($connect));
 		} 		
 	}
-	else
-	{
-		echo "Error: Please check input fields.";
-	}	
     
     mysqli_close($connect);
 }
@@ -208,7 +242,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     </div>
             
 
-<!--Javascript for Back button-->
+<!--Front-end form validation-->
 <script src="js/stock_process.js"></script>
+<!--Back-end form validation error output-->
+<script>
+    var error_msg = "<?php echo $message; ?>";
+    var server_error = "<?php echo $server_comm_error; ?>";
+    
+    if(error_msg.length !== 0)
+    {
+        document.getElementById("itemNameError").innerHTML = error_msg;
+    }
+    
+    if(server_error.length !== 0)
+    {
+        alert(server_error);
+    }
+</script>
 </body>
 </html>
