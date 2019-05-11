@@ -124,6 +124,13 @@
     ?>
 			<h1>Staff Performance Report</h1>
 			<div class="col-md-12" data-ng-init="staffPerfsInit(<?php echo htmlspecialchars(json_encode($array));?>,<?php echo htmlspecialchars(json_encode($arraystaff));?>)">
+			
+			<div class="row">
+			<div class="col-md-12 text-right">
+			    <a href='staffPerformanceEntry.php' class='btn btn-default'>Add New Entry</a>
+			</div>
+			</div>
+			
 				<div class="row">
 					<div class="col-md-12">
 						<h2 class="text-center">Staff Performance</h2>
