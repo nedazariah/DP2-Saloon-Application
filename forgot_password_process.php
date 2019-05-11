@@ -2,7 +2,7 @@
     require_once "dbconnect.php";
 ?>
 <!DOCTYPE html>
-<html data-ng-app="" lang="en">
+<html lang="en">
 <head>
     <title>Forgot Password</title>
     
