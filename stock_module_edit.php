@@ -47,11 +47,14 @@ include "session_check.php";
             <div class="col-md-10">
 
 <?php
+//Message variable to be used for back-end validation
+$message = $server_comm_error = "";
+                
 //Form data processing block
 if($_SERVER["REQUEST_METHOD"] == "POST") 
 {
     //Initialize all inventory fields
-    $itemName = $itemDesc = $itemType = $itemBPrice = $itemSPrice = $itemQuantity = $message = "";   
+    $itemName = $itemDesc = $itemType = $itemBPrice = $itemSPrice = $itemQuantity = "";   
     
     $hasError = false;
     
@@ -66,12 +69,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	$item = mysqli_fetch_assoc($result);
 	if($item)
 	{
-		$message .= "Error: Item already exists </br>";
+		$message = "Item already exists.";
 		$hasError = true;
 	}
 	else if(empty($input_itemName))
     {
-		$message .= "Error: Input item name not found </br>";
+		$message = "Input item name not found.";
 		$hasError = true;
     }
 	else
@@ -143,7 +146,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	}
 	//Processing Item Quantity <End>
     
-    submit($itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $hasError, $target, $connect, $message);
+	//If there is no error, proceed to insert data
+	if(!($hasError))
+	{
+		$sql = "UPDATE inventory SET itemName = '$itemName', itemDesc = '$itemDesc', itemType = '$itemType', itemBPrice = $itemBPrice, itemSPrice = $itemSPrice, itemQuantity = $itemQuantity WHERE itemID = $target";
+		
+		if (mysqli_query($connect, $sql)) {
+            $link_summary = "stock_module_summary.php?target=" . $target;
+			header("location: $link_summary");
+			exit();
+		}
+		else 
+		{
+			$server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
+		} 		
+	}	
+    
+    mysqli_close($connect);	
 }
 else
 {
@@ -168,7 +187,7 @@ else
         }
         else 
         {
-            alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
+            $server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
         }
 
         mysqli_close($connect);	
@@ -187,33 +206,89 @@ else
                     <input type="hidden" name="target" id="target" value="<?php echo $target; ?>"/>    
                      
                     <div class="form-group">
+                       
                         <label for="itemName">Item Name:</label>
-                        <input type="text" id="itemName" name="itemName" class="form-control" value="<?php echo $itemName; ?>" required="required"/>
+                        
+                        <input type="text" class="form-control"
+                        id="itemName" name="itemName" 
+                        required="required"
+                        value="<?php 
+                               if($_SERVER["REQUEST_METHOD"] == "POST")
+                                   echo $_POST["itemName"];
+                               else
+                                   echo $itemName; ?>"/>
+                        
+                        <span id="itemNameError" class="text-danger"></span>
+                        
                     </div> 
                        
                     <div class="form-group">
+                       
                         <label for="itemDesc">Item Description:</label>
-                        <textarea name="itemDesc" id="itemDesc" class="form-control"><?php echo $itemDesc; ?></textarea>
+                        
+                        <textarea name="itemDesc" id="itemDesc" class="form-control"><?php 
+                            if($_SERVER["REQUEST_METHOD"] == "POST")
+                                   echo $_POST["itemDesc"];
+                            else
+                                echo $itemDesc; ?></textarea>
+                        
                     </div>
                     
                     <div class="form-group">
-                       <label for="itemType">Item Type:</label> 
-                        <input type="text" id="itemType" name="itemType" class="form-control" maxlength="50" value="<?php echo $itemType; ?>"/>
+                        
+                        <label for="itemType">Item Type:</label> 
+                       
+                        <input type="text" class="form-control"
+                        id="itemType" name="itemType" 
+                        maxlength="50" 
+                        value="<?php 
+                               if($_SERVER["REQUEST_METHOD"] == "POST")
+                                   echo $_POST["itemType"];
+                               else 
+                                   echo $itemType; ?>"/>
+                        
                     </div>
                     
                     <div class="form-group">
+                       
                         <label for="itemBPrice">Buying Price:</label>
-                        <input type="number" class="form-control" id="itemBPrice" name="itemBPrice" value="<?php echo $itemBPrice; ?>"/>
+                        
+                        <input type="number" class="form-control" 
+                        id="itemBPrice" name="itemBPrice" 
+                        value="<?php 
+                                if($_SERVER["REQUEST_METHOD"] == "POST")
+                                    echo $_POST["itemBPrice"];
+                                else 
+                                    echo $itemBPrice; ?>"/>
+                        
                     </div>
                     
                     <div class="form-group">
+                       
                         <label for="itemSPrice">Selling Price:</label>
-                        <input type="number" class="form-control" id="itemSPrice" name="itemSPrice" value="<?php echo $itemSPrice; ?>"/>
+                        
+                        <input type="number" class="form-control" 
+                        id="itemSPrice" name="itemSPrice" 
+                        value="<?php 
+                                if($_SERVER["REQUEST_METHOD"] == "POST")
+                                    echo $_POST["itemSPrice"];
+                                else 
+                                    echo $itemSPrice; ?>"/>
+                        
                     </div>
                     
                     <div class="form-group">
+                       
                         <label for="itemQuantity">Number of stock:</label>
-                        <input type="number" class="form-control" id="itemQuantity" name="itemQuantity" value="<?php echo $itemQuantity; ?>"/>
+                        
+                        <input type="number" class="form-control" 
+                        id="itemQuantity" name="itemQuantity" 
+                        value="<?php 
+                                if($_SERVER["REQUEST_METHOD"] == "POST")
+                                    echo $_POST["itemQuantity"];
+                                else 
+                                    echo $itemQuantity; ?>"/>
+                        
                     </div>   
                     
                     <div class="form-group text-center">        
@@ -222,43 +297,27 @@ else
                     </div>
                     
                 </form>
-<?php 
-function submit($itemName, $itemDesc, $itemType, $itemBPrice, $itemSPrice, $itemQuantity, $hasError, $target, $connect, $message)
-{
-	//If there is no error, proceed to insert data
-	if(!($hasError))
-	{
-		$sql = "UPDATE inventory SET itemName = '$itemName', itemDesc = '$itemDesc', itemType = '$itemType', itemBPrice = $itemBPrice, itemSPrice = $itemSPrice, itemQuantity = $itemQuantity WHERE itemID = $target";
-		
-		if (mysqli_query($connect, $sql)) {
-            $link_summary = "stock_module_summary.php?target=" . $target;
-			header("location: $link_summary");
-			exit();
-		}
-		else 
-		{
-			alertUser("Error: " . $sql . "</br>" . die(mysqli_error($connect)));
-		} 		
-	}
-	else
-	{
-        $message .= "Error: Please check input fields.";
-        alertUser($message);
-	}	
-    
-    mysqli_close($connect);	    
-}
-                
-function alertUser($output){
-    echo $output;
-}
-?>
             </div>
         </div>                
     </div>     
         
 
 <!--Javascript for Back button-->
-<script src="js/stock_process.js"></script> 
+<script src="js/stock_process.js"></script>
+<!--Back-end form validation error output-->
+<script>
+    var error_msg = "<?php echo $message; ?>";
+    var server_error = "<?php echo $server_comm_error; ?>";
+    
+    if(error_msg.length !== 0)
+    {
+        document.getElementById("itemNameError").innerHTML = error_msg;
+    }
+    
+    if(server_error.length !== 0)
+    {
+        alert(server_error);
+    }
+</script>
 </body>
 </html>
