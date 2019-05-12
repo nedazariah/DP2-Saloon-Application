@@ -15,8 +15,13 @@ function createRequest() {
 
 var xhrResp = createRequest();
 
+
+
 function getData() {
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var year = document.getElementById("year");
+    var selectedYear = year.options[year.selectedIndex].value;
+    
+    var ctx = document.getElementById('myChart');
     var sunsilkQty = {};
     var sunsilkQtyArray = [];
     var ubermanQty = {};
@@ -33,13 +38,13 @@ function getData() {
                 ubermanQty[x] = 0;
                 for (var i = 0; i < resp.length; i++) {
                     if (resp[i].itemName == "Sunsilk Hair Dye") {
-                        if (resp[i].month == x+1) {
+                        if (resp[i].month == x+1 && resp[i].year == selectedYear) {
                             sunsilkQty[x] = parseInt(resp[i].qty);
                         }
                     }
                     
                     if (resp[i].itemName == "UBERMAN Hair Gel") {
-                        if (resp[i].month == x+1) {
+                        if (resp[i].month == x+1 && resp[i].year == selectedYear) {
                             ubermanQty[x] = parseInt(resp[i].qty);
                         }
                     }
@@ -80,6 +85,7 @@ function getData() {
                     }
                 }
             });
+            
         }
     }
 
