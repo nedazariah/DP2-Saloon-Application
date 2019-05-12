@@ -53,6 +53,7 @@ function runQuery($connect, $sql)
 	}
 	else 
 	{
+        mysqli_close($connect);
 		$server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
     }
 }  
@@ -174,7 +175,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     else 
     {
        $server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
-    }    
+    }
+    
+    mysqli_close($connect);
 }
 else
 {
