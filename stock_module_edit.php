@@ -81,6 +81,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
         $itemName = $input_itemName;
     } 
+    mysqli_free_result($result);
 	//Processing Item Name <End>
     
 	//Processing Item Description <Start>
@@ -152,6 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$sql = "UPDATE inventory SET itemName = '$itemName', itemDesc = '$itemDesc', itemType = '$itemType', itemBPrice = $itemBPrice, itemSPrice = $itemSPrice, itemQuantity = $itemQuantity WHERE itemID = $target";
 		
 		if (mysqli_query($connect, $sql)) {
+            mysqli_close($connect);	
             $link_summary = "stock_module_summary.php?target=" . $target;
 			header("location: $link_summary");
 			exit();
@@ -160,9 +162,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		{
 			$server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
 		} 		
-	}	
-    
-    mysqli_close($connect);	
+	}
 }
 else
 {
@@ -189,15 +189,16 @@ else
         {
             $server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
         }
-
-        mysqli_close($connect);	
     }
     else
     {
+        mysqli_close($connect);	
         header("location: stock_module_display.php");
         exit();
     }
 }
+                
+mysqli_close($connect);
 ?>
                 <h1>Update Stock</h1> 
                 
