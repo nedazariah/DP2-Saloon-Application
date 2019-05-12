@@ -121,6 +121,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$sql = "INSERT INTO service (serviceName, serviceCharge) VALUES ('$serviceName', '$serviceCharge')";
 		
 		if (mysqli_query($connect, $sql)) {
+            mysqli_close($connect);
             header("location: service_module_display.php");
 			exit();
         }
@@ -129,9 +130,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			$server_comm_error = "Error: " . $sql . "</br>" . die(mysqli_error($connect));
 		} 		
 	}
-    
-    mysqli_close($connect);
 }
+        
+mysqli_close($connect);
 ?>
     </div>
             
