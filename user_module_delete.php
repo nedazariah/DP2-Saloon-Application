@@ -12,6 +12,14 @@ include "session_check.php";
 </head>
 <body> 
 <?php
+function errorProcess($message)
+{
+    mysqli_close($connect);
+    echo $message;
+    echo "</br></br>Redirecting back.";
+    header('Refresh: 3; url=displaystaff.php');
+} 
+    
 if(isset($_GET['target']) && !empty(trim($_GET['target'])))
 {
     $target = trim($_GET['target']);
@@ -20,21 +28,18 @@ if(isset($_GET['target']) && !empty(trim($_GET['target'])))
 
     if (mysqli_query($connect, $sql))
     {
+        mysqli_close($connect);
         header("location: displaystaff.php");
         exit();
     }
     else 
-    {
-        echo "Error: " . $sql . "</br>" . die(mysqli_error($connect));
-        echo "</br> Redirecting back.";
-        header('Refresh: 3; url=displaystaff.php');
+    { 
+        errorProcess("Error: " . $sql . "</br>" . die(mysqli_error($connect))); 
     }
 }
 else
-{
-    echo "Error: User ID not found.";
-    echo "Redirecting back.";
-    header('Refresh: 3; url=displaystaff.php');
+{ 
+    errorProcess("Error: User ID not found."); 
 }
 ?>
 </body>
