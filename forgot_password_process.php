@@ -2,7 +2,7 @@
     require_once "dbconnect.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html data-ng-app="" lang="en">
 <head>
     <title>Forgot Password</title>
     
@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     if(empty($input_userSA))
     {
 		$hasError = true;
-        $sa_error = "Answer not found.";
+        $sa_error = "Security answer not found.";
     }
 	else if($input_userSA != $storedSA)
     {
@@ -87,6 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$sql = "UPDATE user SET userPass = '$pws_hash' WHERE userID = " . $userID;
 		
 		if (mysqli_query($connect, $sql)) {
+            mysqli_close($connect);	 
 			header("location: login.php");
 			exit();
 		}
@@ -96,7 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		} 		
 	}
     
-    mysqli_close($connect);	   
+    mysqli_close($connect);    
 }
 else
 {
@@ -124,6 +125,7 @@ else
     }
     else
     {
+        mysqli_close($connect);
         header("location: login.php");
         exit();
     }
