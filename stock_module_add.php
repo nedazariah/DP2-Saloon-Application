@@ -226,6 +226,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		
 		if (mysqli_query($connect, $sql)) {
             $itemID = mysqli_insert_id($connect);
+            mysqli_close($connect);
             $link_summary = "stock_module_summary.php?target=" . $itemID;
             header("location: $link_summary");
             exit();
@@ -235,9 +236,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			$server_comm_error =  "Error: " . $sql . "</br>" . die(mysqli_error($connect));
 		} 		
 	}
-    
-    mysqli_close($connect);
 }
+
+mysqli_close($connect);        
 ?>
     </div>
             
