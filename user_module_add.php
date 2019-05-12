@@ -14,6 +14,7 @@ include "session_check.php";
 <?php
 function errorProcess($message)
 {
+    mysqli_close($connect);
     echo $message;
     echo "</br></br>Redirecting back.";
     header('Refresh: 3; url=displaystaff.php');
