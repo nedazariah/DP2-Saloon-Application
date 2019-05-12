@@ -92,16 +92,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         if($user)
         {
             $url = "forgot_password_process.php?target=" . $input_user;
+            mysqli_free_result($result);
             header("location: $url");
             exit();
         }
         else
         {
+            mysqli_free_result($result);
             $user_error = "User does not exist.";
         }
-        mysqli_free_result($result);
+        
 	}
 }
+    
+mysqli_close($connect);	 
 ?>            
                     
             </div>
