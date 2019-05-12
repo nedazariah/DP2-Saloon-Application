@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 11, 2019 at 05:14 AM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Host: 127.0.0.1
+-- Generation Time: May 12, 2019 at 12:48 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -46,7 +46,8 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`appointmentID`, `customerID`, `customerName`, `customerPhone`, `appointmentService`, `appointmentDate`, `appointmentTime`, `staffID`, `appointmentNotes`, `appointmentStatus`) VALUES
-(1, 2001, 'Emma Lee', '111111111', 2, '2019-05-07', '10:30', 1001, '', '');
+(1, 2001, 'Emma Lee', '111111111', 2, '2019-05-07', '10:30', 1002, '', ''),
+(2, 2002, 'Jim Mee', '124578369', 2, '2019-05-09', '11:30', 1002, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -118,17 +119,7 @@ INSERT INTO `item_sales` (`salesID`, `itemID`, `qtyPurchased`, `datePurchased`) 
 (1, 1, 2, '2019-05-01'),
 (2, 1, 1, '2019-05-02'),
 (3, 2, 1, '2019-05-01'),
-(4, 2, 2, '2019-05-08'),
-(5, 1, 1, '2019-01-03'),
-(6, 1, 2, '2019-02-12'),
-(7, 1, 1, '2019-03-09'),
-(8, 1, 1, '2019-04-26'),
-(9, 2, 2, '2019-01-03'),
-(10, 2, 1, '2019-01-25'),
-(11, 2, 1, '2019-02-15'),
-(12, 2, 1, '2019-03-05'),
-(13, 2, 1, '2019-04-13'),
-(14, 2, 1, '2019-04-19');
+(4, 2, 2, '2019-05-08');
 
 -- --------------------------------------------------------
 
@@ -196,9 +187,11 @@ CREATE TABLE `staff_performance` (
 --
 
 INSERT INTO `staff_performance` (`performanceID`, `staffID`, `MonthYear`, `DaysWorked`, `CustServed`) VALUES
-(1, 1003, '2019-05', 28, 1),
-(2, 1003, '2019-04', 25, 20),
-(3, 1003, '2019-01', 27, 15);
+(1, 1003, '2019-02', 28, 1),
+(2, 1002, '2019-03', 21, 0),
+(3, 1002, '2019-04', 12, 0),
+(4, 1002, '2019-05', 28, 2),
+(5, 1002, '2019-06', 22, 0);
 
 -- --------------------------------------------------------
 
@@ -218,7 +211,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userID`, `userPass`, `secQuestion`, `secAnswer`) VALUES
-(1001, '$2y$10$/U204V24KclGpv1xVnR7aeN5z1RIloYSpFCBBK1zT8GYCsHUh2IEO', 'First Pet\'s Name', 'Bobby'),
+(1001, '$2y$10$eq/JkGmuShjQSNC2lWe3R.7Akq1XP/7SKu7aCdHr.BPuT2bP4fDKS', 'First Pet\'s Name', 'Bobby'),
 (1002, '$2y$10$r9aFJ.eq00.zKfxQ2YwQBeP5E52FlP0iPYjS6RcQus35P5rjCewo.', NULL, NULL),
 (1003, '$2y$10$fvRJRI/SxMTNeqR4mBD.2.1SB0XC7V8sdfpbMeHOv26DTkPlsU6d2', 'Who is the MVP', 'an');
 
@@ -287,7 +280,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -305,7 +298,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `item_sales`
 --
 ALTER TABLE `item_sales`
-  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `service`
@@ -323,7 +316,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `staff_performance`
 --
 ALTER TABLE `staff_performance`
-  MODIFY `performanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `performanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
