@@ -130,14 +130,14 @@ if($result = mysqli_query($connect, $sql))
 			}                           
             
             echo "</table>";
-
-		mysqli_free_result($result);
     } 
 	else
 	{
         echo "</br> <a href='stock_module_add.php' id='add_link'>Record New Item</a> </br>";
 		echo "<br/><p><em>No records were found.</em></p>";
 	}
+    
+    mysqli_free_result($result);
 } 
 else
 {
