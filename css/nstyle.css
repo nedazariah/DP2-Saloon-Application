@@ -126,3 +126,15 @@ table{
     z-index: 1;
     box-shadow: 5px 5px 5px #888888;
 }*/
+
+.tab-content>.tab-pane {
+    color: black;
+    background-color: transparent;
+}
+
+div.tab-content{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
