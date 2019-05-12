@@ -69,10 +69,6 @@
                             <input type="number" id="daysWorked" name="daysWorked" class="form-control" data-ng-model="daysW" placeholder="Number of Day(s)" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="custServed">Cutomer(s) Served: </label>
-                            <input type="number" id="custServed" name="custServed" class="form-control" data-ng-model="custS" placeholder="Number of Customer(s)" required>
-                        </div>
                     </fieldset>
 
                     <div class="form-group text-center">
@@ -103,6 +99,7 @@
         function setName(id) {
             document.getElementById("staffName").value = id[id.selectedIndex].id;
         }
+
     </script>
 </body>
 
@@ -110,13 +107,24 @@
     if(isset($_POST['submit'])) {
         $staffID = $_POST['staffID'];
         $duration = $_POST['duration'];
-        $dWorked = $_POST['daysWorked'];
-        $cServed = $_POST['custServed'];        
+        $dWorked = $_POST['daysWorked'];      
+        
+        $start = $duration . "-01";
+        $end = $duration . "-30";
         
         if (!$connect) {
             die("Connection failed: " . mysqli_connect_error());
         }
-
+        
+        $sql2 = "SELECT COUNT(staffID) as count FROM appointment WHERE staffID = '".$staffID."' AND appointmentDate BETWEEN '". $start."' AND '". $end ."'";
+        if($result = mysqli_query($connect, $sql2)) {
+            if(mysqli_num_rows($result) > 0) {
+                while($row = mysqli_fetch_array($result)) {
+                    $cServed =  $row['count'];
+                }
+            }
+        }
+        
         $sql = "INSERT INTO staff_performance(staffID, MonthYear, DaysWorked, CustServed) VALUES('$staffID','$duration','$dWorked','$cServed')";
 
         if (mysqli_query($connect,$sql)){
