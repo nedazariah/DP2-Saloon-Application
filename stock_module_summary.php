@@ -64,7 +64,7 @@ include "session_check.php";
                     
                                                           
 <?php
-
+//Form processing block
 if(isset($_GET['target']) && !empty(trim($_GET['target'])))
 { 
     $target = trim($_GET['target']);
@@ -96,6 +96,8 @@ if(isset($_GET['target']) && !empty(trim($_GET['target'])))
                 echo "<td><a href='stock_module_edit.php?target=". $row['itemID'] ."'>Update</a></td>";
             echo "</tr>";
         echo "</table>";
+        
+        mysqli_free_result($results);
     }
 	else 
 	{
@@ -106,10 +108,10 @@ if(isset($_GET['target']) && !empty(trim($_GET['target'])))
 } 
 else
 {
+    mysqli_close($connect);	
     header("location: stock_module_display.php");
     exit();
-}
-                        
+}                    
 ?>  
                         <br/><br/><br/>
                         
