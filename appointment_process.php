@@ -39,7 +39,7 @@
         mysqli_query($conn,$createCustomer);
     }
     if ($cButton == "Submit"){
-    $sql = "INSERT INTO appointment(customerID,customerName,customerPhone,appointmentService,appointmentDate,appointmentTime,appointmentNotes) VALUES('$cID','$cName','$cPhone','$cSv','$cDate','$cTime','$cNotes')";
+    $sql = "INSERT INTO appointment(customerID,customerName,customerPhone,appointmentService,appointmentDate,appointmentTime,appointmentNotes,staffID) VALUES('$cID','$cName','$cPhone','$cSv','$cDate','$cTime','$cNotes','$cStaff')";
     
         if (mysqli_query($conn,$sql)){
             echo '<script type="text/javascript">alert("Successfully Adding Appointment");</script>';
@@ -47,7 +47,7 @@
         else{
             echo '<script type="text/javascript">alert("Fail to Adding Appointment");</script>';
         }
-        echo '<script>window.history.back();</script>';
+        
     }else if ($cButton == "Edit"){
         $update = 	"UPDATE appointment SET customerID='$cID' WHERE appointmentID='$appointmentID'";
         $update1 = 	"UPDATE appointment SET customerName='$cName' WHERE appointmentID='$appointmentID'";
