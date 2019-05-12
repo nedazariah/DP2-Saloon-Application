@@ -121,13 +121,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             {
                 $_SESSION['logged'] = true;	
                 $_SESSION['loggedUser'] = $user; //Added by Almira
-                mysqli_free_result($results);
+                mysqli_close($connect);	 
+                mysqli_free_result($result);
                 header("location: pendingappointment.php"); 
                 exit();
             }
             else
             { 
-                mysqli_free_result($results);
+                mysqli_free_result($result);
                 $login_error = "Login failed.";
             }            
         }
@@ -135,8 +136,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $login_error = "Login failed.";
         }
-	}
+	} 
 }
+                
+mysqli_close($connect);	 
 ?>                
             </div>
             
