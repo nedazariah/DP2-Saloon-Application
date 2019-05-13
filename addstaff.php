@@ -13,6 +13,7 @@ include "session_check.php";
     <meta name="keywords" content="Add,Staff,Style and Smile Saloon House, Saloon" />
     <meta name="description" content="Style and Smile Saloon House Adding Staff Form" />
     <title>Add Staff</title>
+    <link rel="stylesheet" href="css/nstyle.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/nav_style.css">
 </head>

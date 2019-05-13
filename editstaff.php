@@ -10,6 +10,7 @@
     <meta name="keywords" content="Edit,Staff,Style and Smile Saloon House, Saloon" />
     <meta name="description" content="Style and Smile Saloon House Editing Staff Form" />
     <title>Edit Staff</title>
+    <link rel="stylesheet" href="css/nstyle.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/nav_style.css">
 </head>
