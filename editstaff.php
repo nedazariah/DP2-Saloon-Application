@@ -11,7 +11,6 @@
     <meta name="description" content="Style and Smile Saloon House Editing Staff Form" />
     <title>Edit Staff</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/nav_style.css">
 </head>
 
@@ -43,78 +42,71 @@
 
             <div class="col-md-10">
                 <h1>Edit Staff</h1>
-                <br>
-                <div class="formContainer">
-                    <form method="post" action="editstaff.php?staffID=<?php echo $row['staffID']?>" onsubmit="return validate('edit')">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="text" name="staffName" id="staffName" class="fWidth" placeholder="Full Name" value="<?php echo $row['staffName'] ?>">
-                                <span id="staffNameError" class="error"></span>
-                            </div>
+                <div>
+                    <form method="post" action="editstaff.php?staffID=<?php echo $row['staffID']?>" onsubmit="return validate('edit')" novalidate="novalidate">
+
+                        <div class="form-group">
+                            <input type="text" name="staffName" id="staffName" class="form-control" placeholder="Full Name" value="<?php echo $row['staffName'] ?>">
+                            <span id="staffNameError" class="text-danger"></span>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="staffDOB">Date of Birth: </label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        Gender:
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="date" name="staffDOB" class="fWidth" id="staffDOB" value="<?php echo $row['staffDoB'] ?>">
-                                        <span id="staffDOBError" class="error"></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="radio" name="staffGender" id="genderMale" value="M" <?php echo ($row['staffGender'] == 'M') ? 'checked' : '' ?>> <label for="genderMale">Male</label>
-                                        <input type="radio" name="staffGender" id="genderFemale" value="F" <?php echo ($row['staffGender'] == 'F') ? 'checked' : '' ?>> <label for="genderFemale">Female</label>
-                                        <span id="staffGenderError" class="error"></span>
-                                    </div>
-                                </div>
-                            </div>
+
+
+                        <div class="form-group">
+                            <label for="staffDOB">Date of Birth: </label>
+                            <input type="date" name="staffDOB" class="form-control" id="staffDOB" value="<?php echo $row['staffDoB'] ?>">
+                            <span id="staffDOBError" class="text-danger"></span>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" name="staffPhone" id="staffPhone" class="fWidth" placeholder="Phone Number" value="<?php echo $row['staffPhone'] ?>">
-                                <span id="staffPhoneError" class="error"></span>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="email" name="staffEmail" id="staffEmail" class="fWidth" placeholder="Email" value="<?php echo $row['staffEmail'] ?>">
-                                <span id="staffEmailError" class="error"></span>
-                            </div>
+
+                        <div class="form-group">
+                          <label>Gender</label>
+                            <br>
+                            <label class="radio-inline">
+                                <input type="radio" name="staffGender" id="genderMale" value="M" <?php echo ($row['staffGender'] == 'M') ? 'checked' : '' ?>>Male
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="staffGender" id="genderFemale" value="F"<?php echo ($row['staffGender'] == 'F') ? 'checked' : '' ?>>Female
+                            </label>                            
+                            <br>
+                            <span id="staffGenderError" class="text-danger"></span>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="staffRole">Role:</label>
-                                <select name="staffRole" id="staffRole" class="fWidth">
-                                    <option value="">Select a Role</option>
-                                    <option value="Manager" <?php echo ($row['staffRole'] == 'Manager') ? 'selected = \'selected\' ' : '' ?>>Manager</option>
-                                    <option value="Receptionist" <?php echo ($row['staffRole'] == 'Receptionist') ? 'selected = \'selected\'' : '' ?>>Receptionist</option>
-                                    <option value="Hairdresser" <?php echo ($row['staffRole'] == 'Hairdresser') ? 'selected = \'selected\'' : '' ?>>Hairdresser</option>
-                                </select>
-                                <span id="staffRoleError" class="error"></span>
-                            </div>
+
+
+                        <div class="form-group">
+                           <label for="staffPhone">Staff Phone No.</label>
+                            <input type="text" name="staffPhone" id="staffPhone" class="form-control" placeholder="Phone Number" value="<?php echo $row['staffPhone'] ?>">
+                            <span id="staffPhoneError" class="text-danger"></span>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="staffAdd">Address: </label>
-                                <br>
-                                <textarea rows="6" name="staffAdd" id="staffAdd" class="fWidth" placeholder="Address"><?php echo $row['staffAddress']?></textarea>
-                            </div>
+                        
+                        
+                        <div class="form-group">
+                           <label for="staffEmail">Email</label>
+                            <input type="email" name="staffEmail" id="staffEmail" class="form-control" placeholder="Email" value="<?php echo $row['staffEmail'] ?>">
+                            <span id="staffEmailError" class="text-danger"></span>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="submit" value="Submit" class="submit" name="submit">
-                                <button type="button" value="Cancel" class="cancel" onclick="window.location.replace('displaystaff.php')">Cancel</button>
-                            </div>
+
+
+                        <div class="form-group">
+                            <label for="staffRole">Role</label>
+                            <select name="staffRole" id="staffRole" class="form-control">
+                                <option value="">Select a Role</option>
+                                <option value="Manager" <?php echo ($row['staffRole'] == 'Manager') ? 'selected = \'selected\' ' : '' ?>>Manager</option>
+                                <option value="Receptionist" <?php echo ($row['staffRole'] == 'Receptionist') ? 'selected = \'selected\'' : '' ?>>Receptionist</option>
+                                <option value="Hairdresser" <?php echo ($row['staffRole'] == 'Hairdresser') ? 'selected = \'selected\'' : '' ?>>Hairdresser</option>
+                            </select>
+                            <span id="staffRoleError" class="text-danger"></span>
                         </div>
+
+                        <div class="form-group">
+                            <label for="staffAdd">Address</label>
+                            <br>
+                            <textarea rows="6" name="staffAdd" id="staffAdd" class="form-control" placeholder="Address"><?php echo $row['staffAddress']?></textarea>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <input type="submit" value="Submit" class="submit btn btn-primary" name="submit">
+                            <button type="button" value="Cancel" class="cancel btn btn-default" onclick="window.location.replace('displaystaff.php')">Cancel</button>
+                        </div>
+
                     </form>
                 </div>
                 <?php
@@ -132,7 +124,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="staffFormValidation.js"></script>
-    
+
 </body>
 <?php
 //    $staffID = $_GET['staffID'];
@@ -155,7 +147,7 @@
         else{
             echo "Failed to update database".$staffRole;
             echo "<br><br>";
-            echo mysqli_error($conn);
+            echo mysqli_text-danger($conn);
         }
     }
 ?>
