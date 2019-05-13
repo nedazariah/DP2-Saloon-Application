@@ -47,7 +47,7 @@
         else{
             echo '<script type="text/javascript">alert("Fail to Adding Appointment");</script>';
         }
-        
+        echo '<script>window.history.back();</script>';
     }else if ($cButton == "Edit"){
         $update = 	"UPDATE appointment SET customerID='$cID' WHERE appointmentID='$appointmentID'";
         $update1 = 	"UPDATE appointment SET customerName='$cName' WHERE appointmentID='$appointmentID'";
