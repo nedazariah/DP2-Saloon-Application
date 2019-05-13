@@ -138,3 +138,7 @@ div.tab-content{
     margin-right: auto;
     width: 90%;
 }
+
+div.buttons{
+    text-align: center;
+}
