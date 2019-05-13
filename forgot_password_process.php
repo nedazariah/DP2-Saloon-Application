@@ -167,9 +167,9 @@ else
                         <label for="sq">Security Question: </label>
                         <textarea name="sq" id="sq" maxlength="250" class="form-control" disabled="disabled"><?php 
                                 if($_SERVER["REQUEST_METHOD"] == "POST")
-                                    echo $_POST["ssa"];
+                                    echo $_POST["sq"];
                                 else 
-                                    echo $SA; ?></textarea>
+                                    echo $SQ; ?></textarea>
                         <input type="hidden" name="ssa" 
                         value="<?php 
                                 if($_SERVER["REQUEST_METHOD"] == "POST")
