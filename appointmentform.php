@@ -10,7 +10,7 @@ include "session_check.php";
 	<meta name="viewport" content="width=device-width, initialscale=1.0" />
 	<meta charset="utf-8" />
 	<link href="css/bootstrap.min.css" rel="stylesheet" />
-
+    <link href="css/nstyle.css" rel="stylesheet" type="text/css">
 	<link href="css/nav_style.css" rel="stylesheet" />
 	<style>
 		h1 {
@@ -166,9 +166,12 @@ include "session_check.php";
 								<p><label for="cNotes">Notes:</label></p>
 								<textarea id="cNotes" name="cNotes" cols="40" rows="5" class="form-control"><?php echo $row['appointmentNotes'];?></textarea>
 							</div>
-							<p><span data-ng-show="nameVal == true && phoneVal==true "><input type="submit" name="cButton" value='<?php echo $button;?>' data-ng-model="Button" data-ng-click="confirmation($event)" /></span></p>
-							<div data-ng-init="Button='<?php echo $button;?>'"></div>
-							<p><span><input type="button" name="cButton" value='Cancel' onclick="window.location.replace('appointment.php')" /></span></p>
+                            
+                            <div class="buttons">
+							<p><span data-ng-show="nameVal == true && phoneVal==true "><input type="submit" name="cButton" value='<?php echo $button;?>' data-ng-model="Button" data-ng-click="confirmation($event)" class="btn btn-primary"/></span>
+
+							<span><input type="button" name="cButton" value='Cancel' onclick="window.location.replace('appointment.php')" class="btn btn-default"/></span></p>
+                            </div>
 
 						</fieldset>
 					</form>
