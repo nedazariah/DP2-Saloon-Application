@@ -108,7 +108,7 @@
 }
 
     ?>
-            <h1>Staff Performance Report</h1>
+            <h1 class="text-center">Staff Performance Report</h1>
             <div class="col-md-12" data-ng-init="staffPerfsInit(<?php echo htmlspecialchars(json_encode($array));?>,<?php echo htmlspecialchars(json_encode($arraystaff));?>)">
 
 
