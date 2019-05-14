@@ -81,7 +81,6 @@
                                     echo "</div>";
                                 }
                             ?>
-                                <br /><br />
                             </div>
 
                             <div class="tab-pane fade" id="monthlySales">
@@ -91,11 +90,13 @@
                                     <option value="2020">2020</option>
                                 </select>
                                 <canvas id="myChart"></canvas><br />
-                                <a href='itemSalesEntry.php' class='btn btn-default'>Add New Sales</a>
                                 <script>
                                     getData();
+
                                 </script>
-                                <br/><br/>
+                            </div>
+                            <div class="col-md-12 text-right">
+                                <a href='itemSalesEntry.php' class='btn btn-default'>Add New Entry</a>
                             </div>
                         </div>
                     </div>
