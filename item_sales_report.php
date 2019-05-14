@@ -97,6 +97,7 @@
                             </div>
                             <div class="col-md-12 text-right">
                                 <a href='itemSalesEntry.php' class='btn btn-default'>Add New Entry</a>
+                                <br/><br/>
                             </div>
                         </div>
                     </div>
