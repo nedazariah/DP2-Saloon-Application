@@ -86,7 +86,8 @@
     }
     $today = date("Y-m-d");
     
-    $select = "SELECT * FROM appointment Where appointmentDate >= '$today'";
+    $select = "SELECT appointmentID, customerID, customerName, appointmentDate, appointmentTime, customerPhone, serviceName, staffID, appointmentNotes FROM appointment JOIN service Where appointmentDate >= '$today' AND appointment.appointmentService = service.serviceID";
+    $resultService = mysqli_query($connect,$selectService);
     $result = mysqli_query($connect,$select);
     $array = array();
     class Appointment{
@@ -109,7 +110,7 @@
         $appointment->appointmentDate = $row["appointmentDate"];
         $appointment->appointmentTime = $row["appointmentTime"];
         $appointment->customerPhone = $row["customerPhone"];
-        $appointment->appointmentService = $row["appointmentService"];
+        $appointment->appointmentService = $row["serviceName"];
 		$appointment->staffID = $row["staffID"];
         $appointment->appointmentNotes = $row["appointmentNotes"];
            $array[] = $appointment;

@@ -84,7 +84,7 @@
     if (!$connect){
         die("Connection failed: " . mysqli_connect_error());
     }
-    $select = "SELECT * FROM appointment";
+    $select = "SELECT appointmentID, customerID, customerName, appointmentDate, appointmentTime, customerPhone, serviceName, staffID, appointmentNotes FROM appointment JOIN service Where appointment.appointmentService = service.serviceID";
     $result = mysqli_query($connect,$select);
     $array = array();
     class Appointment{
@@ -108,7 +108,7 @@
         $appointment->appointmentDate = $row["appointmentDate"];
         $appointment->appointmentTime = $row["appointmentTime"];
         $appointment->customerPhone = $row["customerPhone"];
-        $appointment->appointmentService = $row["appointmentService"];
+        $appointment->appointmentService = $row["serviceName"];
 		$appointment->staffID = $row["staffID"];
         $appointment->appointmentNotes = $row["appointmentNotes"];
 		
