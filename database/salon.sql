@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 12, 2019 at 12:48 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- Host: localhost
+-- Generation Time: May 23, 2019 at 05:13 AM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -47,7 +47,12 @@ CREATE TABLE `appointment` (
 
 INSERT INTO `appointment` (`appointmentID`, `customerID`, `customerName`, `customerPhone`, `appointmentService`, `appointmentDate`, `appointmentTime`, `staffID`, `appointmentNotes`, `appointmentStatus`) VALUES
 (1, 2001, 'Emma Lee', '111111111', 2, '2019-05-07', '10:30', 1002, '', ''),
-(2, 2002, 'Jim Mee', '124578369', 2, '2019-05-09', '11:30', 1002, NULL, '');
+(2, 2002, 'Jim Mee', '124578369', 2, '2019-05-09', '11:30', 1002, NULL, ''),
+(6, 2001, 'Emma Lee', '111111111', 1, '2019-05-14', '12:00', 1002, '', ''),
+(8, 2004, 'Michael Jordan', '0112678912', 3, '2019-05-17', '11:30', 1004, '', ''),
+(9, 2002, 'Jim Mee', '124578369', 1, '2019-05-18', '14:00', 1004, '', ''),
+(10, 2001, 'Emma Lee', '111111111', 2, '2019-05-18', '13:00', 1002, '', ''),
+(11, 2002, 'Jim Mee', '124578369', 2, '2019-09-02', '14:02', 1001, 'Nasd', '');
 
 -- --------------------------------------------------------
 
@@ -72,7 +77,7 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`customerID`, `customerType`, `customerName`, `customerDoB`, `customerGender`, `customerPhone`, `customerAddInfo`) VALUES
 (2001, 'Regular', 'Emma Lee', '1999-03-13', 'F', '111111111', ''),
 (2002, 'Guest', 'Jim Mee', '1988-02-14', 'M', '124578369', 'Prefers male hairdresser'),
-(2003, 'Guest', 'Almira Putri Sandy', '2000-01-01', 'F', '12345678', '');
+(2004, 'Regular', 'Michael Jordan', '1975-01-01', 'M', '0112678912', '');
 
 -- --------------------------------------------------------
 
@@ -119,7 +124,21 @@ INSERT INTO `item_sales` (`salesID`, `itemID`, `qtyPurchased`, `datePurchased`) 
 (1, 1, 2, '2019-05-01'),
 (2, 1, 1, '2019-05-02'),
 (3, 2, 1, '2019-05-01'),
-(4, 2, 2, '2019-05-08');
+(4, 2, 2, '2019-05-08'),
+(5, 1, 2, '2019-04-10'),
+(6, 2, 1, '2019-05-21'),
+(7, 2, 1, '2019-04-12'),
+(8, 1, 1, '2020-01-01'),
+(9, 1, 3, '2019-01-04'),
+(10, 2, 2, '2019-01-05'),
+(11, 1, 1, '2019-02-15'),
+(12, 2, 2, '2019-02-08'),
+(13, 1, 2, '2019-03-03'),
+(14, 2, 2, '2019-03-19'),
+(15, 2, 2, '2020-01-20'),
+(16, 1, 2, '2020-02-02'),
+(17, 2, 1, '2020-02-04'),
+(18, 2, 2, '2020-03-03');
 
 -- --------------------------------------------------------
 
@@ -166,7 +185,8 @@ CREATE TABLE `staff` (
 INSERT INTO `staff` (`staffID`, `staffName`, `staffDoB`, `staffGender`, `staffPhone`, `staffEmail`, `staffRole`, `staffAddress`) VALUES
 (1001, 'John Smith', '1996-04-08', 'M', '123456789', 'jsmith@gmail.com', 'Manager', 'No 08. Highland Drive'),
 (1002, 'Jenny Nicole', '1992-01-01', 'F', '1987654321', 'jennynic@yahoo.com', 'Hairdresser', 'Apartment B08'),
-(1003, 'Helen Merks', '1994-08-27', 'F', '134567829', 'hmerks@yahoo.com', 'Receptionist', 'Apartment B11');
+(1003, 'Helen Merks', '1994-08-27', 'F', '134567829', 'hmerks@yahoo.com', 'Receptionist', 'Apartment B11'),
+(1004, 'Salt Bae', '1996-01-17', 'M', '0126187732', 'saltbae@hotmail.com', 'Hairdresser', '122 Jalan Simpang Tiga');
 
 -- --------------------------------------------------------
 
@@ -191,7 +211,9 @@ INSERT INTO `staff_performance` (`performanceID`, `staffID`, `MonthYear`, `DaysW
 (2, 1002, '2019-03', 21, 0),
 (3, 1002, '2019-04', 12, 0),
 (4, 1002, '2019-05', 28, 2),
-(5, 1002, '2019-06', 22, 0);
+(5, 1002, '2019-06', 22, 0),
+(6, 1004, '2019-05', 25, 0),
+(7, 1002, '2018-12', 30, 0);
 
 -- --------------------------------------------------------
 
@@ -211,9 +233,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userID`, `userPass`, `secQuestion`, `secAnswer`) VALUES
-(1001, '$2y$10$eq/JkGmuShjQSNC2lWe3R.7Akq1XP/7SKu7aCdHr.BPuT2bP4fDKS', 'First Pet\'s Name', 'Bobby'),
+(1001, '$2y$10$zqzlHDN0B1c/PXU9Ts9dAeTf2H2r8I7tqwNOwC70wPlgVI7iARm.W', 'What is my first pet?', 'Goldfish'),
 (1002, '$2y$10$r9aFJ.eq00.zKfxQ2YwQBeP5E52FlP0iPYjS6RcQus35P5rjCewo.', NULL, NULL),
-(1003, '$2y$10$fvRJRI/SxMTNeqR4mBD.2.1SB0XC7V8sdfpbMeHOv26DTkPlsU6d2', 'Who is the MVP', 'an');
+(1003, '$2y$10$fvRJRI/SxMTNeqR4mBD.2.1SB0XC7V8sdfpbMeHOv26DTkPlsU6d2', 'Who is the MVP', 'an'),
+(1004, '$2y$10$zEBtIan9X2iZlLPxEEjnyuZCPEX5igRYsxwKp0h.mdz1X1NLt64py', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -280,13 +303,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2004;
+  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2005;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -298,7 +321,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `item_sales`
 --
 ALTER TABLE `item_sales`
-  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `salesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `service`
@@ -310,13 +333,13 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staffID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
+  MODIFY `staffID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
 
 --
 -- AUTO_INCREMENT for table `staff_performance`
 --
 ALTER TABLE `staff_performance`
-  MODIFY `performanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `performanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
